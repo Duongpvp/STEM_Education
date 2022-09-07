@@ -1,0 +1,57 @@
+.infoForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+    gap: 1rem;
+    width: 100%;
+}
+
+.infoInput {
+    border: none;
+    outline: none;
+    border-radius: 0.5rem;
+    background: var(--inputColor);
+    padding: 1rem;
+    color: #000;
+    width: 80%;
+}
+
+.infoForm>div {
+    display: flex;
+    gap: 1rem;
+    width: 90%;
+}
+
+.infoForm>div>span {
+    width: 20%;
+    display: flex;
+    align-items: center;
+    font-size: 0.7rem;
+}
+
+/* #chooseFile {
+    visibility: hidden;
+    position: absolute;
+} */
+
+.Info-btn {
+    color: #f3f3f3;
+    background: var(--buttonBg);
+    padding: 0.3rem 2rem;
+    right: 1rem;
+    margin-right: 1rem;
+    border: 1px solid #f3f3f3;
+    align-self: flex-end;
+    border-radius: 1rem;
+    font-size: 1.2rem;
+    transition: all 0.1s linear;
+}
+
+.Info-btn:hover {
+    border: 1px solid rgb(209, 24, 255);
+    color: rgb(209, 24, 255);
+    background: #f3f3f3;
+    transition: all 0.5s linear;
+}

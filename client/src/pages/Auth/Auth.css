@@ -1,0 +1,167 @@
+.Auth {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 110vh;
+    gap: 4rem;
+    position: relative;
+}
+
+.Auth>div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.Left-Info {
+    gap: 1rem;
+}
+
+.Left-Info>img {
+    width: 5rem;
+    height: 5rem;
+}
+
+.WebName>h1 {
+    font-size: 3rem;
+    background-image: var(--buttonBg);
+    background-size: 100%;
+    background-repeat: repeat;
+
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -moz-background-clip: text;
+    -moz-text-fill-color: transparent;
+}
+
+.WebName>h5 {
+    font-size: 0.9rem;
+}
+
+.From {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    height: 80vh;
+    width: 30vw;
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(10.5px);
+    border-radius: 10px;
+    color: #333;
+    text-transform: uppercase;
+    letter-spacing: 0.4rem;
+}
+
+.From>div {
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+.From>h3 {
+    display: flex;
+    margin-bottom: 1rem;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: #333;
+}
+
+.infoInput {
+    border: none;
+    outline: none;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    flex: 1;
+    color: #000;
+    width: 80%;
+}
+
+.infoFrom {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    width: 20rem;
+    justify-content: center;
+    align-items: center;
+}
+
+.infoFrom>div {
+    display: flex;
+    height: 2rem;
+    gap: 1rem;
+    width: 100%;
+    justify-content: center;
+}
+
+.SignUp-btn {
+    color: #f3f3f3;
+    background: var(--buttonBg);
+    padding: 0 2rem;
+    border: none;
+    border-radius: 1rem;
+    font-size: 1.2rem;
+    transition: all 0.1s linear;
+}
+
+.SignUp-btn:hover {
+    cursor: pointer;
+    color: var(--purple);
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid var(--purple);
+}
+
+.SignUp-btn:disabled {
+    background-color: silver;
+    pointer-events: none;
+}
+
+.From>span:nth-of-type(1),
+.From>span:nth-of-type(3) {
+    display: flex;
+    flex-direction: column;
+    margin-top: 1rem;
+    text-transform: none;
+    letter-spacing: 0;
+    font-size: 0.8rem;
+    color: #333;
+}
+
+hr {
+    color: red;
+    margin: 1rem 0;
+    border: 0.5px solid #333;
+    width: 80%;
+}
+
+.SocialIcons {
+    margin-top: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+}
+
+.InstagramIcon,
+.TwitterIcon,
+.FacebookIcon {
+    height: 2.5rem;
+    width: 2.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 4rem;
+    color: white;
+    cursor: pointer;
+}
+
+.FacebookIcon {
+    background: linear-gradient(to right, #0546A0 0%, #0546A0 40%, #663FB6 100%);
+}
+
+.InstagramIcon {
+    background: linear-gradient(to right, #A12AC4 0%, #ED586C 40%, #F0A853 100%);
+}
+
+.TwitterIcon {
+    background: linear-gradient(to right, #56C1E1 0%, #35A9CE 50%);
+}

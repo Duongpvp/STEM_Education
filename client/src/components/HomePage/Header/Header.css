@@ -1,0 +1,45 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.logo {
+    display: flex;
+    width: 19rem;
+    transition: 0.5s ease;
+}
+
+.logo:hover {
+    scale: 120%;
+    cursor: pointer;
+}
+
+.header-menu {
+    margin-left: 2rem;
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+    color: #fff;
+    align-items: center;
+}
+
+.header-menu li {
+    transition: 0.5s ease;
+    font-size: 1.2rem;
+    font-weight: 700;
+    cursor: pointer;
+    margin: 0.5rem;
+    transition: 0.5s ease;
+}
+
+.header-menu li a {
+    color: #fff;
+    font-size: 1.2rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    text-decoration: none;
+}
+
+.header-menu li:hover {
+    scale: 130%;
+}

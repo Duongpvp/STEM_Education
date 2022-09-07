@@ -1,0 +1,144 @@
+.study-programs {
+    display: flex;
+    min-height: 85;
+    width: 100%;
+    flex-direction: column;
+    z-index: 200;
+}
+
+.nav-bot-right-menu {
+    position: fixed;
+    z-index: 1000;
+    bottom: 0;
+    right: 0;
+}
+
+.study-programs .study-programs-content {
+    background: rgba(255, 255, 255, 0.27);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(4.5px);
+    -webkit-backdrop-filter: blur(4.5px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.study-programs .study-programs-header {
+    width: 100%;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2.5rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.study-programs .study-programs-nav {
+    width: 100%;
+    min-height: 1vh;
+}
+
+.study-programs .study-programs-nav ul {
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row;
+    list-style: none;
+}
+
+/* .study-programs .study-programs-nav ul li {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 50px;
+    padding: 5px;
+    transition: 0.5s ease;
+}
+
+.study-programs .study-programs-nav ul li:hover {
+    cursor: pointer;
+    color: #fff;
+    background-color: #333;
+} */
+
+.tabs {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+    text-align: center;
+    width: 50%;
+    background: transparent;
+    cursor: pointer;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.274);
+    box-sizing: content-box;
+    position: relative;
+    outline: none;
+}
+
+.tabs:first-child {
+    border-radius: 16px 0 0 0;
+}
+
+.tabs:last-child {
+    border-radius: 0 16px 0 0;
+}
+
+.tabs:hover {
+    background-color: rgb(229, 176, 249);
+    color: rgb(183, 29, 245);
+}
+
+.tabs:not(:last-child) {
+    border-right: 1px solid rgba(0, 0, 0, 0.274);
+}
+
+.tabs-active {
+    background-color: rgb(246, 222, 255);
+    border-bottom: 1px solid transparent;
+    color: rgb(183, 29, 245);
+    font-weight: 800;
+}
+
+.tabs-active::before {
+    content: "";
+    display: block;
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% + 2px);
+    height: 5px;
+    transition: 0.5s ease;
+    background: rgb(183, 29, 245);
+}
+
+.study-programs .study-programs-data {
+    margin: 0 auto;
+    width: 80%;
+    min-height: 80vh;
+    position: relative;
+    padding: 32px;
+}
+
+.title {
+    text-align: center;
+    font-weight: 900;
+    font-size: 1.5rem;
+    text-transform: uppercase;
+}
+
+.sub-title {
+    text-transform: uppercase;
+    font-weight: 700;
+    margin: 32px 0 16px 0;
+}
+
+.content {
+    text-align: justify;
+    margin-bottom: 16px;
+}
+
+.content ul li {
+    list-style: none;
+    text-align: justify;
+}

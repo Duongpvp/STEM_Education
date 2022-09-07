@@ -1,0 +1,31 @@
+.home {
+    overflow: hidden;
+    color: #fff;
+    margin: -1rem;
+}
+
+.hero {
+    display: flex;
+    justify-content: space-between;
+    background-image: url(../../assets/img/homepage_bg.jpg);
+    background-size: 100%;
+    background-repeat: no-repeat;
+    width: 100%;
+    z-index: 1;
+    height: 85vh;
+    image-rendering: pixelated;
+}
+
+
+.left-h {
+    z-index: 1;
+    padding: 2rem;
+    padding-top: 1.5rem;
+    flex: 4;
+}
+
+.right-h {
+    z-index: 1;
+    padding-top: 3.4rem;
+    flex: 1;
+}

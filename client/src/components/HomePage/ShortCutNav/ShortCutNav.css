@@ -1,0 +1,84 @@
+@import url('https://fonts.googleapis.com/css2?family=DynaPuff:wght@500&family=Poppins&display=swap');
+
+.shortcut-nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 460px;
+    height: 80px;
+    background-color: #fff;
+    margin: 0 auto;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0);
+    top: 40rem;
+    border-radius: 10px;
+    z-index: 2;
+}
+
+.shortcut-nav ul {
+    display: flex;
+    width: 350px;
+}
+
+.shortcut-nav ul li {
+    position: relative;
+    list-style: none;
+    width: 85px;
+    height: 70px;
+    z-index: 1;
+}
+
+.shortcut-nav ul a {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    text-align: center;
+    font-weight: 500;
+    text-decoration: none;
+}
+
+.shortcut-nav ul li a .icon {
+    position: relative;
+    display: block;
+    line-height: 85px;
+    font-size: 1.5em;
+    text-align: center;
+    transition: 0.5s ease;
+    color: #333;
+}
+
+.shortcut-nav ul li:hover a .icon {
+    transform: translateY(-25px);
+}
+
+.shortcut-nav ul li a .text {
+    position: absolute;
+    color: #333;
+    font-weight: 400;
+    letter-spacing: 0.05em;
+    transition: 0.5s;
+    transform: translateY(20px);
+    opacity: 0;
+}
+
+.shortcut-nav ul li:hover a .text {
+    transform: translateY(10px);
+    opacity: 1;
+}
+
+/* .indicator {
+    position: absolute;
+    top: -50%;
+    width: 85px;
+    height: 85px;
+    background: rgb(251, 97, 248);
+    background: linear-gradient(23deg, rgba(251, 97, 248, 1) 0%, rgba(0, 155, 255, 1) 100%);
+    border-radius: 50%;
+    border: 6px solid #e2e2e2;
+    transition: 0.5s;
+} */

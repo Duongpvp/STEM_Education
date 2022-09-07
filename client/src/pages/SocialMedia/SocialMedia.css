@@ -1,0 +1,13 @@
+.SocialMedia {
+    position: relative;
+    display: grid;
+    grid-template-columns: 17rem auto 17rem;
+    gap: 1rem;
+}
+
+.nav-bottom-right-menu {
+    position: fixed;
+    z-index: 1000;
+    bottom: 0;
+    right: 0;
+}

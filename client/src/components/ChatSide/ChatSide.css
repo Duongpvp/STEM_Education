@@ -1,0 +1,21 @@
+.link {
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 400;
+    color: #333;
+}
+
+
+.sender {
+    font-weight: 700;
+    font-size: 1rem;
+    margin-bottom: 7px;
+}
+
+.latest-mess {
+    font-size: 0.8rem;
+    width: 210px;
+    overflow: hidden;
+    white-space: nowrap; 
+    text-overflow: ellipsis;
+}
