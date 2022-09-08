@@ -1,4 +1,5 @@
 import React from "react";
+import { memo } from "react";
 import "./Card.css";
 
 const Card = () => {
@@ -19,13 +20,11 @@ const Card = () => {
             the Kepler space telescope, 10 of which are similar to Earth’s size
             and may be habitable by other life forms.
           </p>
-          <div className="card__button">
-            Read more
-          </div>
+          <div className="card__button">Read more</div>
         </figcaption>
       </figure>
     </div>
   );
 };
 
-export default Card;
+export default memo(Card);

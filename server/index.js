@@ -9,7 +9,9 @@ import MessageRoute from "./routes/MessageRoute.js";
 import PostRoute from "./routes/PostRoute.js";
 import UploadRoute from "./routes/UploadRoute.js";
 import UserRoute from "./routes/UserRoute.js";
-import UploadMultipleRoute from "./routes/UploadMultipleRoute.js"
+import UploadMultipleRoute from "./routes/UploadMultipleRoute.js";
+import ClassRoute from "./routes/ClassRoute.js";
+import ExerciseRoute from "./routes/ExerciseRoute.js";
 
 // Routes
 const app = express();
@@ -22,7 +24,6 @@ app.use("/images", express.static("images"));
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 app.use(cors());
-
 
 dotenv.config();
 
@@ -46,6 +47,8 @@ app.use("/auth", AuthRoute);
 app.use("/user", UserRoute);
 app.use("/post", PostRoute);
 app.use("/upload", UploadRoute);
-app.use("/uploadmultiple", UploadMultipleRoute)
+app.use("/uploadmultiple", UploadMultipleRoute);
 app.use("/chat", ChatRoute);
 app.use("/message", MessageRoute);
+app.use("/class", ClassRoute);
+app.use("/exercise", ExerciseRoute);

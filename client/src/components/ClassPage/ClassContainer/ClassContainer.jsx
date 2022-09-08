@@ -6,7 +6,7 @@ import TocIcon from "@mui/icons-material/Toc";
 import Card from "components/Card/Card";
 import UserCard from "components/UserCard/UserCard";
 import { motion } from "framer-motion";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import "./ClassContainer.css";
 import Item from "./Item";
@@ -56,6 +56,7 @@ const ClassContainer = () => {
   const handleToggle = () => {
     setIsOpen(!isOpen);
   };
+
 
   return (
     <div className="class-container">
@@ -138,11 +139,7 @@ const ClassContainer = () => {
         <div className="class-list-container">
           <div className="class-list-title">Your class list</div>
           <div className="class-list">
-            <Card />
-            <Card />
-            <Card />
-            <Card />
-            <Card />
+            <Card/>
           </div>
         </div>
       </div>

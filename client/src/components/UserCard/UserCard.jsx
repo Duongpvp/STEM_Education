@@ -1,6 +1,6 @@
 // @ts-nocheck
 
-import React from "react";
+import React, { memo } from "react";
 import { useSelector } from "react-redux";
 import "./UserCard.css";
 
@@ -35,4 +35,4 @@ const UserCard = () => {
   );
 };
 
-export default UserCard;
+export default memo(UserCard);
