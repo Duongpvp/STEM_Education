@@ -13,6 +13,7 @@ export const createClass = async (req, res) => {
   try {
     const classRoom = await classModel.create({
       className: req.body.className,
+      snippet: req.body.snippet,
       users: users,
       image: "",
       classAdmin: req.body.classAdmin,
@@ -29,12 +30,15 @@ export const createClass = async (req, res) => {
   }
 };
 
-export const allClass = async (req, res) => {
+export const getClass = async (req, res) => {
   const userId = req.params.userId;
 
   try {
-    const userClass = await UserModel.findById(userId);
-    const userExercise = await exerciseModel.find({ sender: userClass });
+    const currentUser = await UserModel.findById(userId);
+    const userClass = await classModel
+      .find({ users: currentUser })
+      .populate("users", "-password");
+    // console.log(userClass);
     // const exerciseUser = await exerciseModel.aggregate([
     //   {
     //     $match: {
@@ -61,9 +65,18 @@ export const allClass = async (req, res) => {
     //     return b.createdAt - a.createdAt;
     //   })
     // );
-    res.status(200).json(userExercise);
+    res.status(200).json(userClass);
   } catch (error) {
     res.status(500).json(error);
+  }
+};
+
+export const getAllClass = async (req, res) => {
+  try {
+    const classed = await classModel.find().populate("users", "-password");
+    res.status(200).json(classed);
+  } catch (error) {
+    console.log(error);
   }
 };
 

@@ -1,137 +1,33 @@
 // @ts-nocheck
-import ForumIcon from "@mui/icons-material/Forum";
-import HomeIcon from "@mui/icons-material/Home";
-import MediationIcon from "@mui/icons-material/Mediation";
-import TocIcon from "@mui/icons-material/Toc";
+import { getAllClass } from "api/ClassRequest";
 import Card from "components/Card/Card";
+import SideBarMotion from "components/SideBarMotion/SideBarMotion";
 import UserCard from "components/UserCard/UserCard";
-import { motion } from "framer-motion";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import "./ClassContainer.css";
-import Item from "./Item";
 
 const ClassContainer = () => {
   const { user } = useSelector((state) => state.AuthReducer.authData);
-  const serverPublicFolder = process.env.REACT_APP_FOLDER;
-  const [isOpen, setIsOpen] = useState(false);
 
-  const sideContainerVariants = {
-    true: {
-      width: "14rem",
-    },
-    false: {
-      transition: {
-        delay: 0.6,
-      },
-    },
+  const [classroom, setClassroom] = useState([]);
+
+  const fetchAllClass = async () => {
+    try {
+      const { data } = await getAllClass(user._id);
+      setClassroom(data);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
-  const sidebarVariants = {
-    true: {
-      width: "14rem",
-    },
-    false: {
-      width: "4.3rem",
-      transition: {
-        delay: 0.4,
-      },
-    },
-  };
-
-  const profileVariants = {
-    true: {
-      alignSelf: "center",
-      width: "5rem",
-      marginBottom: "2rem",
-    },
-    false: {
-      alignSelf: "flex-start",
-      marginTop: "1rem",
-      marginBottom: "0rem",
-      width: "2.5rem",
-    },
-  };
-
-  const handleToggle = () => {
-    setIsOpen(!isOpen);
-  };
-
+  useEffect(() => {
+    fetchAllClass();
+  }, []);
 
   return (
     <div className="class-container">
-      <motion.div
-        // data-Open={isOpen}
-        variants={sideContainerVariants}
-        initial={`${isOpen}`}
-        animate={`${isOpen}`}
-        className="sidebar-container"
-      >
-        <motion.div
-          className="sidebar"
-          initial={`${isOpen}`}
-          animate={`${isOpen}`}
-          variants={sidebarVariants}
-        >
-          <motion.div
-            whileHover={{
-              scale: 1.3,
-              rotate: 180,
-              backgroundColor: "rgba(255,255,255,0.7)",
-              backdropFilter: "blur(6.9px)",
-              border: "1px solid rgba(255, 255, 255, 0.24)",
-              transition: {
-                delay: 0.2,
-                duration: 0.4,
-              },
-            }}
-            className="lines-icon"
-            onClick={handleToggle}
-          >
-            <TocIcon />
-          </motion.div>
-          <motion.div
-            className="profile"
-            initial={`${isOpen}`}
-            animate={`${isOpen}`}
-            variants={profileVariants}
-            transition={{ duration: 0.4 }}
-            whileHover={{
-              backgroundColor: "rgba(255, 255, 255, 0.3)",
-              boxShadow: "0 8px 32px 0 rgba(31, 38, 135, 0.37)",
-              backdropFilter: "blur(5.5px)",
-              WebkitBackdropFilter: "blur(5.5px)",
-              border: "1px solid rgba( 255, 255, 255, 0.18 )",
-              cursor: "pointer",
-            }}
-          >
-            <img
-              src={
-                user.profilePicture
-                  ? serverPublicFolder + user.profilePicture
-                  : serverPublicFolder + "DefaultAvatar.png"
-              }
-              alt=""
-            />
-          </motion.div>
-          <div className="groups">
-            <div className="group">
-              <motion.h3
-                animate={{
-                  opacity: isOpen ? 1 : 0,
-                  height: isOpen ? "auto" : 0,
-                }}
-              >
-                ANALYTICS
-              </motion.h3>
-              <Item icon={<HomeIcon />} name="Home" />
-              <Item icon={<ForumIcon />} name="Chat" />
-              <Item icon={<MediationIcon />} name="Media" />
-            </div>
-          </div>
-        </motion.div>
-      </motion.div>
-
+      <SideBarMotion />
       <div className="body-container">
         <div className="user-class-container">
           <UserCard />
@@ -139,7 +35,14 @@ const ClassContainer = () => {
         <div className="class-list-container">
           <div className="class-list-title">Your class list</div>
           <div className="class-list">
-            <Card/>
+            {classroom.map((room) => (
+              <Card
+                key={room._id}
+                nameClass={room.className}
+                snippet={room.snippet}
+                idClass={room._id}
+              />
+            ))}
           </div>
         </div>
       </div>

@@ -12,6 +12,7 @@ import UserRoute from "./routes/UserRoute.js";
 import UploadMultipleRoute from "./routes/UploadMultipleRoute.js";
 import ClassRoute from "./routes/ClassRoute.js";
 import ExerciseRoute from "./routes/ExerciseRoute.js";
+import ClassPostRoute from "./routes/ClassPostRoute.js";
 
 // Routes
 const app = express();
@@ -52,3 +53,4 @@ app.use("/chat", ChatRoute);
 app.use("/message", MessageRoute);
 app.use("/class", ClassRoute);
 app.use("/exercise", ExerciseRoute);
+app.use("/classpost", ClassPostRoute);

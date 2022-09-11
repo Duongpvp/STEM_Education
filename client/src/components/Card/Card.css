@@ -1,6 +1,7 @@
 .card {
     width: 300px;
     margin: 10px;
+    height: 100%;
     background-color: white;
     box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.5);
     border-radius: 0.75rem;
@@ -68,7 +69,7 @@
     max-height: 85px;
     overflow: hidden;
     font-family: "Playfair Display", serif;
-    font-size: 23px;
+    font-size: 2rem;
     line-height: 28px;
     text-shadow: 0px 1px 5px black;
     text-overflow: ellipsis;
@@ -96,7 +97,7 @@
 }
 
 
-.card__button {
+.card__button a{
     display: inline-block;
     padding: 10px 20px;
     color: white;
@@ -108,27 +109,8 @@
     transition: 0.3s;
 }
 
-.card__button:hover {
+.card__button a:hover {
     color: black;
+    cursor: pointer;
     background-color: white;
-}
-
-.disclaimer {
-    position: fixed;
-    bottom: 0;
-    left: 50%;
-    z-index: 2;
-    box-sizing: border-box;
-    width: 100%;
-    padding: 20px 10px;
-    background-color: white;
-    transform: translateX(-50%);
-    font-family: "Roboto", sans-serif;
-    font-size: 14px;
-    text-align: center;
-}
-
-.disclaimer__link {
-    color: #755D87;
-    text-decoration: none;
 }

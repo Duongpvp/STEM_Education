@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 const classSchema = mongoose.Schema(
   {
     className: { type: "String", trim: true },
+    snippet: {type: "String", trim: true},
     image: String,
     users: [
         {
