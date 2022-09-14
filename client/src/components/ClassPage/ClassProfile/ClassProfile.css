@@ -37,7 +37,11 @@
     width: 110%;
 }
 
-.glass-card-grid .glass-card {
+.glass-card-grid a {
+    text-decoration: none;
+}
+
+.glass-card-grid .glass-card{
     width: 300px;
     min-height: 350px;
     box-shadow: -2rem 0 3rem -2rem #000;

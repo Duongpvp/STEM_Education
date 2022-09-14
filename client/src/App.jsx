@@ -14,6 +14,7 @@ import Department from "components/HomePage/Department/Department";
 import StudyPrograms from "components/HomePage/StudyPrograms/StudyPrograms";
 import Class from "pages/Class/Class";
 import ClassProfile from "components/ClassPage/ClassProfile/ClassProfile";
+import Exercise from "pages/Exercise/Exercise";
 
 function App() {
   const user = useSelector((state) => state.AuthReducer.authData)
@@ -31,7 +32,7 @@ function App() {
         <Route path = "/home/studyprograms/"  element = {user ? <StudyPrograms/> : <Navigate to = "../auth"/>} />
         <Route path = "/class/"  element = {user ? <Class/> : <Navigate to = "../auth"/>} />
         <Route path = "/class/:id/"  element = {user ? <ClassProfile/> : <Navigate to = "../auth"/>} />
-        <Route path = "/media/" element = {user ? <SocialMedia/> : <Navigate to = "../auth" />} />
+        <Route path = "/class/:id/exercise/:eid" element = {user ? <Exercise/> : <Navigate to = "../auth" />} />
         <Route path = "/media/" element = {user ? <SocialMedia/> : <Navigate to = "../auth" />} />
         <Route path = "/auth/" element = {user ? <Navigate to = "../home" /> : <Auth/>} />
         <Route path = "/profile/:id/" element = {user ? <Profile/> : <Navigate to = "../auth"/>} />

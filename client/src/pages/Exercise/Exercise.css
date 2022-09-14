@@ -1,0 +1,195 @@
+.exercise {
+    display: flex;
+    position: relative;
+    justify-content: space-between;
+    width: 100%;
+    min-height: 130vh;
+    margin-bottom: 17rem;
+}
+
+.body-exercise-container {
+    min-height: 100vh;
+    width: 68%;
+    display: flex;
+    flex-direction: column;
+    background: rgba(255, 255, 255, 0.55);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    padding: 1rem 32px;
+    margin-top: 1rem;
+}
+
+.exercise-title {
+    font-size: 2.3rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.exercise .timestamp {
+    font-size: 0.8rem;
+    color: rgb(101, 101, 101);
+}
+
+.exercise .grade {
+    font-weight: 700;
+    color: rgb(252, 103, 103);
+}
+
+.body-exercise-container hr {
+    border: 0;
+    height: 1px;
+    width: 100%;
+    margin: 30px auto;
+}
+
+.body-exercise-container hr.nav-lines,
+.body-exercise-container hr.lines {
+    background: #e97df3;
+}
+
+.hr-line {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.body-exercise-container hr.lines::before {
+    content: "";
+    width: 6px;
+    height: 6px;
+    background: #e97df3;
+    display: inline-block;
+    border: 7px solid #e97df3;
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    margin: 0 0 0 -3px;
+    transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    /* IE 9 */
+    -webkit-transform: rotate(45deg);
+    /* Opera, Chrome, and Safari */
+}
+
+
+.body-exercise-container .user-exercise,
+.body-exercise-container .ex-comment {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 12px;
+}
+
+.body-exercise-container .user-exercise>img {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    box-shadow: 0 3px 8px rgb(128, 128, 128);
+    margin-right: 16px;
+}
+
+.body-exercise-container .user-exercise .user-comment span {
+    font-size: 0.9rem;
+    font-weight: 800;
+}
+
+.body-exercise-container .user-input {
+    display: flex;
+    width: 100%;
+}
+
+.body-exercise-container .user-input>img {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    margin-right: 24px;
+}
+
+.body-exercise-container .input-box {
+    position: relative;
+    width: 100%;
+    margin-top: -20px;
+}
+
+.body-exercise-container .input-box textarea,
+.body-exercise-container .input-box input {
+    width: 910px;
+    padding: 5px 29px 5px 0;
+    font-size: 1.2rem;
+    margin: 10px 0;
+    border: none;
+    border-bottom: 2px solid #333;
+    outline: none;
+    background-color: transparent;
+    resize: none;
+}
+
+.body-exercise-container .input-box label {
+    position: absolute;
+    left: 0;
+    padding: 5px 0;
+    font-size: 1.2rem;
+    margin: 10px 0;
+    pointer-events: none;
+    transition: 0.5s;
+    color: #666;
+}
+
+.body-exercise-container .input-box textarea:valid~label,
+.body-exercise-container .input-box textarea:focus~label {
+    color: #e91e63;
+    font-size: 0.7rem;
+    transform: translateY(-20px);
+}
+
+.send-icon {
+    position: absolute;
+    bottom: 16px;
+    right: 0;
+}
+
+.review-exercise {
+    margin-top: 1rem;
+    width: 25%;
+    background: rgba(255, 255, 255, 0.45);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.preview-card {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 24px;
+}
+
+.preview-card span.preview-title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+}
+
+.preview-card > button {
+    margin: 12px 0;
+    width: 100%;
+    height: 32px;
+    border: 1px solid transparent;
+    border-radius: 0.5rem;
+    background-color: #e97df3;
+    color: #fff;
+    transition: 0.3s;
+}
+
+.preview-card > button:hover {
+    border: 1px solid #e97df3;
+    background-color: #fff;
+    color: #e97df3
+}

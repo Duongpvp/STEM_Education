@@ -128,9 +128,6 @@ const ChatSide = () => {
                             borderRadius="0.5rem"
                             justifyContent="flex-start"
                           >
-                            {console.log(
-                              getFullSender(user, chat.users).profilePicture
-                            )}
                             <Avatar
                               src={
                                 getFullSender(user, chat.users).profilePicture
@@ -156,12 +153,12 @@ const ChatSide = () => {
                             <Box display="flex" flexDirection="column">
                               <span className="sender">
                                 {!chat.isGroupChat
-                                  ? getSender(user, chat.users)
+                                  ? getSender(user, chat?.users)
                                   : chat.chatName}
                               </span>
                               <span className="latest-mess">
-                                {chat.latestMessage.sender.lastname} :{" "}
-                                {chat.latestMessage.content}
+                                {chat.latestMessage?.sender.lastname} :
+                                {chat.latestMessage?.content}
                               </span>
                             </Box>
                           </Box>
@@ -185,7 +182,7 @@ const ChatSide = () => {
                           title={
                             chat.isGroupChat
                               ? chat.chatName
-                              : getSender(user, chat.users)
+                              : getSender(user, chat?.users)
                           }
                           placement="right-start"
                           arrow
@@ -219,13 +216,13 @@ const ChatSide = () => {
                             <Box display="flex" flexDirection="column">
                               <span className="sender">
                                 {!chat.isGroupChat
-                                  ? getSender(user, chat.users)
+                                  ? getSender(user, chat?.users)
                                   : chat.chatName}
                               </span>
                               {chat.latestMessage && (
                                 <span className="latest-mess">
-                                  {chat.latestMessage.sender.lastname} :{" "}
-                                  {chat.latestMessage.content}
+                                  {chat.latestMessage?.sender.lastname} :
+                                  {chat.latestMessage?.content}
                                 </span>
                               )}
                             </Box>

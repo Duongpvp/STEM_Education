@@ -19,9 +19,17 @@ export const uploadPost = (data) => async (dispatch) => {
   }
 };
 
-export const uploadMultiFile = (data) => async() => {
+export const uploadMultiFile = (data) => async () => {
   try {
-    await UploadApi.uploadMultiFile(data)
+    await UploadApi.uploadMultiFile(data);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const deleteFile = (userId, exerciseId) => async() => {
+  try {
+    await UploadApi.deleteFile(userId, exerciseId)
   } catch (error) {
     console.log(error);
   }

@@ -66,7 +66,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
     socket.current.emit("active-user", user._id);
     socket.current.on("get-users", (user) => {
       setOnlineUsers(user);
-      dispatch(userOnline)
+      dispatch(userOnline);
     });
   }, []);
 
@@ -85,7 +85,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
       ) {
         if (!notification.includes(receivedData)) {
           setNotification([...notification, receivedData]);
-          dispatch(notificationSend([...notification, receivedData]))
+          dispatch(notificationSend([...notification, receivedData]));
           // setNotification([receivedData, ...notification]);
           setFetchAgain(!fetchAgain);
         }
@@ -141,21 +141,21 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
             <ArrowBackIcon
               display="flex"
               fontSize="32px"
-              onClick={() => dispatch(selectChat())}
+              onClick={() => dispatch(selectChat(null))}
             />
             {messages && !chats.selectChat.isGroupChat ? (
               <>
-                {getSender(user, chats.selectChat.users)}
-                <InfoModal
-                  user={getFullSender(user, chats.selectChat.users)}
+                {/* {getSender(user, chats?.selectChat?.users)} */}
+                {/* <InfoModal
+                  user={getFullSender(user, chats.selectChat?.users)}
                   fetchMessages={fetchMessages}
                   fetchAgain={fetchAgain}
                   setFetchAgain={setFetchAgain}
-                />
+                /> */}
               </>
             ) : (
               <>
-                {chats.selectChat.chatName.toUpperCase()}
+                {chats.selectChat?.chatName.toUpperCase()}
                 <UpdateGroupModal
                   fetchAgain={fetchAgain}
                   setFetchAgain={setFetchAgain}

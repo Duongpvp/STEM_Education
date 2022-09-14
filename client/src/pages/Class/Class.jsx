@@ -6,7 +6,7 @@ import "./Class.css";
 const Class = () => {
   return (
     <div className="class">
-      <ClassContainer/>
+      <ClassContainer />
     </div>
   );
 };

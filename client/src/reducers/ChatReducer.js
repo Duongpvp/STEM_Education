@@ -36,7 +36,7 @@ const ChatReducer = (
         chatData: [...state.chatData],
         loading: false,
         error: false,
-        selectChat: { ...state.selectChat },
+        selectChat: action.data,
         notification: [...state.notification],
       };
 

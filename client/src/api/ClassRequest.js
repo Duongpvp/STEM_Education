@@ -12,5 +12,6 @@ API.interceptors.request.use((req) => {
 });
 
 export const getAllClass = (userId) => API.get(`class/${userId}`);
-export const getAllPost = (classId) => API.get(`classpost/${classId}`)
-export const getAllExercise = (classId) => API.get(`exercise/${classId}`)
+export const getAPost = (postId) => API.get(`classpost/exc/${postId}`);
+export const getAllPost = (classId) => API.get(`classpost/${classId}`);
+export const getAllExercise = (classId) => API.get(`exercise/${classId}`);

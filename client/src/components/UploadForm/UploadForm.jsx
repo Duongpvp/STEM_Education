@@ -1,12 +1,11 @@
 // @ts-nocheck
 import { uploadMultiFile } from "actions/UploadAction";
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 
 const UploadForm = () => {
   const dispatch = useDispatch();
   const [images, setImages] = useState([]);
-  const imagesRef = useRef(null);
 
   const onImagesChange = (e) => {
     if (e.target.files) {
@@ -25,6 +24,7 @@ const UploadForm = () => {
     }
     dispatch(uploadMultiFile(data));
   };
+
   return (
     <form onSubmit={handleSubmit}>
       <div>
@@ -36,6 +36,7 @@ const UploadForm = () => {
           onChange={onImagesChange}
         />
       </div>
+
       <div>
         <button type="submit">Upload</button>
       </div>

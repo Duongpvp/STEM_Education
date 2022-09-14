@@ -2,19 +2,19 @@ import express from "express";
 const router = express.Router();
 import multer from "multer";
 
-const storage = multer.diskStorage({
+const storageFile = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "public/images");
+    cb(null, "public/files");
   },
   filename: (req, file, cb) => {
+    cb(null, Date.now() + file.originalname);
     console.log(file);
-    cb(null, file.originalname);
   },
 });
 
-const uploadMultiple = multer({ storage: storage });
+const uploadMultiple = multer({ storage: storageFile });
 
-router.post("/", uploadMultiple.array("file", 12), (req, res) => {
+router.post("/", uploadMultiple.array("file", 15), (req, res) => {
   try {
     return res.status(200).json("Files uploaded successfully");
   } catch (error) {

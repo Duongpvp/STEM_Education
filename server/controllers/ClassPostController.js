@@ -10,6 +10,16 @@ export const createClassPost = async (req, res) => {
   }
 };
 
+export const getAPost = async (req, res) => {
+  const id = req.params.id;
+  try {
+    const post = await classPostModel.findById(id);
+    res.status(200).json(post);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+};
+
 export const getClassPost = async (req, res) => {
   const id = req.params.id;
 

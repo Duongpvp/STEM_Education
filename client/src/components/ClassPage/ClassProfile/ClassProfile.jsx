@@ -1,7 +1,7 @@
 import { getAllPost } from "api/ClassRequest";
 import SideBarMotion from "components/SideBarMotion/SideBarMotion";
 import React, { memo, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import ClassHeader from "../ClassHeader/ClassHeader";
 import "./ClassProfile.css";
 
@@ -34,16 +34,13 @@ const ClassProfile = () => {
           />
           <div className="glass-card-grid">
             {posts.map((post) => (
-              <article className="glass-card" key={post._id}>
-                <div className="glass-card-title">
-                  <a>{post.postTitle}</a>
-                </div>
-
-                <p>{post.desc}</p>
-                <div className="author-row">
-                  <a className="author-name">{post.files}</a>
-                </div>
-              </article>
+              <Link to={`./exercise/${post._id}`} key={post._id}>
+                <article className="glass-card">
+                  <div className="glass-card-title">{post.postTitle}</div>
+                  <p>{post.desc}</p>
+                  <div className="author-row">{post.files}</div>
+                </article>
+              </Link>
             ))}
           </div>
         </div>
