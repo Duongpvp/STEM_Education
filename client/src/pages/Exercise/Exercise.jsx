@@ -25,11 +25,7 @@ const Exercise = () => {
       console.log(error);
     }
   };
-
-  const removeFile = (filename) => {
-    setFiles(files.filter((file) => file.name !== filename));
-  };
-
+  
   useEffect(() => {
     getPost();
   }, []);
@@ -100,8 +96,7 @@ const Exercise = () => {
       <div className="review-exercise">
         <div className="preview-card">
           <span className="preview-title">Your current exercises</span>
-          <UploadForm/>
-          <button>Cancel submit</button>
+          <UploadForm />
         </div>
       </div>
     </div>

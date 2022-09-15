@@ -1,0 +1,19 @@
+.upload-items {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    width: 90%;
+}
+
+.upload-items .items {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.upload-items .items span {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 80%;
+}
