@@ -1,14 +1,22 @@
 // @ts-nocheck
-import { uploadMultiFile } from "actions/UploadAction";
+import { uploadExercise, uploadMultiFile } from "actions/UploadAction";
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import "./UploadForm.css";
 import UploadItems from "./UploadItems";
+import { useParams } from "react-router-dom";
+import ReactTextareaAutosize from "react-textarea-autosize";
+import SendIcon from "@mui/icons-material/Send";
 
 const UploadForm = () => {
+  const { user } = useSelector((state) => state.AuthReducer.authData);
   const dispatch = useDispatch();
   const [images, setImages] = useState([]);
+  const [submission, setSubmission] = useState();
+  const params = useParams();
+
+  const uploadedfile = [];
 
   const onImagesChange = (e) => {
     if (e.target.files) {
@@ -18,8 +26,12 @@ const UploadForm = () => {
   };
 
   const handleCancel = () => {
-    setImages([])
-  }
+    setImages([]);
+  };
+
+  const handleChange = (e) => {
+    setSubmission(e.target.value);
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -27,12 +39,20 @@ const UploadForm = () => {
     for (let i = 0; i < images.length; i++) {
       // data.append(`fileName`, Date.now() + images[i].name);
       data.append("file", images[i]);
+      uploadedfile.push(images[i].name);
     }
+
     dispatch(uploadMultiFile(data));
+    try {
+      const listFiles = JSON.stringify(uploadedfile.map((file) => file));
+      dispatch(uploadExercise(user._id, submission, listFiles, params.eid));
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="student-upload-file">
       <div className="upload-form">
         <input
           type="file"
@@ -48,7 +68,18 @@ const UploadForm = () => {
         <span className="support-file">Support files</span>
         <p className="desc-support">PNG, JPG, PDF</p>
       </div>
-      <UploadItems files={images} setFiles={setImages}/>
+      <UploadItems files={images} setFiles={setImages} />
+      <div className="input-box">
+        <ReactTextareaAutosize
+          minRows={1}
+          name="message"
+          required
+          className="submission"
+          onChange={handleChange}
+        />
+        <label>Message</label>
+        <SendIcon className="send-icon" />
+      </div>
       <div className="btn-group">
         <button type="submit">Upload</button>
         <button onClick={handleCancel}>Cancel</button>

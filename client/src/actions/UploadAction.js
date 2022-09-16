@@ -12,6 +12,7 @@ export const uploadPost = (data) => async (dispatch) => {
   dispatch({ type: "UPLOAD_START" });
   try {
     const newPost = await UploadApi.uploadPost(data);
+    console.log(data);
     dispatch({ type: "UPLOAD_SUCCESS", data: newPost.data });
   } catch (error) {
     console.log(error);
@@ -27,10 +28,28 @@ export const uploadMultiFile = (data) => async () => {
   }
 };
 
-export const deleteFile = (userId, exerciseId) => async() => {
+export const uploadExercise = (userId, submission, file, postId) => async () => {
+    try {
+      const {data} = await UploadApi.uploadExercise(userId, submission, file, postId);
+      console.log(data)
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+export const deleteFile = (userId, exerciseId) => async () => {
   try {
-    await UploadApi.deleteFile(userId, exerciseId)
+    await UploadApi.deleteFile(userId, exerciseId);
   } catch (error) {
     console.log(error);
   }
-}
+};
+
+export const uploadClassPost = (title, desc, file, classId) => async () => {
+  try {
+    const {data} = await UploadApi.uploadClassPost(title, desc, file, classId);
+    console.log(data)
+  } catch (error) {
+    console.log(error);
+  }
+};

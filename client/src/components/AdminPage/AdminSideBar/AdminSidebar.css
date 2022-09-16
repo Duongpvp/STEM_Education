@@ -1,0 +1,38 @@
+.admin-sidebar {
+    width: 15%;
+    background: rgba(255, 217, 254, 0.2);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(6.3px);
+    -webkit-backdrop-filter: blur(6.3px);
+    border: 1px solid rgba(255, 217, 254, 0.4);
+}
+
+.admin-sidebar>img {
+    width: 230px;
+}
+
+.admin-sidebar .feature-group {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 1rem;
+    color: #fff;
+    transition: 0.3s;
+    width: 90%;
+    margin: 0 auto;
+    border-radius: 0.7rem;
+}
+
+.admin-sidebar .feature-group span {
+    margin-left: 12px;
+}
+
+.admin-sidebar .feature-group:hover {
+    cursor: pointer;
+    display: flex;
+    background-color: azure;
+    color: blueviolet;
+    border-radius: 0.7rem;
+    box-shadow: 0 3px 3px #fff;
+}
+

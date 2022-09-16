@@ -84,6 +84,7 @@ h3 {
 }
 
 .class-list-container {
+    position: relative;
     min-width: 90vw;
     min-height: 130vh;
     background: rgba(255, 255, 255, 0.44);
@@ -93,6 +94,31 @@ h3 {
     box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
     border: 1px solid rgba(255, 255, 255, 0.3);
     margin-top: 2rem;
+}
+
+.class-list-container .btn-create {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    padding: 12px;
+    border: 1px solid transparent;
+    background-color: rgb(219, 123, 243);
+    color: #fff;
+    font-weight: 700;
+    border-radius: 0.7rem;
+    transition: 0.5s;
+
+}
+
+.class-list-container .btn-create:hover {
+    background-color: rgb(210, 83, 241);
+    color: #fff;
+    border: 1px solid rgb(219, 123, 243);
+    box-shadow: 0 2px 8px #333;
+    ;
 }
 
 .class-list-container .class-list-title {

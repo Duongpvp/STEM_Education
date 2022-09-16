@@ -3,17 +3,16 @@ import exerciseModel from "../models/exerciseModel.js";
 import UserModel from "../models/userModel.js";
 
 export const createExercise = async (req, res) => {
-  const { userId, submission, file, classId } = req.body;
-
+  const { userId, submission, postId } = req.body;
+  const listFile = JSON.parse(req.body.file);
   if (!req.body) {
     return res.status(400).json("Invalid data passed into request");
   }
-
   var newExercise = {
     sender: userId,
     submission: submission,
-    files: file,
-    classroom: classId,
+    files: listFile,
+    postId: postId,
     grade: null,
   };
 
@@ -24,15 +23,15 @@ export const createExercise = async (req, res) => {
       "sender",
       "firstname lastname username followers following profilePicture"
     );
-    exercise = await exercise.populate("classroom");
+    exercise = await exercise.populate("postId");
     exercise = await UserModel.populate(exercise, {
-      path: "classroom.users",
+      path: "postId.users",
       select: "firstname lastname followers following username profilePicture",
     });
 
     res.status(200).json(exercise);
   } catch (error) {
-    req.status(400).json(error);
+    res.status(400).json(error);
   }
 };
 
@@ -52,7 +51,7 @@ export const gradeExercise = async (req, res) => {
       )
       .populate("submission")
       .populate("files")
-      .populate("classroom");
+      .populate("postId");
 
     res.status(200).json(exercise);
   } catch (error) {
@@ -86,7 +85,7 @@ export const allExercise = async (req, res) => {
         "sender",
         "firstname lastname followers following username profilePicture"
       )
-      .populate("classroom")
+      .populate("postId")
       .populate("submission")
       .populate("files")
       .populate("grade");

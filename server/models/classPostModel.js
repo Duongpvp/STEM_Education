@@ -9,7 +9,7 @@ const classPostSchema = mongoose.Schema(
     },
     postTitle: {type: String, require: true},
     desc: String,
-    files: String,
+    files: [],
   },
   { timestamps: true }
 );

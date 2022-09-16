@@ -4,9 +4,9 @@ const exerciseSchema = mongoose.Schema(
   {
     sender: { type: mongoose.Schema.Types.ObjectId, ref: "Users" },
     submission: { type: String, trim: true },
-    files: { type: String, trim: true },
-    classroom: { type: mongoose.Schema.Types.ObjectId, ref: "Class" },
-    grade: {type: Number}
+    files: [],
+    postId: { type: mongoose.Schema.Types.ObjectId, ref: "ClassPost" },
+    grade: { type: Number },
   },
   {
     timestamps: true,

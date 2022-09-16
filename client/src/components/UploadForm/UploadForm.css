@@ -76,3 +76,40 @@
     background-color: #fff;
     color: #e97df3
 }
+
+.student-upload-file .input-box {
+    position: relative;
+    width: 100%;
+    margin-top: -10px;
+}
+
+.student-upload-file .input-box label {
+    top: 0;
+    position: absolute;
+    left: 0;
+    padding: 5px 0;
+    font-size: 1.2rem;
+    margin: 10px 0;
+    pointer-events: none;
+    transition: 0.5s;
+    color: #666;
+}
+
+.student-upload-file .input-box textarea {
+    width: 100%;
+    padding: 5px 29px 5px 0;
+    font-size: 1.2rem;
+    margin: 10px 0;
+    border: none;
+    border-bottom: 2px solid #333;
+    outline: none;
+    background-color: transparent;
+    resize: none;
+}
+
+.student-upload-file .input-box textarea:valid~label,
+.student-upload-file .input-box textarea:focus~label {
+    color: #e91e63;
+    font-size: 0.7rem;
+    transform: translateY(-20px);
+}
