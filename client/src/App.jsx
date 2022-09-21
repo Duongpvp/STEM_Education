@@ -1,4 +1,5 @@
 // @ts-nocheck
+import ExerciseManagement from "components/ClassManagementPage/ExerciseManagement/ExerciseManagement";
 import ClassProfile from "components/ClassPage/ClassProfile/ClassProfile";
 import AboutUs from "components/HomePage/AboutUs/AboutUs";
 import DeanBoard from "components/HomePage/DeanBoard/DeanBoard";
@@ -43,6 +44,7 @@ function App() {
 
         {/* Class Management for teacher and admin */}
         <Route path = "/classmanagement/:id" element = { (user && user.user.isTeacher) || (user && user.user.isAdmin) ? <ClassProfile/> : <Navigate to = "../auth"/> }/>
+        <Route path = "/classmanagement/:id/exercise/:eid" element = { (user && user.user.isTeacher) || (user && user.user.isAdmin) ? <ExerciseManagement/> : <Navigate to = "../auth"/> }/>
         
         {/* Media Route */}
         <Route path = "/media/" element = {user ? <SocialMedia/> : <Navigate to = "../auth" />} />  

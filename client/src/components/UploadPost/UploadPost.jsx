@@ -27,13 +27,14 @@ const UploadPost = ({title, desc}) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    let timex = Date.now()
     const data = new FormData();
+    data.append("time", timex)
     for (let i = 0; i < images.length; i++) {
       // data.append(`fileName`, Date.now() + images[i].name);
-      data.append("file", images[i]);
-      uploadedfile.push(images[i].name);
+      data.append("files",images[i]);
+      uploadedfile.push(timex+ "__-__" +images[i].name);
     }
-
     dispatch(uploadMultiFile(data));
     try {
       const listFiles = JSON.stringify(uploadedfile.map((file) => file));

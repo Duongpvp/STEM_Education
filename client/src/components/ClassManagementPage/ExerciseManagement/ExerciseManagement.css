@@ -1,0 +1,66 @@
+.exercise-management {
+    position: relative;
+    flex-direction: row;
+    display: flex;
+    width: 100%;
+    min-height: 100vh;
+}
+
+.exercise-management .exercise-management-body {
+    position: absolute;
+    top: 16px;
+    left: 100px;
+    width: 92%;
+    min-height: 100vh;
+    background: rgba(255, 255, 255, 0.28);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(7.5px);
+    -webkit-backdrop-filter: blur(7.5px);
+    border: 1px solid rgba(255, 255, 255, 0.52);
+}
+
+.exercise-management .toggle-preview {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    position: absolute;
+    width: 20%;
+    right: 0;
+    top: 14px;
+    background: rgba(255, 255, 255, 0.28);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(7.5px);
+    -webkit-backdrop-filter: blur(7.5px);
+    border: 1px solid rgba(255, 255, 255, 0.52);
+}
+
+.exercise-management .toggle-preview .grade-toggle,
+.exercise-management .toggle-preview .prev-toggle {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    margin: 0 auto;
+    cursor: pointer;
+    transition: 0.3s;
+    border-radius: 16px;
+}
+
+.exercise-management .toggle-preview .grade-toggle.active > svg,
+.exercise-management .toggle-preview .prev-toggle.active > svg,
+.exercise-management .toggle-preview .grade-toggle > svg,
+.exercise-management .toggle-preview .prev-toggle > svg {
+    margin: 0 auto;
+}
+
+.exercise-management .toggle-preview .grade-toggle.active,
+.exercise-management .toggle-preview .prev-toggle.active,
+.exercise-management .toggle-preview .grade-toggle:hover,
+.exercise-management .toggle-preview .prev-toggle:hover {
+    border-radius: 16px;
+    background-color: rgb(206, 42, 251);
+    color: #fff;
+}

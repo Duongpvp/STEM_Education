@@ -24,6 +24,7 @@ export const createExercise = async (req, res) => {
       "firstname lastname username followers following profilePicture"
     );
     exercise = await exercise.populate("postId");
+    exercise = await exercise.populate("files");
     exercise = await UserModel.populate(exercise, {
       path: "postId.users",
       select: "firstname lastname followers following username profilePicture",
@@ -79,13 +80,12 @@ export const allExercise = async (req, res) => {
   try {
     const exercise = await exerciseModel
       .find({
-        chat: req.params.classId,
+        postId: req.params.postId,
       })
       .populate(
         "sender",
         "firstname lastname followers following username profilePicture"
       )
-      .populate("postId")
       .populate("submission")
       .populate("files")
       .populate("grade");

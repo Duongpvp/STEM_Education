@@ -1,0 +1,92 @@
+.link-file {
+    white-space: nowrap;
+    overflow: hidden;
+    padding: 12px;
+    text-overflow: ellipsis;
+}
+
+.exercise-table {
+    width: 100%;
+    min-height: 100vh;
+}
+
+.custom-num {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.3s;
+    border: 2px solid blueviolet;
+    border-radius: 0.7rem;
+    position: relative;
+}
+
+.custom-num>span {
+    position: absolute;
+    font-size: 1.3em;
+    text-align: center;
+    color: red;
+    font-weight: 700;
+    z-index: 1;
+}
+
+.num-input::-webkit-outer-spin-button,
+.num-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.num-input {
+    border: none;
+    background: none;
+    font-size: 1.3em;
+    text-align: center;
+    background-color: none;
+    color: blueviolet;
+    font-weight: 700;
+    width: 100%;
+    z-index: 2;
+}
+
+.num-input:focus~span,
+.num-input:invalid~span {
+    opacity: 0;
+}
+
+.fea-bty {
+    display: flex;
+    flex-direction: row;
+    width: 30%;
+    justify-content: space-between;
+}
+
+.fea-btn > a,
+.fea-btn > button {
+    border: 1px solid transparent;
+    padding: 12px;
+    border-radius: 0.7rem;
+    margin-top: 12px;
+    color: #fff;
+    font-size: 1em;
+    font-weight: 700;
+    background-color: rgb(151, 74, 223);
+    transition: 0.5s;
+    cursor: pointer;
+}
+
+.fea-btn > a {
+    text-decoration: none;
+    background-color: rgb(225, 108, 215);
+}
+
+.fea-btn > button {
+    margin-right: 20px;
+}
+
+.fea-btn > a:hover {
+    background-color: rgb(219, 5, 201);
+}
+
+.fea-btn > button:hover {
+    /* box-shadow: 0 4px 8px #333; */
+    background-color: rgb(119, 6, 225);
+}

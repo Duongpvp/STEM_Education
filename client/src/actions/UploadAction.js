@@ -30,8 +30,7 @@ export const uploadMultiFile = (data) => async () => {
 
 export const uploadExercise = (userId, submission, file, postId) => async () => {
     try {
-      const {data} = await UploadApi.uploadExercise(userId, submission, file, postId);
-      console.log(data)
+      await UploadApi.uploadExercise(userId, submission, file, postId);
     } catch (error) {
       console.log(error);
     }
@@ -47,8 +46,7 @@ export const deleteFile = (userId, exerciseId) => async () => {
 
 export const uploadClassPost = (title, desc, file, classId) => async () => {
   try {
-    const {data} = await UploadApi.uploadClassPost(title, desc, file, classId);
-    console.log(data)
+    await UploadApi.uploadClassPost(title, desc, file, classId);
   } catch (error) {
     console.log(error);
   }
