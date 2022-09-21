@@ -149,6 +149,7 @@
     position: absolute;
     bottom: 16px;
     right: 0;
+    cursor: pointer;
 }
 
 .review-exercise {

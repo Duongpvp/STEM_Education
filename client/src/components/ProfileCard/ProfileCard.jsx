@@ -4,7 +4,7 @@ import "./ProfileCard.css";
 import {  useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
-const ProfileCard = ({user, location }) => {
+const ProfileCard = ({ user, location }) => {
   // const { user } = useSelector((state) => state.AuthReducer.authData);
   const posts = useSelector((state) => state.postReducer.posts);
   const serverPublicFolder = process.env.REACT_APP_FOLDER;

@@ -24,8 +24,8 @@ const Item = ({ icon, name }) => {
         cursor: "pointer",
       }}
       transition={{
-        type: "none",
-        duration: 0.1,
+        // type: "none",
+        duration: 0.01,
       }}
       className="item"
     >

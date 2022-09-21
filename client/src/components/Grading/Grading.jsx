@@ -22,9 +22,8 @@ const Grading = () => {
   const dispatch = useDispatch();
   const [grade, setGrade] = useState(null);
   const [exerciseData, setExerciseData] = useState();
-  const [rowsPerPage, setRowsPerPage] = useState(5);
   const [details, setDetails] = useState([]);
-  const [page, setPage] = useState(0);
+
   useEffect(() => {
     const fetchExercises = async () => {
       try {
@@ -49,14 +48,11 @@ const Grading = () => {
     });
   }
 
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
-  };
+  const [currentPage, setCurrentPage] = useState(1);
+  const [rowPerPage, setRowPerPage] = useState(5);
+  const indexOfLast = rowPerPage * currentPage;
+  const indexOfFist = indexOfLast - rowPerPage;
+  const renderRow = rows.slice(indexOfFist, indexOfLast);
 
   const handleChange = (e, id, eid) => {
     const data = parseFloat(e.target.value);
@@ -84,6 +80,16 @@ const Grading = () => {
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const handlePrev = () => {
+    setCurrentPage(currentPage - 1);
+    console.log(renderRow);
+  };
+
+  const handleNext = () => {
+    setCurrentPage(currentPage + 1);
+    console.log(renderRow);
   };
 
   const headerCSV = [
@@ -114,7 +120,7 @@ const Grading = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row, index) => (
+            {renderRow.map((row, index) => (
               <TableRow key={index}>
                 <TableCell component="th" scope="row">
                   {row.id}
@@ -135,7 +141,7 @@ const Grading = () => {
                         target="_blank"
                         className="link-file"
                       >
-                        {file.slice(18,-1)}
+                        {file.slice(18, -1)}
                       </a>
                     </div>
                   ))}
@@ -160,20 +166,17 @@ const Grading = () => {
         </Table>
       </TableContainer>
       <div className="fea-btn">
-        <button className="save-details" onClick={handleSave}>
-          Save Details
-        </button>
-        <CSVLink {...csvReport}>Export to CSV</CSVLink>
+        <div className="btn-left">
+          <button className="save-details" onClick={handleSave}>
+            Save Details
+          </button>
+          <CSVLink {...csvReport}>Export to CSV</CSVLink>
+        </div>
+        <div className="btn-right">
+          <button onClick={handlePrev}>Prev</button>
+          <button onClick={handleNext}>Next</button>
+        </div>
       </div>
-      <TablePagination
-        rowsPerPageOptions={[5, 10, 25]}
-        component="div"
-        count={rows.length}
-        rowsPerPage={rowsPerPage}
-        page={page}
-        onPageChange={handleChangePage}
-        onRowsPerPageChange={handleChangeRowsPerPage}
-      />
     </div>
   );
 };

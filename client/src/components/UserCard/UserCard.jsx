@@ -28,7 +28,7 @@ const UserCard = () => {
           <b>Email </b> : {user.username}
         </span>
         <span>
-          <b>Role</b> : Admin
+          <b>Role</b> : {user.isAdmin ? "Admin" : user.isTeacher ? "Teacher" : "Student"}
         </span>
       </div>
     </div>

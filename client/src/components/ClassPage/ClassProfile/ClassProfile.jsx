@@ -1,5 +1,6 @@
 // @ts-nocheck
 import { Group, Modal } from "@mantine/core";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
 import { getAllPost } from "api/ClassRequest";
 import SideBarMotion from "components/SideBarMotion/SideBarMotion";
 import React, { memo, useEffect, useState } from "react";
@@ -7,11 +8,9 @@ import { useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import ReactTextareaAutosize from "react-textarea-autosize";
 import ClassHeader from "../ClassHeader/ClassHeader";
-import AddCircleIcon from "@mui/icons-material/AddCircle";
-import UploadForm from "../../UploadForm/UploadForm"
 
-import "./ClassProfile.css";
 import UploadPost from "components/UploadPost/UploadPost";
+import "./ClassProfile.css";
 
 const ClassProfile = () => {
   const { user } = useSelector((state) => state.AuthReducer.authData);

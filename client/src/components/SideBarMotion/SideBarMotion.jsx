@@ -7,6 +7,8 @@ import TocIcon from "@mui/icons-material/Toc";
 import { motion } from "framer-motion";
 import Item from "../ClassPage/ClassContainer/Item";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import "./SideBarMotion.css";
 
 const SideBarMotion = () => {
   const serverPublicFolder = process.env.REACT_APP_FOLDER;
@@ -41,6 +43,7 @@ const SideBarMotion = () => {
     true: {
       alignSelf: "center",
       width: "5rem",
+      height: "5em",
       marginBottom: "2rem",
     },
     false: {
@@ -48,6 +51,7 @@ const SideBarMotion = () => {
       marginTop: "1rem",
       marginBottom: "0rem",
       width: "2.5rem",
+      height: "2.5em"
     },
   };
 
@@ -86,30 +90,32 @@ const SideBarMotion = () => {
           >
             <TocIcon />
           </motion.div>
-          <motion.div
-            className="profile"
-            initial={`${isOpen}`}
-            animate={`${isOpen}`}
-            variants={profileVariants}
-            transition={{ duration: 0.4 }}
-            whileHover={{
-              backgroundColor: "rgba(255, 255, 255, 0.3)",
-              boxShadow: "0 8px 32px 0 rgba(31, 38, 135, 0.37)",
-              backdropFilter: "blur(5.5px)",
-              WebkitBackdropFilter: "blur(5.5px)",
-              border: "1px solid rgba( 255, 255, 255, 0.18 )",
-              cursor: "pointer",
-            }}
-          >
-            <img
-              src={
-                user.profilePicture
-                  ? serverPublicFolder + user.profilePicture
-                  : serverPublicFolder + "DefaultAvatar.png"
-              }
-              alt=""
-            />
-          </motion.div>
+          <Link to={`../profile/${user._id}`}>
+            <motion.div
+              className="profile"
+              initial={`${isOpen}`}
+              animate={`${isOpen}`}
+              variants={profileVariants}
+              transition={{ duration: 0.4 }}
+              whileHover={{
+                backgroundColor: "rgba(255, 255, 255, 0.3)",
+                boxShadow: "0 8px 32px 0 rgba(31, 38, 135, 0.37)",
+                backdropFilter: "blur(5.5px)",
+                WebkitBackdropFilter: "blur(5.5px)",
+                border: "1px solid rgba( 255, 255, 255, 0.18 )",
+                cursor: "pointer",
+              }}
+            >
+              <img
+                src={
+                  user.profilePicture
+                    ? serverPublicFolder + user.profilePicture
+                    : serverPublicFolder + "DefaultAvatar.png"
+                }
+                alt=""
+              />
+            </motion.div>
+          </Link>
           <div className="groups">
             <div className="group">
               <motion.h3
@@ -120,9 +126,15 @@ const SideBarMotion = () => {
               >
                 ANALYTICS
               </motion.h3>
-              <Item icon={<HomeIcon />} name="Home" />
-              <Item icon={<ForumIcon />} name="Chat" />
-              <Item icon={<MediationIcon />} name="Media" />
+              <Link to="../" className="icon-class-link">
+                <Item icon={<HomeIcon />} name="Home" />
+              </Link>
+              <Link to="../chat/" className="icon-class-link">
+                <Item icon={<ForumIcon />} name="Chat" />
+              </Link>
+              <Link to="../media/" className="icon-class-link">
+                <Item icon={<MediationIcon />} name="Media" />
+              </Link>
             </div>
           </div>
         </motion.div>

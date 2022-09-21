@@ -50,7 +50,7 @@ const Diversion = () => {
               </div>
               <div className="profile-info">
                 <span>Hello {user.lastname} !</span>
-                <span>Role: Admin</span>
+                <span>Role: {user.isAdmin ? "Admin" : user.isTeacher ? "Teacher" : "Student"}</span>
               </div>
             </div>
           </div>

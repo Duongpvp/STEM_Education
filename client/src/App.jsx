@@ -1,6 +1,7 @@
 // @ts-nocheck
 import ExerciseManagement from "components/ClassManagementPage/ExerciseManagement/ExerciseManagement";
 import ClassProfile from "components/ClassPage/ClassProfile/ClassProfile";
+import EveryOne from "components/ClassPage/EveryOne/EveryOne";
 import AboutUs from "components/HomePage/AboutUs/AboutUs";
 import DeanBoard from "components/HomePage/DeanBoard/DeanBoard";
 import Department from "components/HomePage/Department/Department";
@@ -40,6 +41,7 @@ function App() {
         {/* Class Route */}
         <Route path = "/class/"  element = {user ? <Class/> : <Navigate to = "../auth"/>} />
         <Route path = "/class/:id/"  element = {user ? <ClassProfile/> : <Navigate to = "../auth"/>} />
+        <Route path = "/class/:id/everyone" element = {user ? <EveryOne/> : <Navigate to = "../auth"/>} />
         <Route path = "/class/:id/exercise/:eid" element = {user ? <Exercise/> : <Navigate to = "../auth" />} />
 
         {/* Class Management for teacher and admin */}

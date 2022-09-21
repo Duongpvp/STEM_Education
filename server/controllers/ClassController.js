@@ -80,6 +80,16 @@ export const getAllClass = async (req, res) => {
   }
 };
 
+export const getUserClass = async (req, res) => {
+  const classId = req.params.id;
+  try {
+    const classRoom = await classModel.findById(classId).populate("users", "-password");
+    res.status(200).json(classRoom.users);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const updateClass = async (req, res) => {
   const id = req.params.id;
   const img = req.body.image;

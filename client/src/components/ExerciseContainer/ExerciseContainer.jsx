@@ -6,9 +6,11 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import TextareaAutosize from "react-textarea-autosize";
+import "./ExerciseContainer.css"
 
 const ExerciseContainer = () => {
   const params = useParams();
+  const serverPublicFile = process.env.REACT_APP_FILES
   const [post, setPost] = useState(null);
   const serverPublicFolder = process.env.REACT_APP_FOLDER;
   const { user } = useSelector((state) => state.AuthReducer.authData);
@@ -37,7 +39,13 @@ const ExerciseContainer = () => {
       </div>
 
       <p className="exercise-desc">{post?.desc}</p>
-
+      <div className="exercise-files">
+        {post?.files.map((file) => (
+          <div key={file._id} className="exercise-file-item">
+            <a href={`${serverPublicFile + file}`}>{file.slice(18,-1)}</a>
+          </div>
+        ))}
+      </div>
       <div className="hr-line">
         <hr className="nav-lines" />
       </div>

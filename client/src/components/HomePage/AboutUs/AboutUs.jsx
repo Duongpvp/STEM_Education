@@ -14,7 +14,7 @@ const AboutUs = () => {
       </h3>
       <div className="about-content">
         <img
-          src="https://scontent.fsgn3-1.fna.fbcdn.net/v/t39.30808-6/277092830_312679057625781_5028282242229111245_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=e3f864&_nc_ohc=whRqPLJJUVUAX-eIs6N&tn=3vFRoDkW5hL2o-CM&_nc_ht=scontent.fsgn3-1.fna&oh=00_AT8kkfcaSRoYFv57M6Q1THUxX6heJsh0jw3Mc3UMZg5fqA&oe=63146232"
+          src="https://scontent.fsgn7-1.fna.fbcdn.net/v/t39.30808-6/277092830_312679057625781_5028282242229111245_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=e3f864&_nc_ohc=EhJyfgxZBssAX_X8jYD&_nc_ht=scontent.fsgn7-1.fna&oh=00_AT8FbvF-Sx6SwSZovjEw9yqVeK_WVvQrNL-TNX8JpeYeYA&oe=633011B2"
           alt=""
           className="img-container-1"
         />
@@ -107,7 +107,7 @@ const AboutUs = () => {
         </div>
         <div className="right-side">
           <img
-            src="https://scontent.fsgn3-1.fna.fbcdn.net/v/t39.30808-6/275923563_312625627631124_3867208868539288578_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=8bfeb9&_nc_ohc=gbNNJqAMMnoAX-GHtnc&_nc_ht=scontent.fsgn3-1.fna&oh=00_AT_r5PmJ2GdMAZE4IUBWwN6zcJtu04T3LmaD6M9s9Qv72A&oe=63141005"
+            src="https://scontent.fsgn7-1.fna.fbcdn.net/v/t39.30808-6/275923563_312625627631124_3867208868539288578_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=8bfeb9&_nc_ohc=YCebrKJSyUcAX8_bUT1&tn=W9uXi7Ccu9GehMj1&_nc_ht=scontent.fsgn7-1.fna&oh=00_AT9ShyBWBHgMQSvB6V6QxsaNeEZvRqcfshzj1Rx8zEYC7g&oe=632FBF85"
             alt=""
             className="img-container-2"
           />
@@ -117,7 +117,7 @@ const AboutUs = () => {
       <div className="undergraduate">
         <div className="left-side">
           <img
-            src="https://scontent.fsgn3-1.fna.fbcdn.net/v/t39.30808-6/276288263_312625577631129_3137987649390360973_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=8bfeb9&_nc_ohc=sRl_BlpuTqEAX8RrkYn&_nc_ht=scontent.fsgn3-1.fna&oh=00_AT-k1Ju5lCOgB3VoKCCYmMnDj4Z6g_ZqQn7cVtUkRZyCmw&oe=63133700"
+            src="https://scontent.fsgn7-1.fna.fbcdn.net/v/t39.30808-6/275879625_312625614297792_5165504687911934932_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=8bfeb9&_nc_ohc=86YBLRZqVswAX9YmsqQ&_nc_ht=scontent.fsgn7-1.fna&oh=00_AT-bMN476ukg5B0salzOKV8QisQd-YFbCH4WZ413FMzOhA&oe=632F241A"
             alt=""
             className="img-container-2"
           />
@@ -155,7 +155,7 @@ const AboutUs = () => {
         </div>
         <div className="right-side">
           <img
-            src="https://scontent.fsgn8-2.fna.fbcdn.net/v/t39.30808-6/275879625_312625614297792_5165504687911934932_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=8bfeb9&_nc_ohc=bCx8xk9Gnm0AX8DlPCd&_nc_ht=scontent.fsgn8-2.fna&oh=00_AT8-Klvgxm8JgEU2zIVOb1CSIvkTLp6Jbh6TgY9zSvitzA&oe=6313749A"
+            src="https://scontent.fsgn7-1.fna.fbcdn.net/v/t39.30808-6/276176192_312625564297797_5373043511812122136_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=8bfeb9&_nc_ohc=F-E9BAq5H80AX_3KACZ&_nc_ht=scontent.fsgn7-1.fna&oh=00_AT_hgxNRXW8Kz21yywtNpDdyN8NXr43wYN5KFrLsI1312g&oe=632F6500"
             alt=""
             className="img-container-2"
           />

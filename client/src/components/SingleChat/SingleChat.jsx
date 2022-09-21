@@ -145,13 +145,13 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
             />
             {messages && !chats.selectChat.isGroupChat ? (
               <>
-                {/* {getSender(user, chats?.selectChat?.users)} */}
-                {/* <InfoModal
+                {getSender(user, chats?.selectChat?.users)}
+                <InfoModal
                   user={getFullSender(user, chats.selectChat?.users)}
                   fetchMessages={fetchMessages}
                   fetchAgain={fetchAgain}
                   setFetchAgain={setFetchAgain}
-                /> */}
+                />
               </>
             ) : (
               <>
