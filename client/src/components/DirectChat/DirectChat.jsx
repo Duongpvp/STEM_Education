@@ -117,7 +117,8 @@ const DirectChat = () => {
             aria-expanded={open ? "true" : undefined}
           >
             <Avatar
-              sx={{ width: 32, height: 32 }}
+              sx={{ width: 40, height: 40 }}
+              style={{boxShadow: "0 2px 8px #333"}}
               src={
                 user.profilePicture
                   ? serverPublicFolder + user.profilePicture

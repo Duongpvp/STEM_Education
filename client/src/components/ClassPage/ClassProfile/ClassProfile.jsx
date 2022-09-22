@@ -11,6 +11,7 @@ import ClassHeader from "../ClassHeader/ClassHeader";
 
 import UploadPost from "components/UploadPost/UploadPost";
 import "./ClassProfile.css";
+import { ToastContainer } from "react-toastify";
 
 const ClassProfile = () => {
   const { user } = useSelector((state) => state.AuthReducer.authData);
@@ -65,6 +66,7 @@ const ClassProfile = () => {
                 title="Create new post"
                 centered
               >
+                <ToastContainer/>
                 <div className="class-modal-content">
                   <div className="input-box">
                     <ReactTextareaAutosize minRows={1} name="title" required onChange={handleChangeTitle}/>

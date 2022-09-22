@@ -5,6 +5,7 @@ import UploadItems from "components/UploadForm/UploadItems";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 import "./UploadPost.css";
 
 const UploadPost = ({title, desc}) => {
@@ -39,6 +40,15 @@ const UploadPost = ({title, desc}) => {
     try {
       const listFiles = JSON.stringify(uploadedfile.map((file) => file));
       dispatch(uploadClassPost(title, desc, listFiles, params.id));
+      toast.success('Post created successfully!', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        })
     } catch (error) {
       console.log(error);
     }

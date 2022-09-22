@@ -1,5 +1,6 @@
 import emailjs from "@emailjs/browser";
 import React, { useRef } from "react";
+import { toast } from "react-toastify";
 import "./HomeContact.css";
 
 const HomeContact = () => {
@@ -25,6 +26,15 @@ const HomeContact = () => {
           console.log(error.text);
         }
       );
+    toast.success("Email sent successfully!", {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
   };
 
   return (

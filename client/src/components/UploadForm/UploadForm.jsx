@@ -8,6 +8,7 @@ import UploadItems from "./UploadItems";
 import { useParams } from "react-router-dom";
 import ReactTextareaAutosize from "react-textarea-autosize";
 import SendIcon from "@mui/icons-material/Send";
+import { toast } from "react-toastify";
 
 const UploadForm = () => {
   const { user } = useSelector((state) => state.AuthReducer.authData);
@@ -48,6 +49,15 @@ const UploadForm = () => {
     try {
       const listFiles = JSON.stringify(uploadedfile.map((file) => file));
       dispatch(uploadExercise(user._id, submission, listFiles, params.eid));
+      toast.success(" Upload exercises successfully!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      })
     } catch (error) {
       console.log(error);
     }

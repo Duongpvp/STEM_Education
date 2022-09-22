@@ -6,6 +6,7 @@ import Grading from "components/Grading/Grading";
 import SideBarMotion from "components/SideBarMotion/SideBarMotion";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 import "./ExerciseManagement.css";
 
 const ExerciseManagement = () => {
@@ -28,6 +29,7 @@ const ExerciseManagement = () => {
 
   return (
     <div className="exercise-management">
+      <ToastContainer/>
       <SideBarMotion />
       <div className="body-exercise-container" style={{ width: "100%" }}>
         {isPreview ? <ExerciseContainer /> : <Grading/>}

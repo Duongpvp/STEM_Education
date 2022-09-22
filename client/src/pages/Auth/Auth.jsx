@@ -1,11 +1,13 @@
 // @ts-nocheck
-import React from "react";
-import "./Auth.css";
-import Logo from "../../assets/img/Logo.png";
-import { FaFacebookF, FaInstagram, FaTwitter } from "react-icons/fa";
-import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { logIn, signUp } from "actions/AuthAction";
+import React, { useState } from "react";
+import { FaFacebookF, FaInstagram, FaTwitter } from "react-icons/fa";
+import { useDispatch, useSelector } from "react-redux";
+// import Logo from "../../assets/img/Logo.png";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Logo from "../../assets/img/Logo_Education.png"
+import "./Auth.css";
 
 const Auth = () => {
   const [data, setData] = useState({
@@ -16,6 +18,7 @@ const Auth = () => {
     confirmpassword: "",
   });
 
+  const { user } = useSelector((state) => state.AuthReducer);
   const loading = useSelector((state) => state.AuthReducer.loading);
   const dispatch = useDispatch();
   const [isSignUp, setIsSignUp] = useState(false);
@@ -35,7 +38,22 @@ const Auth = () => {
         ? dispatch(signUp(data))
         : setConfirmPass(false);
     } else {
-      dispatch(logIn(data));
+      try {
+        dispatch(logIn(data));
+        if (!user) {
+          toast.error(" Something went wrong with your account!", {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
+        }
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
 
@@ -52,15 +70,26 @@ const Auth = () => {
 
   return (
     <div className="Auth">
+      <ToastContainer />
       <div className="Left-Info">
         <img src={Logo} alt="" />
-        <div className="WebName">
-          <h1>OUTSTAGRAM</h1>
-          <h5>Share with us your moments</h5>
-        </div>
+      </div>
+      <div class="area">
+        <ul class="circles">
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
       </div>
       <div className="From">
-        <h3>{isSignUp ? "SIGN UP" : "LOGIN"}</h3>
+        <h4>{isSignUp ? "SIGN UP" : "LOGIN"}</h4>
         <form className="infoFrom" onSubmit={handleSubmit}>
           {isSignUp && (
             <div>

@@ -3,7 +3,13 @@
     display: flex;
     width: 100%;
     min-height: 100vh;
-    background-color: blueviolet;
     margin: -1rem;
     width: 102.5%;
+}
+
+.admin-body {
+    display: flex;
+    width: 83vw;
+    margin-top: 32px;
+    justify-content: flex-end;
 }

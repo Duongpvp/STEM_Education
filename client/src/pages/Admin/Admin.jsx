@@ -6,8 +6,10 @@ import "./Admin.css";
 const Admin = () => {
   return (
     <div className="admin">
-      <AdminSidebar/>
-      <DashBoard/>
+      <AdminSidebar />
+      <div className="admin-body">
+        <DashBoard />
+      </div>
     </div>
   );
 };

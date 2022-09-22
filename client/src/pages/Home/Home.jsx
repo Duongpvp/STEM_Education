@@ -7,11 +7,13 @@ import IntroContent from "components/HomePage/IntroContent/IntroContent";
 import ShortCutNav from "components/HomePage/ShortCutNav/ShortCutNav";
 import Slider from "components/HomePage/Slider/Slider";
 import React from "react";
+import { ToastContainer } from "react-toastify";
 import "./Home.css";
 
 const Home = () => {
   return (
     <div className="home">
+      <ToastContainer/>
       <div className="hero">
         <div className="left-h">
           <Header />

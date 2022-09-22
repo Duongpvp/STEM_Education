@@ -1,4 +1,7 @@
-.dashboard {
-    width: 80%;
-    background-color: darkgray;
+.dashboard > img {
+    width: 62px;
+    height: 62px;
+    object-fit: cover;
+    border-radius: 50%;
+    box-shadow: 0 2px 8px #333;
 }

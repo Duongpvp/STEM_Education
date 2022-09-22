@@ -14,6 +14,7 @@ import React, { useEffect, useState } from "react";
 import { CSVLink } from "react-csv";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 import "./Grading.css";
 
 const Grading = () => {
@@ -72,6 +73,15 @@ const Grading = () => {
 
   const handleSave = () => {
     setDetails(details);
+    toast.success('Successful scoring!', {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      })
     try {
       details.map((rq) => {
         dispatch(gradingExercise(rq.id, rq.grade));
