@@ -11,6 +11,10 @@
     width: 230px;
 }
 
+.admin-sidebar a {
+    text-decoration: none;
+}
+
 .admin-sidebar .feature-group {
     display: flex;
     flex-direction: row;

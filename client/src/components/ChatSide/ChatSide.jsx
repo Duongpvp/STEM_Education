@@ -84,7 +84,7 @@ const ChatSide = () => {
       >
         {myChat ? (
           <>
-            <Heading as="h3" size="lg" textTransform="uppercase">
+            <Heading as="h4" size="lg" textTransform="uppercase">
               User Chat
             </Heading>
             <Stack overflow="scroll" height="320px">
@@ -169,7 +169,7 @@ const ChatSide = () => {
                 );
               })}
             </Stack>
-            <Heading as="h3" size="lg" textTransform="uppercase">
+            <Heading as="h4" size="lg" textTransform="uppercase">
               Group Chat
             </Heading>
             <Stack overflow="scroll" height="320px">

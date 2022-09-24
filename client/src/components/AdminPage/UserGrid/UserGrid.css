@@ -1,0 +1,23 @@
+.row-btn {
+    width: 42px;
+    border: 1px solid transparent;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.row-btn > svg {
+    transition: 0.3s;
+}
+
+.row-btn > .see-icon:hover {
+    color: green;
+}
+
+.row-btn > .edit-icon:hover {
+    color: blue;
+}
+
+.row-btn > .delete-icon:hover {
+    color: red;
+}
+

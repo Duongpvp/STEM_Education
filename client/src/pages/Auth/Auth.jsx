@@ -3,10 +3,9 @@ import { logIn, signUp } from "actions/AuthAction";
 import React, { useState } from "react";
 import { FaFacebookF, FaInstagram, FaTwitter } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
-// import Logo from "../../assets/img/Logo.png";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Logo from "../../assets/img/Logo_Education.png"
+import Logo from "../../assets/img/Logo_Education.png";
 import "./Auth.css";
 
 const Auth = () => {
@@ -40,17 +39,6 @@ const Auth = () => {
     } else {
       try {
         dispatch(logIn(data));
-        if (!user) {
-          toast.error(" Something went wrong with your account!", {
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-          });
-        }
       } catch (error) {
         console.log(error);
       }

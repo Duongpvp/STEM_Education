@@ -95,11 +95,10 @@ export const searchUser = async (req, res) => {
         ],
       }
     : {};
-  const users = await UserModel.find(keyword)
-    .find({
-      _id: { $ne: req.user_id },
-    })
-    
+  const users = await UserModel.find(keyword).find({
+    _id: { $ne: req.user_id },
+  }).populate("password");
+
   res.send(users);
 };
 

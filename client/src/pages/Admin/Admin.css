@@ -11,5 +11,11 @@
     display: flex;
     width: 83vw;
     margin-top: 32px;
+    justify-content: flex-start;
+    flex-direction: column;
+}
+
+.admin-body > .direct-side {
+    display: flex;
     justify-content: flex-end;
 }

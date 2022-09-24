@@ -1,4 +1,6 @@
 // @ts-nocheck
+import AdminClass from "components/AdminPage/AdminClass/AdminClass";
+import AdminUser from "components/AdminPage/AdminUser/AdminUser";
 import ExerciseManagement from "components/ClassManagementPage/ExerciseManagement/ExerciseManagement";
 import ClassProfile from "components/ClassPage/ClassProfile/ClassProfile";
 import EveryOne from "components/ClassPage/EveryOne/EveryOne";
@@ -58,6 +60,11 @@ function App() {
         {/* User Route */}
         <Route path = "/admin" element = {user && user.user.isAdmin ? <Admin/> : <Navigate to = "../auth"/> } />
         <Route path = "/classmanagement" element = { (user && user.user.isTeacher) || (user && user.user.isAdmin) ? <ClassManagement/> : <Navigate to = "../auth"/> }/>
+
+        {/* Admin Route */}
+        <Route path = "/admin/users" element = {user && user.user.isAdmin ? <AdminUser/> : <Navigate to = "../auth"/> } />
+        <Route path = "/admin/class" element = {user && user.user.isAdmin ? <AdminClass/> : <Navigate to = "../auth"/> } />
+
       </Routes>
     </div>
 

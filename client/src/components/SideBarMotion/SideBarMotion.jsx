@@ -41,13 +41,11 @@ const SideBarMotion = () => {
 
   const profileVariants = {
     true: {
-      alignSelf: "center",
       width: "5rem",
       height: "5em",
       marginBottom: "2rem",
     },
     false: {
-      alignSelf: "flex-start",
       marginTop: "1rem",
       marginBottom: "0rem",
       width: "2.5rem",
@@ -80,10 +78,6 @@ const SideBarMotion = () => {
               backgroundColor: "rgba(255,255,255,0.7)",
               backdropFilter: "blur(6.9px)",
               border: "1px solid rgba(255, 255, 255, 0.24)",
-              transition: {
-                delay: 0.2,
-                duration: 0.4,
-              },
             }}
             className="lines-icon"
             onClick={handleToggle}
