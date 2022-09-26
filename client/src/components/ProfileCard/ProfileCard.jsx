@@ -14,7 +14,7 @@ const ProfileCard = ({ user, location }) => {
       <div className="ProfileImages">
         <img
           src={
-            user.coverPicture
+            user?.coverPicture
               ? serverPublicFolder + user.coverPicture
               : serverPublicFolder + "DefaultBackground.png"
           }
@@ -22,7 +22,7 @@ const ProfileCard = ({ user, location }) => {
         />
         <img
           src={
-            user.profilePicture
+            user?.profilePicture
               ? serverPublicFolder + user.profilePicture
               : serverPublicFolder + "DefaultAvatar.png"
           }
@@ -31,21 +31,21 @@ const ProfileCard = ({ user, location }) => {
 
         <div className="ProfileName">
           <span>
-            {user.firstname} {user.lastname}
+            {user?.firstname} {user?.lastname}
           </span>
-          <span>{user.workAt ? user.workAt : "Write something ..."}</span>
+          <span>{user?.workAt ? user?.workAt : "Write something ..."}</span>
         </div>
 
         <div className="FollowStatus">
           <hr />
           <div>
             <div className="Follow">
-              <span>{user.following.length}</span>
+              <span>{user?.following.length}</span>
               <span>Following</span>
             </div>
             <div className="split-col"> </div>
             <div className="Follow">
-              <span>{user.followers.length}</span>
+              <span>{user?.followers.length}</span>
               <span>Followers</span>
             </div>
             {location === "profilePage" && (

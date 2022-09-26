@@ -1,7 +1,5 @@
 import classModel from "../models/classModel.js";
 import UserModel from "../models/userModel.js";
-import exerciseModel from "../models/exerciseModel.js";
-import mongoose from "mongoose";
 
 export const createClass = async (req, res) => {
   if (!req.body.users || !req.body.className || !req.body.classAdmin) {
@@ -73,7 +71,10 @@ export const getClass = async (req, res) => {
 
 export const getAllClass = async (req, res) => {
   try {
-    const classed = await classModel.find().populate("users", "-password");
+    const classed = await classModel
+      .find()
+      .populate("users", "-password")
+      .populate("classAdmin", "-password");
     res.status(200).json(classed);
   } catch (error) {
     console.log(error);
@@ -83,7 +84,9 @@ export const getAllClass = async (req, res) => {
 export const getUserClass = async (req, res) => {
   const classId = req.params.id;
   try {
-    const classRoom = await classModel.findById(classId).populate("users", "-password");
+    const classRoom = await classModel
+      .findById(classId)
+      .populate("users", "-password");
     res.status(200).json(classRoom.users);
   } catch (error) {
     console.log(error);
@@ -91,6 +94,20 @@ export const getUserClass = async (req, res) => {
 };
 
 export const updateClass = async (req, res) => {
+  const id = req.params.id;
+  const { className, desc } = req.body;
+  const updatedClass = await classModel
+    .findByIdAndUpdate(id, { className: className, snippet: desc })
+    .populate("users", "-password")
+    .populate("classAdmin", "-password");
+  if (!updatedClass) {
+    res.status(404).json("Class not found !");
+  } else {
+    res.send(updatedClass);
+  }
+};
+
+export const updateImgClass = async (req, res) => {
   const id = req.params.id;
   const img = req.body.image;
   const updatedClass = await classModel

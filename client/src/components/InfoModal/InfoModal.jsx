@@ -15,7 +15,6 @@ const InfoModal = ({ user }) => {
         transitionDuration={200}
         opened={opened}
         onClose={() => setOpened(false)}
-        title="Introduce yourself!"
       >
         {user && <ProfileCard user={user} location={"chatPage"} />}
       </Modal>

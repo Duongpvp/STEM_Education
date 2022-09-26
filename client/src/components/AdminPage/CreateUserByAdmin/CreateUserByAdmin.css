@@ -1,0 +1,32 @@
+.create-user-by-admin {
+    margin-left: 16px;
+    text-transform: uppercase;
+    font-weight: 410;
+    color: rgba(25, 118, 210, 1);
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 6px;
+    transition: 0.3s;
+}
+
+.create-user-by-admin:hover {
+    background-color: rgba(25, 118, 210, 0.04);
+}
+
+.create-user-by-admin > svg {
+    font-size: 1.2em;
+    margin-right: 6px;
+}
+
+.btn-group-create {
+    display: flex;
+}
+
+.btn-group-create > button:nth-of-type(1) {
+    margin-right: 12px;
+}
+
+.btn-group-create > button:nth-of-type(2) {
+    background-color: rgb(247, 42, 42);
+}

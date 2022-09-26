@@ -1,0 +1,259 @@
+// @ts-nocheck
+import { Modal } from "@mantine/core";
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
+import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
+import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import { useTheme } from "@mui/material/styles";
+import Tab from "@mui/material/Tab";
+import Tabs from "@mui/material/Tabs";
+import {
+  DataGrid,
+  GridToolbarContainer,
+  GridToolbarExport
+} from "@mui/x-data-grid";
+import { fetchAllClass } from "api/ClassRequest";
+import moment from "moment/moment";
+import PropTypes from "prop-types";
+import React, { useEffect, useState } from "react";
+import AdminClassCard from "../AdminClassCard/AdminClassCard";
+import ClassOverView from "../ClassOverView/ClassOverView";
+import TabPanel from "../TabPanel/TabPanel";
+import UserOverview from "../UserOverview/UserOverview";
+import "./ClassGrid.css";
+
+const ClassGrid = () => {
+  const CustomToolbar = () => {
+    return (
+      <GridToolbarContainer>
+        <GridToolbarExport />
+        {/* Create Class by Admin */}
+      </GridToolbarContainer>
+    );
+  };
+
+  const [classData, setClassData] = useState([]);
+  const [fetchAgain, setFetchAgain] = useState(false);
+  const [pageSize, setPageSize] = useState(5);
+  const [seeOpened, setSeeOpened] = useState(false);
+  const [editOpened, setEditOpened] = useState(false);
+  const [deleteOpened, setDeleteOpened] = useState(false);
+  const [currentData, setCurrentData] = useState();
+
+  useEffect(() => {
+    const getAllUsers = async () => {
+      const { data } = await fetchAllClass();
+      setClassData(data);
+    };
+    getAllUsers();
+  }, [fetchAgain]);
+
+  const handleSeeClick = (e, cellValues) => {
+    setSeeOpened(true);
+    setCurrentData(cellValues.row);
+  };
+
+  const handleEditClick = (e, cellValues) => {
+    setEditOpened(true);
+    setCurrentData(cellValues.row);
+  };
+
+  const handleDeleteClick = (e, cellValues) => {
+    setDeleteOpened(true);
+    setCurrentData(cellValues.row);
+  };
+
+  const deleteClassHandler = () => {};
+
+  const columns = [
+    { field: "id", headerName: "ID", width: 30, editable: false },
+    {
+      field: "className",
+      headerName: "Class Name",
+      width: 210,
+      editable: false,
+    },
+    {
+      field: "classAdmin",
+      headerName: "Class Admin",
+      width: 130,
+      editable: false,
+    },
+    {
+      field: "snippet",
+      headerName: "Description",
+      width: 350,
+      editable: false,
+    },
+    {
+      field: "createdAt",
+      headerName: "Created At",
+      width: 200,
+      editable: false,
+    },
+    {
+      field: "updatedAt",
+      headerName: "Updated At",
+      width: 200,
+      editable: false,
+    },
+    {
+      field: "action",
+      headerName: "Action",
+      width: 130,
+      editable: false,
+      renderCell: (cellValues) => {
+        return (
+          <>
+            <button
+              className="row-btn"
+              onClick={(event) => {
+                handleSeeClick(event, cellValues);
+              }}
+            >
+              <RemoveRedEyeIcon className="see-icon" />
+            </button>
+
+            <button
+              className="row-btn"
+              onClick={(event) => {
+                handleEditClick(event, cellValues);
+              }}
+            >
+              <EditIcon className="edit-icon" />
+            </button>
+
+            <button
+              className="row-btn"
+              onClick={(event) => {
+                handleDeleteClick(event, cellValues);
+              }}
+            >
+              <DeleteIcon className="delete-icon" />
+            </button>
+          </>
+        );
+      },
+    },
+  ];
+
+  const rows = [];
+
+  for (var i = 0; i < classData?.length; i++) {
+    rows.push({
+      id: i,
+      cid: classData[i]._id,
+      className: classData[i].className,
+      classAdmin: classData[i].classAdmin.username,
+      snippet: classData[i].snippet,
+      createdAt: moment(classData[i].createdAt).format(
+        "HH:mm:ss -- MM/DD/YYYY"
+      ),
+      updatedAt: moment(classData[i].updatedAt).format(
+        "HH:mm:ss -- MM/DD/YYYY"
+      ),
+      users: classData[i].users,
+    });
+  }
+
+  TabPanel.propTypes = {
+    children: PropTypes.node,
+    index: PropTypes.number.isRequired,
+    value: PropTypes.number.isRequired,
+  };
+
+  const a11yProps = (index) => {
+    return {
+      id: `full-width-tab-${index}`,
+      "aria-controls": `full-width-tabpanel-${index}`,
+    };
+  };
+
+  const theme = useTheme();
+  const [value, setValue] = useState(0);
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
+
+
+  return (
+    <div>
+      <Modal
+        transition="fade"
+        transitionDuration={600}
+        opened={seeOpened}
+        onClose={() => setSeeOpened(false)}
+      >
+        <AdminClassCard classData={currentData} />
+      </Modal>
+      <Modal
+        transition="fade"
+        transitionDuration={600}
+        opened={editOpened}
+        onClose={() => setEditOpened(false)}
+        size="80%"
+      >
+        <Box sx={{ bgcolor: "background.paper", width: "100%" }}>
+          <AppBar position="static">
+            <Tabs
+              value={value}
+              onChange={handleChange}
+              variant="fullWidth"
+              aria-label="full width tabs example"
+            >
+              <Tab style={{backgroundColor: "#fff", color: "#333"}} label="Overview" {...a11yProps(0)} />
+              <Tab style={{backgroundColor: "#fff", color: "#333"}} label="Users" {...a11yProps(1)} />
+            </Tabs>
+          </AppBar>
+          
+            <TabPanel value={value} index={0} dir={theme.direction}>
+              <ClassOverView currentData={currentData} />
+            </TabPanel>
+            <TabPanel value={value} index={1} dir={theme.direction}>
+              <UserOverview currentData={currentData} />
+            </TabPanel>
+        </Box>
+      </Modal>
+      <Modal
+        transition="fade"
+        transitionDuration={600}
+        opened={deleteOpened}
+        onClose={() => setDeleteOpened(false)}
+      >
+        <div className="delete-group">
+          <span>Are you sure you want to delete this class?</span>
+          <div className="btn-delete-group">
+            <button className="bttn btn-confirm" onClick={deleteClassHandler}>
+              DELETE
+            </button>
+            <button
+              className="bttn btn-cancel"
+              onClick={() => setDeleteOpened(false)}
+            >
+              CANCEL
+            </button>
+          </div>
+        </div>
+      </Modal>
+      {rows && (
+        <div style={{ height: 700, width: "100%" }}>
+          <DataGrid
+            pageSize={pageSize}
+            onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
+            rowsPerPageOptions={[5, 10, 20]}
+            pagination
+            rows={rows}
+            columns={columns}
+            components={{
+              Toolbar: CustomToolbar,
+            }}
+          />
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default ClassGrid;

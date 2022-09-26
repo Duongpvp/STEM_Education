@@ -1,30 +1,49 @@
 // @ts-nocheck
+import { Modal } from "@mantine/core";
+import DeleteIcon from "@mui/icons-material/Delete";
+import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
+import EditIcon from "@mui/icons-material/Edit";
 import {
   DataGrid,
   GridToolbarContainer,
   GridToolbarExport,
 } from "@mui/x-data-grid";
-import { searchUser } from "api/UserRequest";
-import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
-import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
+import { deletedUser, editRoleUser, searchUser } from "api/UserRequest";
+import ProfileCard from "components/ProfileCard/ProfileCard";
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import "./UserGrid.css";
-import { Modal } from "@mantine/core";
+import {
+  FormControl,
+  FormControlLabel,
+  FormLabel,
+  Radio,
+  RadioGroup,
+  TextField,
+} from "@mui/material";
+import CreateUserByAdmin from "../CreateUserByAdmin/CreateUserByAdmin";
 
 const UserGrid = () => {
   const CustomToolbar = () => {
     return (
       <GridToolbarContainer>
         <GridToolbarExport />
+        <CreateUserByAdmin
+          fetchAgain={fetchAgain}
+          setFetchAgain={setFetchAgain}
+        />
       </GridToolbarContainer>
     );
   };
 
+  const { user } = useSelector((state) => state.AuthReducer.authData);
   const [userData, setUserData] = useState();
   const [seeOpened, setSeeOpened] = useState(false);
   const [editOpened, setEditOpened] = useState(false);
   const [deleteOpened, setDeleteOpened] = useState(false);
+  const [currentUser, setCurrentUser] = useState(null);
+  const [fetchAgain, setFetchAgain] = useState(false);
+  const [pageSize, setPageSize] = useState(10);
 
   useEffect(() => {
     const getAllUsers = async () => {
@@ -32,41 +51,90 @@ const UserGrid = () => {
       setUserData(data);
     };
     getAllUsers();
-  }, []);
+  }, [fetchAgain]);
+
+  const rows = [];
+
+  for (var i = 0; i < userData?.length; i++) {
+    rows.push({
+      id: i,
+      uid: userData[i]._id,
+      username: userData[i].username,
+      firstname: userData[i].firstname,
+      lastname: userData[i].lastname,
+      createdAt: userData[i].createdAt,
+      updatedAt: userData[i].updatedAt,
+      following: userData[i].following,
+      followers: userData[i].followers,
+      coverPicture: userData[i].coverPicture,
+      role: userData[i].isAdmin
+        ? "Admin"
+        : userData[i].isTeacher
+        ? "Teacher"
+        : "Student",
+    });
+  }
 
   const handleSeeClick = (e, cellValues) => {
     setSeeOpened(true);
+    setCurrentUser(cellValues.row);
   };
 
   const handleEditClick = (e, cellValues) => {
+    setCurrentUser(cellValues.row);
     setEditOpened(true);
   };
 
   const handleDeleteClick = (e, cellValues) => {
     setDeleteOpened(true);
+    setCurrentUser(cellValues.row);
+  };
+
+  const handleDelete = async () => {
+    try {
+      await deletedUser(currentUser.uid, user._id, user.isAdmin);
+      setFetchAgain(!fetchAgain);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleRole = async (e) => {
+    try {
+      await editRoleUser(currentUser.uid, e.target.value);
+      setFetchAgain(!fetchAgain);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const columns = [
-    { field: "id", headerName: "ID", width: 80, editable: true },
-    { field: "username", headerName: "User_Name", width: 280, editable: true },
+    { field: "id", headerName: "ID", width: 30, editable: false },
+    { field: "username", headerName: "User_Name", width: 180, editable: false },
     {
       field: "firstname",
       headerName: "First_Name",
-      width: 160,
-      editable: true,
+      width: 120,
+      editable: false,
     },
-    { field: "lastname", headerName: "Last_Name", width: 160, editable: true },
+    { field: "lastname", headerName: "Last_Name", width: 120, editable: false },
     {
       field: "createdAt",
       headerName: "Created At",
       width: 220,
-      editable: true,
+      editable: false,
     },
     {
       field: "updatedAt",
       headerName: "Updated At",
       width: 220,
-      editable: true,
+      editable: false,
+    },
+    {
+      field: "role",
+      headerName: "Role",
+      width: 80,
+      editable: false,
     },
     {
       field: "action",
@@ -83,6 +151,7 @@ const UserGrid = () => {
             >
               <RemoveRedEyeIcon className="see-icon" />
             </button>
+
             <button
               className="row-btn"
               onClick={(event) => {
@@ -91,6 +160,7 @@ const UserGrid = () => {
             >
               <EditIcon className="edit-icon" />
             </button>
+
             <button
               className="row-btn"
               onClick={(event) => {
@@ -105,62 +175,103 @@ const UserGrid = () => {
     },
   ];
 
-  const rows = [];
-
-  for (var i = 0; i < userData?.length; i++) {
-    rows.push({
-      id: i,
-      username: userData[i].username,
-      firstname: userData[i].firstname,
-      lastname: userData[i].lastname,
-      createdAt: userData[i].createdAt,
-      updatedAt: userData[i].updatedAt,
-    });
-  }
-
-  console.log(rows);
-
   return (
     <>
       <Modal
         transition="fade"
         transitionDuration={600}
-        transitionTimingFunction="ease"
         opened={seeOpened}
         onClose={() => setSeeOpened(false)}
       >
-        See
+        <ProfileCard user={currentUser} location={"admin"} />
       </Modal>
 
       <Modal
         transition="fade"
         transitionDuration={600}
-        transitionTimingFunction="ease"
         opened={editOpened}
         onClose={() => setEditOpened(false)}
       >
-        Edit
+        <TextField
+          fullWidth
+          disabled
+          id="outlined-disabled"
+          label="Username"
+          defaultValue={currentUser?.username}
+          style={{ marginBottom: "20px" }}
+        />
+
+        <TextField
+          fullWidth
+          disabled
+          id="outlined-disabled"
+          label="Fullname"
+          defaultValue={currentUser?.firstname + " " + currentUser?.lastname}
+          style={{ marginBottom: "20px" }}
+        />
+
+        <FormControl>
+          <FormLabel id="demo-row-radio-buttons-group-label">Role</FormLabel>
+          <RadioGroup
+            defaultValue={currentUser?.role}
+            row
+            aria-labelledby="demo-row-radio-buttons-group-label"
+            name="row-radio-buttons-group"
+            onChange={handleRole}
+          >
+            <FormControlLabel value="Admin" control={<Radio />} label="Admin" />
+            <FormControlLabel
+              value="Teacher"
+              control={<Radio />}
+              label="Teacher"
+            />
+            <FormControlLabel
+              value="Student"
+              control={<Radio />}
+              label="Student"
+            />
+          </RadioGroup>
+        </FormControl>
       </Modal>
 
       <Modal
         transition="fade"
         transitionDuration={600}
-        transitionTimingFunction="ease"
         opened={deleteOpened}
         onClose={() => setDeleteOpened(false)}
+        centered
       >
-        Delete
+        <div className="delete-group">
+          <span>Are you sure you want to delete this user?</span>
+          <div className="btn-delete-group">
+            <button className="bttn btn-confirm" onClick={handleDelete}>
+              DELETE
+            </button>
+            <button
+              className="bttn btn-cancel"
+              onClick={() => setDeleteOpened(false)}
+            >
+              CANCEL
+            </button>
+          </div>
+        </div>
       </Modal>
 
-      <div style={{ height: 300, width: "100%" }}>
-        <DataGrid
-          rows={rows}
-          columns={columns}
-          components={{
-            Toolbar: CustomToolbar,
-          }}
-        />
-      </div>
+      {rows && (
+        <div style={{ height: 700, width: "100%" }}>
+          <DataGrid
+            pageSize={pageSize}
+            onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
+            rowsPerPageOptions={[5, 10, 20]}
+            pagination
+            rows={rows}
+            columns={columns}
+            components={{
+              Toolbar: CustomToolbar,
+            }}
+          />
+        </div>
+      )}
     </>
   );
 };

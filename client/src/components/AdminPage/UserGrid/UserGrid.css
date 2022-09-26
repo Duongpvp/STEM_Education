@@ -5,19 +5,111 @@
     cursor: pointer;
 }
 
-.row-btn > svg {
+.row-btn>svg {
     transition: 0.3s;
 }
 
-.row-btn > .see-icon:hover {
+.row-btn>.see-icon:hover {
     color: green;
 }
 
-.row-btn > .edit-icon:hover {
+.row-btn>.edit-icon:hover {
     color: blue;
 }
 
-.row-btn > .delete-icon:hover {
+.row-btn>.delete-icon:hover {
     color: red;
+}
+
+.delete-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.delete-group .btn-delete-group,
+.delete-group>span {
+    display: flex;
+    justify-content: center;
+}
+
+.bttn {
+    margin: 12px;
+    padding: 12px;
+    border: 1px solid transparent;
+    background-color: transparent;
+}
+
+.btn-delete-group .bttn.btn-confirm {
+    background: rgb(1, 122, 64);
+    border: 1px solid rgb(1, 122, 64);
+    border-radius: 6px;
+    box-shadow: rgba(0, 0, 0, 0.1) 1px 2px 4px;
+    box-sizing: border-box;
+    color: #FFFFFF;
+    cursor: pointer;
+    display: inline-block;
+    font-family: nunito, roboto, proxima-nova, "proxima nova", sans-serif;
+    font-size: 16px;
+    font-weight: 800;
+    line-height: 16px;
+    min-height: 40px;
+    outline: 0;
+    padding: 12px 14px;
+    text-align: center;
+    text-rendering: geometricprecision;
+    text-transform: none;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    vertical-align: middle;
+    transition: 0.5s;
+}
+
+.btn-delete-group .bttn.btn-confirm:hover,
+.btn-delete-group .bttn.btn-confirm:active {
+    background-color: initial;
+    background-position: 0 0;
+    color: rgb(1, 122, 64);
+}
+
+.btn-delete-group .bttn.btn-confirm:active {
+    opacity: .5;
+}
+
+.btn-delete-group .bttn.btn-cancel {
+    background: #FF4742;
+    border: 1px solid #FF4742;
+    border-radius: 6px;
+    box-shadow: rgba(0, 0, 0, 0.1) 1px 2px 4px;
+    box-sizing: border-box;
+    color: #FFFFFF;
+    cursor: pointer;
+    display: inline-block;
+    font-family: nunito, roboto, proxima-nova, "proxima nova", sans-serif;
+    font-size: 16px;
+    font-weight: 800;
+    line-height: 16px;
+    min-height: 40px;
+    outline: 0;
+    padding: 12px 14px;
+    text-align: center;
+    text-rendering: geometricprecision;
+    text-transform: none;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    vertical-align: middle;
+    transition: 0.5s;
+}
+
+.btn-delete-group .bttn.btn-cancel:hover,
+.btn-delete-group .bttn.btn-cancel:active {
+    background-color: initial;
+    background-position: 0 0;
+    color: #FF4742;
+}
+
+.btn-delete-group .bttn.btn-cancel:active {
+    opacity: .5;
 }
 

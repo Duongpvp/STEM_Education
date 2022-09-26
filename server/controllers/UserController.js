@@ -67,6 +67,42 @@ export const updateUser = async (req, res) => {
   }
 };
 
+// Update User's Role
+export const editRole = async (req, res) => {
+  const id = req.params.id;
+  const { role } = req.body;
+
+  try {
+    if (role === "Admin") {
+      const admin = await UserModel.findByIdAndUpdate(
+        id,
+        { isTeacher: false, isAdmin: true },
+        { new: true }
+      );
+      res.status(200).json(admin);
+    } else {
+      if (role === "Teacher") {
+        const teacher = await UserModel.findByIdAndUpdate(
+          id,
+          { isTeacher: true, isAdmin: false },
+          { new: true }
+        );
+        
+        res.status(200).json(teacher);
+      } else {
+        const user = await UserModel.findByIdAndUpdate(
+          id,
+          { isTeacher: false, isAdmin: false },
+          { new: true }
+        );
+        res.status(200).json(user);
+      }
+    }
+  } catch (error) {
+    res.status(500).json(error);
+  }
+};
+
 // Delete User
 export const deleteUser = async (req, res) => {
   const id = req.params.id;
@@ -95,9 +131,11 @@ export const searchUser = async (req, res) => {
         ],
       }
     : {};
-  const users = await UserModel.find(keyword).find({
-    _id: { $ne: req.user_id },
-  }).populate("password");
+  const users = await UserModel.find(keyword)
+    .find({
+      _id: { $ne: req.user_id },
+    })
+    .populate("password");
 
   res.send(users);
 };

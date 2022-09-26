@@ -15,12 +15,39 @@ export const registerUser = async (req, res) => {
     }
     const user = await newUser.save();
 
-    const token = jwt.sign({
-      username: user.username,
-      id: user._id
-    }, process.env.JWT_SECRETKEY, {expiresIn: "1h"});
+    const token = jwt.sign(
+      {
+        username: user.username,
+        id: user._id,
+      },
+      process.env.JWT_SECRETKEY,
+      { expiresIn: "1d" }
+    );
 
-    res.status(200).json({user, token});
+    if (req.body.role === "Admin") {
+      const outputUser = await newUser.update(
+        { isAdmin: true, isTeacher: false },
+        { new: true }
+      );
+      console.log(outputUser);
+      res.status(200).json({ outputUser, token });
+    } else {
+      if (req.body.role === "Teacher") {
+        const outputUser = await newUser.update(
+          { isAdmin: false, isTeacher: true },
+          { new: true }
+        );
+        console.log(outputUser);
+        res.status(200).json({ outputUser, token });
+      } else {
+        const outputUser = await newUser.update(
+          { isAdmin: false, isTeacher: false },
+          { new: true }
+        );
+        console.log(outputUser);
+        res.status(200).json({ outputUser, token });
+      }
+    }
   } catch (error) {
     res.status(500).json({ mess: error.message });
   }
@@ -35,16 +62,19 @@ export const loginUser = async (req, res) => {
 
     if (user) {
       const validity = await bcrypt.compare(password, user.password);
-      if(!validity) {
+      if (!validity) {
         res.status(400).json("Wrong password");
       } else {
-        const token = jwt.sign({
-          username: user.username,
-          id: user._id
-        }, process.env.JWT_SECRETKEY, {expiresIn: "24h"});
-        res.status(200).json({user, token})
+        const token = jwt.sign(
+          {
+            username: user.username,
+            id: user._id,
+          },
+          process.env.JWT_SECRETKEY,
+          { expiresIn: "24h" }
+        );
+        res.status(200).json({ user, token });
       }
-
     } else {
       res.status(404).json("User does not exist");
     }
