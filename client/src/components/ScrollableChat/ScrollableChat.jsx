@@ -48,11 +48,11 @@ const ScrollableChat = ({ message }) => {
                   alignSelf: "flex-end",
                   color: "#fff",
                   borderRadius:
-                    mess.sender._id === user._id
+                    mess.sender?._id === user?._id
                       ? "1rem 1rem 0 1rem"
                       : "1rem 1rem 1rem 0",
                   background:
-                    mess.sender._id === user._id
+                    mess.sender?._id === user?._id
                       ? "linear-gradient(135deg, rgba(98,50,215,1) 0%, rgba(149,108,243,1) 100%)"
                       : "linear-gradient(315deg, rgba(178,53,95,1) 0%, rgba(250,169,130,1) 100%)",
                 }}

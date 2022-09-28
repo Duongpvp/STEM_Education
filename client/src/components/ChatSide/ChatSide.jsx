@@ -91,7 +91,7 @@ const ChatSide = () => {
               {myChat.map((chat) => {
                 return (
                   <div key={chat._id}>
-                    {!chat.isGroupChat && (
+                    {!chat.isGroupChat && chat.users.length > 1 && (
                       <Box width="100%">
                         <Tooltip
                           title={
@@ -128,6 +128,7 @@ const ChatSide = () => {
                             borderRadius="0.5rem"
                             justifyContent="flex-start"
                           >
+                            
                             <Avatar
                               src={
                                 getFullSender(user, chat.users).profilePicture
@@ -157,7 +158,7 @@ const ChatSide = () => {
                                   : chat.chatName}
                               </span>
                               <span className="latest-mess">
-                                {chat.latestMessage?.sender.lastname} :
+                                {chat.latestMessage?.sender?.lastname} :
                                 {chat.latestMessage?.content}
                               </span>
                             </Box>
@@ -221,7 +222,7 @@ const ChatSide = () => {
                               </span>
                               {chat.latestMessage && (
                                 <span className="latest-mess">
-                                  {chat.latestMessage?.sender.lastname} :
+                                  {chat.latestMessage?.sender?.lastname} :
                                   {chat.latestMessage?.content}
                                 </span>
                               )}

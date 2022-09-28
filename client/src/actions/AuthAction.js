@@ -29,11 +29,17 @@ export const logIn = (formData) => async (dispatch) => {
   }
 };
 
-export const signUp = (formData) => async (dispatch) => {
+export const signUp = (formData, fetchAgain, setFetchAgain) => async (dispatch) => {
   dispatch({ type: "AUTH_START" });
   try {
     const { data } = await AuthApi.signUp(formData);
-    // dispatch({ type: "AUTH_SUCCESS", data: data });
+    if ( !data ) {
+      toast.error("Failed to create new user")
+    } else {
+      toast.success("Created user successfully")
+      setFetchAgain(!fetchAgain)
+
+    }
   } catch (error) {
     dispatch({ type: "AUTH_FAIL" });
     console.log(error);

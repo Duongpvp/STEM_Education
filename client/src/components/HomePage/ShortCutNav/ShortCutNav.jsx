@@ -6,14 +6,16 @@ import MarkUnreadChatAltOutlinedIcon from "@mui/icons-material/MarkUnreadChatAlt
 import HubOutlinedIcon from "@mui/icons-material/HubOutlined";
 import "./ShortCutNav.css";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const ShortCutNav = () => {
-  
+  const { user } = useSelector((state) => state.AuthReducer.authData);
+
   return (
     <div className="shortcut-nav">
       <ul>
         <li className="list active">
-          <Link to = "/home">
+          <Link to="/home">
             <div className="icon">
               <HomeOutlinedIcon fontSize="large" />
             </div>
@@ -21,15 +23,24 @@ const ShortCutNav = () => {
           </Link>
         </li>
         <li className="list">
-          <Link to = "/class">
-            <div className="icon">
-              <SchoolOutlinedIcon fontSize="large" />
-            </div>
-            <div className="text">Class</div>
-          </Link>
+          {user.isAdmin || user.isTeacher ? (
+            <Link to="/classmanagement">
+              <div className="icon">
+                <SchoolOutlinedIcon fontSize="large" />
+              </div>
+              <div className="text">Class</div>
+            </Link>
+          ) : (
+            <Link to="/class">
+              <div className="icon">
+                <SchoolOutlinedIcon fontSize="large" />
+              </div>
+              <div className="text">Class</div>
+            </Link>
+          )}
         </li>
         <li className="list">
-          <Link to = "/chat">
+          <Link to="/chat">
             <div className="icon">
               <MarkUnreadChatAltOutlinedIcon fontSize="large" />
             </div>
@@ -37,7 +48,7 @@ const ShortCutNav = () => {
           </Link>
         </li>
         <li className="list">
-          <Link to = "/media">
+          <Link to="/media">
             <div className="icon">
               <HubOutlinedIcon fontSize="large" />
             </div>

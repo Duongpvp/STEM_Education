@@ -74,7 +74,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
   useEffect(() => {
     fetchMessages();
     compareSelectChat = chats.selectChat;
-  }, [chats.selectChat]);
+  }, [chats.selectChat || fetchAgain]);
 
   // RECEIVED MESSAGES
   useEffect(() => {
@@ -84,13 +84,14 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
         compareSelectChat._id !== receivedData?.chat?._id
       ) {
         if (!notification.includes(receivedData)) {
+          setFetchAgain(!fetchAgain);
           setNotification([...notification, receivedData]);
           dispatch(notificationSend([...notification, receivedData]));
           // setNotification([receivedData, ...notification]);
-          setFetchAgain(!fetchAgain);
         }
       } else {
         dispatch(selectChat(receivedData.chat));
+        setFetchAgain(!fetchAgain);
         // setMessages([...messages, receivedData]);
         setReceiveMess([...messages, receivedData]);
       }

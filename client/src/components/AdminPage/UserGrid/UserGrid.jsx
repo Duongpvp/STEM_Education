@@ -22,6 +22,7 @@ import {
   TextField,
 } from "@mui/material";
 import CreateUserByAdmin from "../CreateUserByAdmin/CreateUserByAdmin";
+import { toast, ToastContainer } from "react-toastify";
 
 const UserGrid = () => {
   const CustomToolbar = () => {
@@ -92,8 +93,18 @@ const UserGrid = () => {
 
   const handleDelete = async () => {
     try {
-      await deletedUser(currentUser.uid, user._id, user.isAdmin);
-      setFetchAgain(!fetchAgain);
+      const { data } = await deletedUser(
+        currentUser.uid,
+        user._id,
+        user.isAdmin
+      );
+      if (!data) {
+        toast.error("Failed to delete user");
+      } else {
+        toast.success("Deleted user successfully");
+        setFetchAgain(!fetchAgain);
+        setDeleteOpened(false);
+      }
     } catch (error) {
       console.log(error);
     }
@@ -177,6 +188,7 @@ const UserGrid = () => {
 
   return (
     <>
+      <ToastContainer />
       <Modal
         transition="fade"
         transitionDuration={600}

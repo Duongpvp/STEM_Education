@@ -14,8 +14,9 @@ import {
 } from "@mui/material";
 import { signUp } from "actions/AuthAction";
 import { useDispatch } from "react-redux";
+import { ToastContainer } from "react-toastify";
 
-const CreateUserByAdmin = ({fetchAgain, setFetchAgain}) => {
+const CreateUserByAdmin = ({ fetchAgain, setFetchAgain }) => {
   const dispatch = useDispatch();
   const [opened, setOpened] = useState(false);
   const [data, setData] = useState({
@@ -37,22 +38,22 @@ const CreateUserByAdmin = ({fetchAgain, setFetchAgain}) => {
     setOpened(true);
   };
 
-  const createHandler = async() => {
+  const createHandler = async () => {
     console.log(data);
     if (!data) {
-        alert("Please fill out the content")
+      alert("Please fill out the content");
     } else {
       try {
-        dispatch(signUp(data))
-        setFetchAgain(!fetchAgain)
+        dispatch(signUp(data, fetchAgain, setFetchAgain));
       } catch (error) {
-        console.log(error)
+        console.log(error);
       }
     }
-  }
+  };
 
   return (
     <>
+      <ToastContainer />
       <Modal
         transition="fade"
         transitionDuration={600}
@@ -111,7 +112,12 @@ const CreateUserByAdmin = ({fetchAgain, setFetchAgain}) => {
             name="role"
             onChange={handleChange}
           >
-            <FormControlLabel value="Admin" name="role" control={<Radio />} label="Admin" />
+            <FormControlLabel
+              value="Admin"
+              name="role"
+              control={<Radio />}
+              label="Admin"
+            />
             <FormControlLabel
               value="Teacher"
               name="role"
@@ -127,7 +133,9 @@ const CreateUserByAdmin = ({fetchAgain, setFetchAgain}) => {
           </RadioGroup>
         </FormControl>
         <div className="btn-group-create">
-          <Button variant="contained" onClick={createHandler}>Create</Button>
+          <Button variant="contained" onClick={createHandler}>
+            Create
+          </Button>
           <Button
             variant="contained"
             onClick={() =>
