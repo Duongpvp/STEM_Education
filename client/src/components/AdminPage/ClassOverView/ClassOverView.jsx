@@ -24,8 +24,6 @@ const ClassOverView = ({ currentData }) => {
     }
   }
 
-  console.log(currentData)
-
   return (
     <div className="class-overview">
       <TextField

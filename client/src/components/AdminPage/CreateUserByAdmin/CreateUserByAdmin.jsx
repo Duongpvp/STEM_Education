@@ -1,6 +1,6 @@
 // @ts-nocheck
-import React, { useState } from "react";
 import "./CreateUserByAdmin.css";
+import React, { useState } from "react";
 import AddIcon from "@mui/icons-material/Add";
 import { Modal } from "@mantine/core";
 import {
@@ -40,7 +40,7 @@ const CreateUserByAdmin = ({fetchAgain, setFetchAgain}) => {
   const createHandler = async() => {
     console.log(data);
     if (!data) {
-        alert("Khum đủ nội dung bé ơiiiiii")
+        alert("Please fill out the content")
     } else {
       try {
         dispatch(signUp(data))

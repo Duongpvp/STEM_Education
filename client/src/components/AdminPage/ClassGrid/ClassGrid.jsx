@@ -11,14 +11,18 @@ import Tabs from "@mui/material/Tabs";
 import {
   DataGrid,
   GridToolbarContainer,
-  GridToolbarExport
+  GridToolbarExport,
 } from "@mui/x-data-grid";
+import { deleteClass } from "actions/ClassAction";
 import { fetchAllClass } from "api/ClassRequest";
 import moment from "moment/moment";
 import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { toast, ToastContainer } from "react-toastify";
 import AdminClassCard from "../AdminClassCard/AdminClassCard";
 import ClassOverView from "../ClassOverView/ClassOverView";
+import CreateClassByAdmin from "../CreateClassByAdmin/CreateClassByAdmin";
 import TabPanel from "../TabPanel/TabPanel";
 import UserOverview from "../UserOverview/UserOverview";
 import "./ClassGrid.css";
@@ -28,18 +32,25 @@ const ClassGrid = () => {
     return (
       <GridToolbarContainer>
         <GridToolbarExport />
-        {/* Create Class by Admin */}
+        <CreateClassByAdmin
+          fetchAgain={fetchAgain}
+          setFetchAgain={setFetchAgain}
+        />
       </GridToolbarContainer>
     );
   };
 
+  const theme = useTheme();
+  const [value, setValue] = useState(0);
   const [classData, setClassData] = useState([]);
   const [fetchAgain, setFetchAgain] = useState(false);
-  const [pageSize, setPageSize] = useState(5);
+  const [pageSize, setPageSize] = useState(10);
   const [seeOpened, setSeeOpened] = useState(false);
   const [editOpened, setEditOpened] = useState(false);
   const [deleteOpened, setDeleteOpened] = useState(false);
   const [currentData, setCurrentData] = useState();
+  const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.AuthReducer.authData);
 
   useEffect(() => {
     const getAllUsers = async () => {
@@ -64,38 +75,53 @@ const ClassGrid = () => {
     setCurrentData(cellValues.row);
   };
 
-  const deleteClassHandler = () => {};
+  const deleteClassHandler = () => {
+    try {
+      dispatch(deleteClass(currentData.cid, user._id, user.isAdmin));
+      toast.success("Updated class successfully");
+      setDeleteOpened(false);
+      setFetchAgain(!fetchAgain);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const columns = [
     { field: "id", headerName: "ID", width: 30, editable: false },
     {
       field: "className",
       headerName: "Class Name",
-      width: 210,
+      width: 190,
       editable: false,
     },
     {
       field: "classAdmin",
       headerName: "Class Admin",
-      width: 130,
+      width: 200,
       editable: false,
     },
     {
       field: "snippet",
       headerName: "Description",
-      width: 350,
+      width: 300,
       editable: false,
     },
     {
       field: "createdAt",
       headerName: "Created At",
-      width: 200,
+      width: 150,
       editable: false,
     },
     {
       field: "updatedAt",
       headerName: "Updated At",
-      width: 200,
+      width: 150,
+      editable: false,
+    },
+    {
+      field: "code",
+      headerName: "Code",
+      width: 100,
       editable: false,
     },
     {
@@ -145,7 +171,7 @@ const ClassGrid = () => {
       id: i,
       cid: classData[i]._id,
       className: classData[i].className,
-      classAdmin: classData[i].classAdmin.username,
+      classAdmin:  classData[i].classAdmin.map((admin) => admin.username),
       snippet: classData[i].snippet,
       createdAt: moment(classData[i].createdAt).format(
         "HH:mm:ss -- MM/DD/YYYY"
@@ -153,9 +179,12 @@ const ClassGrid = () => {
       updatedAt: moment(classData[i].updatedAt).format(
         "HH:mm:ss -- MM/DD/YYYY"
       ),
+      code: classData[i].code,
       users: classData[i].users,
     });
   }
+
+  console.log(classData)
 
   TabPanel.propTypes = {
     children: PropTypes.node,
@@ -170,16 +199,13 @@ const ClassGrid = () => {
     };
   };
 
-  const theme = useTheme();
-  const [value, setValue] = useState(0);
-
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
-
   return (
     <div>
+      <ToastContainer />
       <Modal
         transition="fade"
         transitionDuration={600}
@@ -193,7 +219,7 @@ const ClassGrid = () => {
         transitionDuration={600}
         opened={editOpened}
         onClose={() => setEditOpened(false)}
-        size="80%"
+        size="50%"
       >
         <Box sx={{ bgcolor: "background.paper", width: "100%" }}>
           <AppBar position="static">
@@ -203,17 +229,25 @@ const ClassGrid = () => {
               variant="fullWidth"
               aria-label="full width tabs example"
             >
-              <Tab style={{backgroundColor: "#fff", color: "#333"}} label="Overview" {...a11yProps(0)} />
-              <Tab style={{backgroundColor: "#fff", color: "#333"}} label="Users" {...a11yProps(1)} />
+              <Tab
+                style={{ backgroundColor: "#fff", color: "#333" }}
+                label="Overview"
+                {...a11yProps(0)}
+              />
+              <Tab
+                style={{ backgroundColor: "#fff", color: "#333" }}
+                label="Users"
+                {...a11yProps(1)}
+              />
             </Tabs>
           </AppBar>
-          
-            <TabPanel value={value} index={0} dir={theme.direction}>
-              <ClassOverView currentData={currentData} />
-            </TabPanel>
-            <TabPanel value={value} index={1} dir={theme.direction}>
-              <UserOverview currentData={currentData} />
-            </TabPanel>
+
+          <TabPanel value={value} index={0} dir={theme.direction}>
+            <ClassOverView currentData={currentData} />
+          </TabPanel>
+          <TabPanel value={value} index={1} dir={theme.direction}>
+            <UserOverview currentData={currentData} />
+          </TabPanel>
         </Box>
       </Modal>
       <Modal

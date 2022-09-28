@@ -1,0 +1,22 @@
+.student-overview,
+.teacher-overview {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.user-overview-title,
+.teacher-overview .user-overview-title {
+    font-size: 1.4em;
+    font-weight: 500;
+}
+
+.student-overview > hr,
+.teacher-overview > hr {
+    width: 100%;
+    margin: -0.1em 0;
+}
+
+.student-overview {
+    margin-top: 16px;
+}

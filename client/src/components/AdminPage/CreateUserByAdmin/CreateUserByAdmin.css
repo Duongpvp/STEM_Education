@@ -21,6 +21,7 @@
 
 .btn-group-create {
     display: flex;
+    justify-content: center;
 }
 
 .btn-group-create > button:nth-of-type(1) {

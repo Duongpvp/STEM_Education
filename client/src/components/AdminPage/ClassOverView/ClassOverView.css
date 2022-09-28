@@ -7,7 +7,6 @@
 
 .input-box textarea {
     width: 100%;
-    padding: 5px 29px 5px 0;
     font-size: 1rem;
     margin: 10px 0;
     border: 1px solid rgb(193, 193, 193);
@@ -15,8 +14,7 @@
     background-color: transparent;
     resize: none;
     border-radius: 0.2em;
-    padding: 8px
-    ;
+    padding: 8px;
 }
 
 .input-box textarea:focus {
@@ -32,11 +30,15 @@
     padding: 0 8px 0 2px;
     position: absolute;
     transition: 0.1s;
+    color: rgba(0, 0, 0, 0.6);
 }
 
 .input-box textarea:valid~label,
 .input-box textarea:focus~label {
-    color: rgba(20, 38, 253, 0.8);
     font-size: 0.8rem;
     transform: translateY(-20px);
+}
+
+.input-box textarea:focus~label {
+    color: rgba(20, 38, 253, 0.8);
 }

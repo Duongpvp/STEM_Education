@@ -7,14 +7,25 @@ export const createClass = async (req, res) => {
   }
 
   var users = JSON.parse(req.body.users);
-
+  var classAdmin = JSON.parse(req.body.classAdmin);
+  const characters =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  const generateString = (length) => {
+    let result = "";
+    const charactersLength = characters.length;
+    for (let i = 0; i < length; i++) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+  };
   try {
     const classRoom = await classModel.create({
       className: req.body.className,
       snippet: req.body.snippet,
       users: users,
+      code: generateString(8),
       image: "",
-      classAdmin: req.body.classAdmin,
+      classAdmin: classAdmin,
     });
 
     const fullClassRoom = await classModel
@@ -125,13 +136,12 @@ export const updateImgClass = async (req, res) => {
 export const deleteClass = async (req, res) => {
   const id = req.params.id;
   const user = req.body.classAdmin;
+  const isAdmin = req.body.isAdmin;
 
+  console.log(req.body);
   try {
     const classRoom = await classModel.findById(id);
-
-    console.log(classRoom.classAdmin.toString());
-
-    if (classRoom.classAdmin.toString() === user) {
+    if (classRoom.classAdmin.toString().includes(user) || isAdmin) {
       await classRoom.deleteOne();
       res.status(200).json("Class deleted!");
     } else {
