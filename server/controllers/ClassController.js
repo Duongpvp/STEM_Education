@@ -32,7 +32,7 @@ export const createClass = async (req, res) => {
       .findOne({ _id: classRoom._id })
       .populate("users", "-password")
       .populate("classAdmin", "-password");
-
+    console.log(fullClassRoom)
     res.status(200).send(fullClassRoom);
   } catch (error) {
     res.status(400).send(error);
@@ -179,5 +179,22 @@ export const removeFromClass = async (req, res) => {
     res.status(404).json("Class not Found");
   } else {
     res.send(addedClass);
+  }
+};
+
+export const joinClass = async (req, res) => {
+  const id = req.params.id;
+  const { code } = req.body;
+
+  const classRoom = await classModel.find({ code: code });
+  console.log(classRoom)
+  if (!classRoom) {
+    res.status(404).json("Class not found");
+  } else {
+    const joinedClass = await classModel
+      .findOneAndUpdate({ code: code }, { users: id }, { new: true })
+      .populate("users", "-password")
+      .populate("classAdmin", "-password");
+    res.status(200).json(joinedClass);
   }
 };

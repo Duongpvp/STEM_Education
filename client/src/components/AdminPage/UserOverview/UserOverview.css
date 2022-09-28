@@ -11,12 +11,38 @@
     font-weight: 500;
 }
 
+.overflow-overview {
+    max-height: 250px;
+    overflow: auto;
+}
+
 .student-overview > hr,
 .teacher-overview > hr {
     width: 100%;
-    margin: -0.1em 0;
+    margin: -0.1em 0 1em 0;
 }
 
 .student-overview {
     margin-top: 16px;
+}
+
+.user-overview-content {
+    padding: 8px;
+    width: 100%;
+    padding: 8px 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1em;
+    transition: 0.1s;
+    border: 1px solid #333;
+    background-color: transparent;
+    border-radius: 0.5em;
+    margin: 4px 0;
+    cursor: pointer;
+}
+
+.user-overview-content:hover {
+    color: #fff;
+    background-color: rgb(233, 67, 67);
 }

@@ -180,11 +180,10 @@ const ClassGrid = () => {
         "HH:mm:ss -- MM/DD/YYYY"
       ),
       code: classData[i].code,
+      adminFull: classData[i].classAdmin.map((admin) => admin),
       users: classData[i].users,
     });
   }
-
-  console.log(classData)
 
   TabPanel.propTypes = {
     children: PropTypes.node,
@@ -246,7 +245,7 @@ const ClassGrid = () => {
             <ClassOverView currentData={currentData} />
           </TabPanel>
           <TabPanel value={value} index={1} dir={theme.direction}>
-            <UserOverview currentData={currentData} />
+            <UserOverview currentData={currentData} fetchAgain={fetchAgain} setFetchAgain={setFetchAgain} />
           </TabPanel>
         </Box>
       </Modal>

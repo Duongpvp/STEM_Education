@@ -1,11 +1,19 @@
 export const getSender = (loggedUser, users) => {
-  return users[0]._id === loggedUser._id
+  try {
+    return users[0]._id === loggedUser._id
     ? users[1].lastname
     : users[0].lastname;
+  } catch (error) {
+    return ""
+  }
 };
 
 export const getFullSender = (loggedUser, users) => {
-  return users[0]._id === loggedUser._id ? users[1] : users[0];
+  try {
+    return users[0]._id === loggedUser._id ? users[1] : users[0];
+  } catch (error) {
+    return ""
+  }
 };
 
 export const isSameSender = (messages, mess, i, userId) => {

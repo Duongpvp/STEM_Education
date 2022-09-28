@@ -12,23 +12,18 @@ API.interceptors.request.use((req) => {
 });
 
 export const fetchAllClass = () => API.get("/class/");
-export const updateClass = (id, className, desc) =>
-  API.put(`/class/update/${id}`, { className: className, desc: desc });
+export const updateClass = (id, className, desc) => API.put(`/class/update/${id}`, { className: className, desc: desc });
 export const getAllClass = (userId) => API.get(`class/${userId}`);
-export const getUserClass = (classId) =>
-  API.get(`class/getuserclass/${classId}`);
+export const getUserClass = (classId) => API.get(`class/getuserclass/${classId}`);
 export const getAPost = (postId) => API.get(`classpost/exc/${postId}`);
 export const getAllPost = (classId) => API.get(`classpost/${classId}`);
 export const getAllExercise = (classId) => API.get(`exercise/${classId}`);
-export const createClass = (className, classAdmin, users, snippet) =>
-  API.post("/class/createclass", {
+export const createClass = (className, classAdmin, users, snippet) => API.post("/class/createclass", {
     className: className,
     classAdmin: classAdmin,
     users: users,
     snippet: snippet,
   });
-export const deleteClass = (id, classAdmin, isAdmin) =>
-  API.put(`/class/deleteclass/${id}`, {
-    classAdmin: classAdmin,
-    isAdmin: isAdmin,
-  });
+export const deleteClass = (id, classAdmin, isAdmin) => API.put(`/class/deleteclass/${id}`, { classAdmin: classAdmin, isAdmin: isAdmin});
+export const joinClass = (id, code) => API.put(`class/join/${id}`, {code: code})
+export const removeUserFromClass = (classId, userId) => API.put("/class/classremove/removeuser", {classId: classId, userId: userId})
