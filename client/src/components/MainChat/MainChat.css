@@ -1,0 +1,24 @@
+.message {
+    background: linear-gradient(315deg, rgba(178, 53, 95, 1) 0%, rgba(250, 169, 130, 1) 100%);
+    color: white;
+    padding: 0.7rem;
+    border-radius: 1rem 1rem 1rem 0;
+    max-width: 28rem;
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin: 4px 0;
+}
+
+.message>span:nth-child(2) {
+    font-size: 0.7rem;
+    color: #fff;
+    align-self: end;
+}
+
+.own {
+    align-self: flex-end;
+    border-radius: 1rem 1rem 0 1rem;
+    background: linear-gradient(135deg, rgba(98, 50, 215, 1) 0%, rgba(149, 108, 243, 1) 100%);
+}

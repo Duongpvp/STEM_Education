@@ -202,7 +202,7 @@ const UpdateGroupModal = ({ fetchAgain, setFetchAgain }) => {
 
       <Group position="center">
         <SettingsIcon
-          style={{ display: "flex", alignItems: "center", marginRight: "12px" }}
+          style={{ display: "flex", alignItems: "center", marginRight: "12px", cursor: "pointer" }}
           fontSize="large"
           onClick={() => setOpened(true)}
         >
