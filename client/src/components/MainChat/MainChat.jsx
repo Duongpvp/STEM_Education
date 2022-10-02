@@ -2,7 +2,7 @@
 import { Box } from "@chakra-ui/react";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { CircularProgress } from "@mui/material";
-import { selectChat } from "actions/ChatAction";
+import { notificationSend, selectChat } from "actions/ChatAction";
 import { fetchMessage, sendMessage } from "api/MessageRequest";
 import InfoModal from "components/InfoModal/InfoModal";
 import ScrollableChat from "components/ScrollableChat/ScrollableChat";
@@ -11,28 +11,36 @@ import { getFullSender, getSender } from "config/chatLogics";
 import React, { useState } from "react";
 import { useEffect } from "react";
 import InputEmoji from "react-input-emoji";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { format } from "timeago.js";
 import { io } from "socket.io-client";
 import "./MainChat.css";
 import { useRef } from "react";
+import { userOnline } from "actions/UserAction";
 var selectedChatCompare;
 
 const MainChat = ({ fetchAgain, setFetchAgain }) => {
   const chats = useSelector((state) => state.ChatReducer);
   const { user } = useSelector((state) => state.AuthReducer.authData);
+  const dispatch = useDispatch();
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
   const [sendMessageIO, setSendMessageIO] = useState(null);
   const [receiveMessage, setReceiveMessage] = useState(null);
+  const [notification, setNotification] = useState(chats.notification);
+  const [fetchChatAgain, setFetchChatAgain] = useState(false)
   const [onlineUsers, setOnlineUsers] = useState([]);
 
   const socket = useRef();
+  const scroll = useRef();
 
   useEffect(() => {
     socket.current = io("http://localhost:8800");
     socket.current.emit("new-user-add", user._id);
-    socket.current.on("get-users", (users) => setOnlineUsers(users));
+    socket.current.on("get-users", (users) => {
+      setOnlineUsers(users);
+      dispatch(userOnline(users));
+    });
   }, [user]);
 
   // Sending message to socket server
@@ -42,17 +50,11 @@ const MainChat = ({ fetchAgain, setFetchAgain }) => {
     }
   }, [sendMessageIO]);
 
-  // Receive message from socket server
-  useEffect(() => {
-    socket.current.on("receive-message", (data) => {
-      console.log("Receive: ", data);
-      setReceiveMessage(data);
-    });
-  }, []);
-
   // Fetching data for messages
   useEffect(() => {
+    console.log("Fectchasd");
     const fetchMessages = async () => {
+      if (!chats.selectChat) return;
       try {
         const { data } = await fetchMessage(chats.selectChat._id);
         setMessages(data);
@@ -60,11 +62,27 @@ const MainChat = ({ fetchAgain, setFetchAgain }) => {
         console.log(error);
       }
     };
-    if (chats.selectChat !== null) {
-      fetchMessages();
-      selectedChatCompare = chats.selectedChat;
-    }
-  }, [chats.selectChat]);
+
+    fetchMessages();
+    selectedChatCompare = chats.selectedChat;
+  }, [chats.selectChat, fetchChatAgain]);
+
+  // Receive message from socket server
+  useEffect(() => {
+    socket.current.on("receive-message", (data) => {
+      setFetchChatAgain(!fetchChatAgain);
+      if (
+        !selectedChatCompare || // if chat is not selected or doesn't match current chat
+        selectedChatCompare._id !== data.chat?._id
+      ) {
+        if (!notification.includes(data)) {
+          setNotification([...notification, data]);
+          dispatch(notificationSend(data));
+        }
+      }
+      setReceiveMessage(data);
+    });
+  }, []);
 
   const typingHandler = (newMessage) => {
     setNewMessage(newMessage);
@@ -92,6 +110,10 @@ const MainChat = ({ fetchAgain, setFetchAgain }) => {
       setMessages([...messages, receiveMessage]);
     }
   }, [receiveMessage]);
+
+  useEffect(() => {
+    scroll.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
 
   return (
     <>
@@ -164,6 +186,7 @@ const MainChat = ({ fetchAgain, setFetchAgain }) => {
               >
                 {messages.map((message, i) => (
                   <div
+                    ref={scroll}
                     className={
                       message.sender._id === user._id
                         ? "message own"

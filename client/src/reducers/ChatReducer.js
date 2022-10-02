@@ -195,7 +195,7 @@ const ChatReducer = (
         loading: false,
         error: false,
         selectChat: action.data,
-        // notification: [...state.notification]
+        notification: [...state.notification]
       };
 
     // CLEAR_SELECT
@@ -210,6 +210,15 @@ const ChatReducer = (
       };
 
     case "SET_NOTIFICATION":
+      return {
+        ...state,
+        chatData: [...state.chatData],
+        loading: false,
+        error: false,
+        notification: [...state.notification, action.data],
+      };
+
+    case "FILTER_NOTIFICATION":
       return {
         ...state,
         chatData: [...state.chatData],

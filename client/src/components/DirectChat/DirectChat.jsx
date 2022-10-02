@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 import { Box } from "@mui/system";
 import { logOut } from "actions/AuthAction";
-import { notificationSend, selectChat } from "actions/ChatAction";
+import { notificationFilter, notificationSend, selectChat } from "actions/ChatAction";
 import ProfileModal from "components/ProfileModal/ProfileModal";
 import { getSender } from "config/chatLogics";
 import React, { useState } from "react";
@@ -52,7 +52,7 @@ const DirectChat = () => {
 
   const handleDirectChat = (notify, notification) => {
     dispatch(selectChat(notify.chat));
-    dispatch(notificationSend(notification.filter((n) => n !== notify)));
+    dispatch(notificationFilter(notification.filter((n) => n !== notify)));
   };
 
   return (
@@ -97,11 +97,11 @@ const DirectChat = () => {
               onClick={() => handleDirectChat(notify, chat)}
               key={notify._id}
             >
-              {notify.chat.isGroupChat
+              {notify.chat?.isGroupChat
                 ? `New message in ${notify.chat.chatName}`
                 : `${getSender(
                     user,
-                    notify.chat.users
+                    notify.chat?.users
                   )} just sent you a messages`}
             </MenuItem>
           ))}

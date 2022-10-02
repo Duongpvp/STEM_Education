@@ -10,7 +10,7 @@ export const accessChat = (id, chats, users, user) => async (dispatch) => {
     if (!result) {
       dispatch({ type: "ACCESSCHAT_SUCCESS", data: accessData });
     } else {
-      console.log(data)
+      console.log(data);
       dispatch({ type: "ACCESS_WITHOUT_RENDER", data: data });
     }
   } catch (error) {
@@ -78,4 +78,8 @@ export const addUserGroup = (chatId, userId) => async (dispatch) => {
 
 export const notificationSend = (data) => async (dispatch) => {
   dispatch({ type: "SET_NOTIFICATION", data: data });
+};
+
+export const notificationFilter = (data) => async (dispatch) => {
+  dispatch({type: "FILTER_NOTIFICATION", data: data})
 };
