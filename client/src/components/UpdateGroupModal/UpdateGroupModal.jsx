@@ -32,7 +32,7 @@ const UpdateGroupModal = ({ fetchAgain, setFetchAgain }) => {
     );
     const selectData = { ...chats.selectChat, users: listFindUser };
 
-    if (chats.selectChat.groupAdmin._id !== user._id) {
+    if (chats.selectChat.groupAdmin?._id !== user._id) {
       console.log("Only Admin can delete User");
       return;
     }
@@ -77,7 +77,7 @@ const UpdateGroupModal = ({ fetchAgain, setFetchAgain }) => {
       return;
     }
 
-    if (chats.selectChat.groupAdmin._id !== user._id) {
+    if (chats.selectChat.groupAdmin?._id !== user._id) {
       console.log("Only Admin user can add other user to group");
       return;
     }
@@ -173,7 +173,7 @@ const UpdateGroupModal = ({ fetchAgain, setFetchAgain }) => {
             <UserTagItem
               key={us._id}
               user={us}
-              admin={chats.selectChat.groupAdmin._id}
+              admin={chats.selectChat.groupAdmin?._id}
               handleFunction={() => handleDelete(us)}
             />
           ))}

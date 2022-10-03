@@ -28,7 +28,7 @@ const MainChat = ({ fetchAgain, setFetchAgain }) => {
   const [sendMessageIO, setSendMessageIO] = useState(null);
   const [receiveMessage, setReceiveMessage] = useState(null);
   const [notification, setNotification] = useState(chats.notification);
-  const [fetchChatAgain, setFetchChatAgain] = useState(false)
+  const [fetchChatAgain, setFetchChatAgain] = useState(false);
   const [onlineUsers, setOnlineUsers] = useState([]);
 
   const socket = useRef();
@@ -52,7 +52,6 @@ const MainChat = ({ fetchAgain, setFetchAgain }) => {
 
   // Fetching data for messages
   useEffect(() => {
-    console.log("Fectchasd");
     const fetchMessages = async () => {
       if (!chats.selectChat) return;
       try {
@@ -62,9 +61,8 @@ const MainChat = ({ fetchAgain, setFetchAgain }) => {
         console.log(error);
       }
     };
-
     fetchMessages();
-    selectedChatCompare = chats.selectedChat;
+    selectedChatCompare = chats.selectChat;
   }, [chats.selectChat, fetchChatAgain]);
 
   // Receive message from socket server
@@ -79,8 +77,9 @@ const MainChat = ({ fetchAgain, setFetchAgain }) => {
           setNotification([...notification, data]);
           dispatch(notificationSend(data));
         }
+      } else {
+        setReceiveMessage(data);
       }
-      setReceiveMessage(data);
     });
   }, []);
 
@@ -107,6 +106,7 @@ const MainChat = ({ fetchAgain, setFetchAgain }) => {
       receiveMessage !== null &&
       receiveMessage.chat._id === chats.selectChat._id
     ) {
+      selectedChatCompare = chats.selectChat;
       setMessages([...messages, receiveMessage]);
     }
   }, [receiveMessage]);
@@ -130,7 +130,7 @@ const MainChat = ({ fetchAgain, setFetchAgain }) => {
               margin: "24px 28px 0 28px",
             }}
           >
-            {/* <ArrowBackIcon
+            <ArrowBackIcon
               display="flex"
               fontSize="32px"
               onClick={() => dispatch(selectChat(null))}
@@ -152,7 +152,7 @@ const MainChat = ({ fetchAgain, setFetchAgain }) => {
                   setFetchAgain={setFetchAgain}
                 />
               </>
-            )} */}
+            )}
           </div>
           <Box
             display="flex"
