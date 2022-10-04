@@ -81,5 +81,5 @@ export const notificationSend = (data) => async (dispatch) => {
 };
 
 export const notificationFilter = (data) => async (dispatch) => {
-  dispatch({type: "FILTER_NOTIFICATION", data: data})
+  dispatch({ type: "FILTER_NOTIFICATION", data: data });
 };

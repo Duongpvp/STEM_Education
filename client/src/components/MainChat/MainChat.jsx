@@ -2,33 +2,32 @@
 import { Box } from "@chakra-ui/react";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { CircularProgress } from "@mui/material";
-import { notificationSend, selectChat } from "actions/ChatAction";
+import {
+  notificationSend,
+  selectChat
+} from "actions/ChatAction";
+import { userOnline } from "actions/UserAction";
 import { fetchMessage, sendMessage } from "api/MessageRequest";
 import InfoModal from "components/InfoModal/InfoModal";
-import ScrollableChat from "components/ScrollableChat/ScrollableChat";
 import UpdateGroupModal from "components/UpdateGroupModal/UpdateGroupModal";
 import { getFullSender, getSender } from "config/chatLogics";
-import React, { useState } from "react";
-import { useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import InputEmoji from "react-input-emoji";
 import { useDispatch, useSelector } from "react-redux";
-import { format } from "timeago.js";
 import { io } from "socket.io-client";
+import { format } from "timeago.js";
 import "./MainChat.css";
-import { useRef } from "react";
-import { userOnline } from "actions/UserAction";
 var selectedChatCompare;
 
 const MainChat = ({ fetchAgain, setFetchAgain }) => {
   const chats = useSelector((state) => state.ChatReducer);
+  const { notification } = useSelector((state) => state.ChatReducer);
   const { user } = useSelector((state) => state.AuthReducer.authData);
   const dispatch = useDispatch();
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
   const [sendMessageIO, setSendMessageIO] = useState(null);
   const [receiveMessage, setReceiveMessage] = useState(null);
-  const [notification, setNotification] = useState(chats.notification);
-  const [fetchChatAgain, setFetchChatAgain] = useState(false);
   const [onlineUsers, setOnlineUsers] = useState([]);
 
   const socket = useRef();
@@ -63,25 +62,22 @@ const MainChat = ({ fetchAgain, setFetchAgain }) => {
     };
     fetchMessages();
     selectedChatCompare = chats.selectChat;
-  }, [chats.selectChat, fetchChatAgain]);
+  }, [chats.selectChat]);
 
   // Receive message from socket server
   useEffect(() => {
     socket.current.on("receive-message", (data) => {
-      setFetchChatAgain(!fetchChatAgain);
+      setFetchAgain(!fetchAgain);
       if (
         !selectedChatCompare || // if chat is not selected or doesn't match current chat
         selectedChatCompare._id !== data.chat?._id
       ) {
-        if (!notification.includes(data)) {
-          setNotification([...notification, data]);
-          dispatch(notificationSend(data));
-        }
+        dispatch(notificationSend(data));
       } else {
         setReceiveMessage(data);
       }
     });
-  }, []);
+  }, [notification]);
 
   const typingHandler = (newMessage) => {
     setNewMessage(newMessage);
@@ -104,7 +100,7 @@ const MainChat = ({ fetchAgain, setFetchAgain }) => {
   useEffect(() => {
     if (
       receiveMessage !== null &&
-      receiveMessage.chat._id === chats.selectChat._id
+      receiveMessage.chat?._id === chats.selectChat?._id
     ) {
       selectedChatCompare = chats.selectChat;
       setMessages([...messages, receiveMessage]);
@@ -114,6 +110,25 @@ const MainChat = ({ fetchAgain, setFetchAgain }) => {
   useEffect(() => {
     scroll.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
+
+  // useEffect(() => {
+  //   socket.current.on("receive-message", (data) => {
+  //     console.log(notification)
+  //       notification.forEach((notify, i) => {
+  //         notify.sender._id === data.sender._id
+  //           && dispatch(notificationFilter(data, i))
+  //       })
+  // if (
+  //   !selectedChatCompare || // if chat is not selected or doesn't match current chat
+  //   selectedChatCompare._id !== data.chat?._id
+  // ) {
+  //   chats.notification.forEach((notify, i) => {
+  //     notify.sender._id === data?.sender._id &&
+  //       dispatch(notificationFilter(data, i));
+  //   });
+  // }
+  //   });
+  // }, [notification]);
 
   return (
     <>

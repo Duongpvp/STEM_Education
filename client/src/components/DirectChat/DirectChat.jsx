@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 import { Box } from "@mui/system";
 import { logOut } from "actions/AuthAction";
-import { notificationFilter, notificationSend, selectChat } from "actions/ChatAction";
+import { notificationFilter, selectChat } from "actions/ChatAction";
 import ProfileModal from "components/ProfileModal/ProfileModal";
 import { getSender } from "config/chatLogics";
 import React, { useState } from "react";
@@ -50,9 +50,9 @@ const DirectChat = () => {
     setAnchorEl2(null);
   };
 
-  const handleDirectChat = (notify, notification) => {
+  const handleDirectChat = (notify) => {
     dispatch(selectChat(notify.chat));
-    dispatch(notificationFilter(notification.filter((n) => n !== notify)));
+    dispatch(notificationFilter(chat?.filter((n) => n !== notify)));
   };
 
   return (
@@ -94,7 +94,7 @@ const DirectChat = () => {
 
           {chat.map((notify) => (
             <MenuItem
-              onClick={() => handleDirectChat(notify, chat)}
+              onClick={() => handleDirectChat(notify)}
               key={notify._id}
             >
               {notify.chat?.isGroupChat

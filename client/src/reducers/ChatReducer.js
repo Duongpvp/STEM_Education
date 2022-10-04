@@ -195,7 +195,7 @@ const ChatReducer = (
         loading: false,
         error: false,
         selectChat: action.data,
-        notification: [...state.notification]
+        notification: [...state.notification],
       };
 
     // CLEAR_SELECT
@@ -210,22 +210,34 @@ const ChatReducer = (
       };
 
     case "SET_NOTIFICATION":
+      console.log("Old State : ", state.notification);
+      console.log("Data : ", action.data);
+      let notiIndex = state.notification.findIndex(
+        (noti) => noti.sender._id === action.data.sender?._id
+      );
+      console.log(notiIndex);
+      if (notiIndex < 0) {
+        state.notification = [action.data, ...state.notification];
+      } else {
+        state.notification[notiIndex] = action.data;
+      }
       return {
         ...state,
         chatData: [...state.chatData],
         loading: false,
         error: false,
-        notification: [...state.notification, action.data],
+        notification: [...state.notification],
       };
+      case "FILTER_NOTIFICATION":
+        return {
+          ...state,
+          chatData: [...state.chatData],
+          loading: false,
+          error: false,
+          notification: action.data,
+        };
 
-    case "FILTER_NOTIFICATION":
-      return {
-        ...state,
-        chatData: [...state.chatData],
-        loading: false,
-        error: false,
-        notification: action.data,
-      };
+      
     default:
       return state;
   }
