@@ -1,3 +1,5 @@
+const moment = require("moment/moment");
+
 const io = require("socket.io")(8800, {
   cors: {
     origin: "http://localhost:3000",
@@ -17,6 +19,33 @@ io.on("connection", (socket) => {
     socket.join(newUserId);
     // send all active users to new user
     io.emit("get-users", activeUsers);
+
+    console.log(activeUsers);
+    let logUser = [
+      {
+        name: moment().format("HH") + "H",
+        length: activeUsers.length,
+      },
+    ];
+    io.emit("get-log-online", logUser);
+
+    setInterval(() => {
+      for (var i = 0; i < activeUsers.length; i++) {
+        if (logUser.length < 24) {
+          logUser.push({
+            name: moment().format("HH") + "H",
+            length: activeUsers.length,
+          });
+        } else {
+          logUser.shift();
+          logUser.push({
+            name: moment().format("HH") + "H",
+            length: activeUsers.length,
+          });
+        }
+      }
+      io.emit("get-log-online", logUser);
+    }, [3600000]);
   });
 
   socket.on("disconnect", () => {
@@ -35,12 +64,12 @@ io.on("connection", (socket) => {
 
     chat.users.forEach((user) => {
       if (user._id == data.data.sender._id) return;
-      let userSocket
-      for (var i=0; i<activeUsers.length; i++) {
+      let userSocket;
+      for (var i = 0; i < activeUsers.length; i++) {
         console.log("Active user :", activeUsers[i].userId);
         console.log("userID :", user._id);
         if (activeUsers[i].userId === user._id) {
-          userSocket = activeUsers[i].socketId
+          userSocket = activeUsers[i].socketId;
         }
       }
       console.log(userSocket);

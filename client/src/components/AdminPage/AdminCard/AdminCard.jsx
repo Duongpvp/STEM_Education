@@ -3,7 +3,6 @@ import React from "react";
 import "./AdminCard.css";
 
 const AdminCard = ({ users, icon, title }) => {
-  console.log("users: ", users);
   return (
     <div className="admin-user-card">
       {icon}

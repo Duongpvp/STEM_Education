@@ -23,6 +23,8 @@ const MainChat = ({ fetchAgain, setFetchAgain }) => {
   const chats = useSelector((state) => state.ChatReducer);
   const { notification } = useSelector((state) => state.ChatReducer);
   const { user } = useSelector((state) => state.AuthReducer.authData);
+  const onlineUserData = useSelector((state) => state.UserReducer.onlineUser);
+
   const dispatch = useDispatch();
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
@@ -37,8 +39,16 @@ const MainChat = ({ fetchAgain, setFetchAgain }) => {
     socket.current = io("http://localhost:8800");
     socket.current.emit("new-user-add", user._id);
     socket.current.on("get-users", (users) => {
-      setOnlineUsers(users);
-      dispatch(userOnline(users));
+      socket.current.on("get-users", (users) => {
+        for (var i = 0; i < onlineUserData.length; i++) {
+          if (onlineUserData[i].userId === users) {
+            return;
+          } else {
+            setOnlineUsers(users);
+            dispatch(userOnline(users));
+          }
+        }
+      });
     });
   }, [user]);
 

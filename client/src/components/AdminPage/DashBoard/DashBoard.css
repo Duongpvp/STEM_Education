@@ -17,3 +17,10 @@
     flex-wrap: wrap;
     justify-content: space-between;
 }
+
+.admin-chart {
+    display: flex;
+    flex-direction: column;
+    margin-top: 64px;
+    width: 100%;
+}
