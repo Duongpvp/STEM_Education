@@ -4,6 +4,7 @@ import "./PostShare.css";
 import { Icon } from "@iconify/react";
 import { useDispatch, useSelector } from "react-redux";
 import { uploadImage, uploadPost } from "actions/UploadAction";
+import { toast, ToastContainer } from "react-toastify";
 
 const PostShare = () => {
   const loading = useSelector((state) => state.postReducer.uploading);
@@ -48,8 +49,12 @@ const PostShare = () => {
         console.log(err);
       }
     }
-    dispatch(uploadPost(newPost));
-    resetShare();
+    if ( !newPost.desc || !newPost.image) {
+      toast.warn("Please fill out all information.")
+    }else {
+      dispatch(uploadPost(newPost));
+      resetShare();
+    }
   };
 
   return (
@@ -77,14 +82,14 @@ const PostShare = () => {
           >
             <Icon icon="uil:scenery" className="op-icon" /> Photo
           </div>
-          <div className="Option" style={{ color: "var(--video)" }}>
+          <div className="Option" disabled="disabled">
             <Icon icon="ant-design:play-circle-outlined" className="op-icon" />
             Video
           </div>
-          <div className="Option" style={{ color: "var(--location)" }}>
-            <Icon icon="akar-icons:location" className="op-icon" /> Location
+          <div className="Option" disabled="disabled">
+            <Icon icon="akar-icons:location" className="op-icon"  /> Location
           </div>
-          <div className="Option" style={{ color: "var(--schedule)" }}>
+          <div className="Option" disabled="disabled">
             <Icon icon="ant-design:schedule-outlined" className="op-icon" />
             Schedule
           </div>

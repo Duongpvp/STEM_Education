@@ -10,6 +10,8 @@
     display: flex;
     width: 3rem;
     height: 3rem;
+    object-fit: cover;
+    object-position: center;
     border-radius: 50%;
 }
 
@@ -46,7 +48,7 @@
 }
 
 .Option:hover {
-    cursor: pointer;
+    cursor: not-allowed;
 }
 
 .op-icon {

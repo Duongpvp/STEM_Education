@@ -15,7 +15,7 @@ import { uploadImage } from "actions/UploadAction";
 import { createClass } from "actions/ClassAction";
 
 const CreateClassByAdmin = ({ fetchAgain, setFetchAgain }) => {
-  const {user} = useSelector((state) => state.AuthReducer.authData);
+  const { user } = useSelector((state) => state.AuthReducer.authData);
   const dispatch = useDispatch();
   const [search, setSearch] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -39,6 +39,10 @@ const CreateClassByAdmin = ({ fetchAgain, setFetchAgain }) => {
     if (event.target.files && event.target.files[0]) {
       let img = event.target.files[0];
       setImage(img);
+      setData({
+        ...data,
+        image: img.name,
+      });
     }
   };
 
@@ -71,9 +75,11 @@ const CreateClassByAdmin = ({ fetchAgain, setFetchAgain }) => {
       );
       data.users = listUsers;
       data.classAdmin = listUsersTeacher;
-      dispatch(createClass(data.className, data.classAdmin, data.users, data.snippet));
-      toast.success("Created class successfully")
-      setFetchAgain(!fetchAgain)
+      dispatch(
+        createClass(data.className, data.classAdmin, data.users, data.snippet, data.image)
+      );
+      toast.success("Created class successfully");
+      setFetchAgain(!fetchAgain);
     } catch (error) {
       console.log(error);
     }
@@ -132,6 +138,8 @@ const CreateClassByAdmin = ({ fetchAgain, setFetchAgain }) => {
     setSelectedUsersTeacher([...selectedUsersTeacher, user]);
   };
 
+  console.log(data);
+
   return (
     <>
       <Modal
@@ -143,7 +151,7 @@ const CreateClassByAdmin = ({ fetchAgain, setFetchAgain }) => {
       >
         <TextField
           id="outlined-basic"
-          label="Class' Name"
+          label="Class Name"
           name="className"
           type="email"
           value={data.className}
@@ -154,7 +162,7 @@ const CreateClassByAdmin = ({ fetchAgain, setFetchAgain }) => {
         />
         <TextField
           id="outlined-basic"
-          label="Description' Class"
+          label="Description Class"
           name="snippet"
           variant="outlined"
           value={data.snippet}
@@ -167,7 +175,7 @@ const CreateClassByAdmin = ({ fetchAgain, setFetchAgain }) => {
             placeholder="Ex: YanG, Denis, Flex, Aliz ( Teacher users ) "
             fullWidth
             id="filled-basic"
-            label="List Users"
+            label="Teachers"
             variant="outlined"
             onChange={(e) => handleSearchTeacher(e.target.value)}
             style={{ marginBottom: "12px" }}
@@ -198,7 +206,7 @@ const CreateClassByAdmin = ({ fetchAgain, setFetchAgain }) => {
             placeholder="Ex: YanG, Denis, Flex, Aliz"
             fullWidth
             id="filled-basic"
-            label="List Users"
+            label="Users"
             variant="outlined"
             onChange={(e) => handleSearch(e.target.value)}
             style={{ marginBottom: "12px" }}

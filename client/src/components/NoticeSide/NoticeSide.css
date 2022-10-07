@@ -29,11 +29,11 @@
     transition: all 0.5s ease-out;
 }
 
-.Post-btn:hover {
+/* .Post-btn:hover {
     color: #e600ff;
     background: #f3f3f3;
     border: 1px solid #e600ff;
     border-radius: 1rem;
     cursor: pointer;
     transition: all 0.5s ease-out;
-}
+} */

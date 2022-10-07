@@ -14,6 +14,7 @@
 .user-card>img {
     min-width: 90vw;
     height: 16rem;
+    
     object-fit: cover;
     object-position: center;
     object-position: 50% 50%;
@@ -31,7 +32,10 @@
 }
 
 .user-profile>img {
-    width: 100%;
+    width: 7rem;
+    height: 7rem;
+    object-fit: cover;
+    object-position: center;
     border-radius: 50%;
 }
 

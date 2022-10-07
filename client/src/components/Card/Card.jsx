@@ -3,12 +3,13 @@ import { memo } from "react";
 import { Link } from "react-router-dom";
 import "./Card.css";
 
-const Card = ({ nameClass, snippet, idClass }) => {
+const Card = ({ nameClass, snippet, idClass, img }) => {
+  console.log(img);
   return (
     <div className="card">
       <figure className="card__thumb">
         <img
-          src="https://img5.thuthuatphanmem.vn/uploads/2021/12/09/anh-saitama-cuc-dep_090846311.png"
+          src={img}
           alt=""
           className="card__image"
         />

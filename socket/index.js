@@ -24,7 +24,7 @@ io.on("connection", (socket) => {
     let logUser = [
       {
         name: moment().format("HH") + "H",
-        length: activeUsers.length,
+        user: activeUsers.length,
       },
     ];
     io.emit("get-log-online", logUser);
@@ -34,13 +34,13 @@ io.on("connection", (socket) => {
         if (logUser.length < 24) {
           logUser.push({
             name: moment().format("HH") + "H",
-            length: activeUsers.length,
+            user: activeUsers.length,
           });
         } else {
           logUser.shift();
           logUser.push({
             name: moment().format("HH") + "H",
-            length: activeUsers.length,
+            user: activeUsers.length,
           });
         }
       }

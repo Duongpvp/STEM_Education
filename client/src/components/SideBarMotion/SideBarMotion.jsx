@@ -41,17 +41,29 @@ const SideBarMotion = () => {
 
   const profileVariants = {
     true: {
-      width: "5rem",
-      height: "5em",
       marginBottom: "2rem",
     },
     false: {
       marginTop: "1rem",
       marginBottom: "0rem",
-      width: "2.5rem",
-      height: "2.5em"
+      with: "1rem",
     },
   };
+
+  const avatarVariant = {
+    true: {
+      width: "5rem",
+      height: "5rem",
+      objectFit: "cover",
+      objectPosition: "center",
+    },
+    false: {
+      width: "2.5rem",
+      height: "2.5rem",
+      objectFit: "cover",
+      objectPosition: "center",
+    }
+  }
 
   const handleToggle = () => {
     setIsOpen(!isOpen);
@@ -100,7 +112,8 @@ const SideBarMotion = () => {
                 cursor: "pointer",
               }}
             >
-              <img
+              <motion.img
+              variants={avatarVariant}
                 src={
                   user.profilePicture
                     ? serverPublicFolder + user.profilePicture

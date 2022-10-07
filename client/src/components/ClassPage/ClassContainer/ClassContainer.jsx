@@ -11,12 +11,12 @@ import "./ClassContainer.css";
 
 const ClassContainer = () => {
   const { user } = useSelector((state) => state.AuthReducer.authData);
-
+  const serverPublicFolder = process.env.REACT_APP_FOLDER
   const [classroom, setClassroom] = useState([]);
   const [code, setCode] = useState(null);
   const [fetchAgain, setFetchAgain] = useState(false);
   const fetchAllClass = async () => {
-    try {
+  try {
       const { data } = await getAllClass(user._id);
       setClassroom(data);
     } catch (error) {
@@ -123,6 +123,7 @@ const ClassContainer = () => {
               </Button>
             </div>
           </Popover>
+          {console.log(classroom)}
           <div className="class-list">
             {classroom.map((room) => (
               <Card
@@ -130,6 +131,7 @@ const ClassContainer = () => {
                 nameClass={room.className}
                 snippet={room.snippet}
                 idClass={room._id}
+                img={serverPublicFolder + room.image}
               />
             ))}
           </div>

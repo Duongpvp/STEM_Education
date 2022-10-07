@@ -1,5 +1,9 @@
 import NavigationMenu from "components/NavigationMenu/NavigationMenu";
 import React from "react";
+import Ctu_background from "../../../assets/img/ctu_tech_background.png"
+import About_1 from "../../../assets/img/about_1.png"
+import About_2 from "../../../assets/img/about_2.png"
+import About_3 from "../../../assets/img/about_3.png"
 import "./AboutUs.css";
 
 const AboutUs = () => {
@@ -14,7 +18,7 @@ const AboutUs = () => {
       </h3>
       <div className="about-content">
         <img
-          src="https://scontent.fsgn7-1.fna.fbcdn.net/v/t39.30808-6/277092830_312679057625781_5028282242229111245_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=e3f864&_nc_ohc=EhJyfgxZBssAX_X8jYD&_nc_ht=scontent.fsgn7-1.fna&oh=00_AT8FbvF-Sx6SwSZovjEw9yqVeK_WVvQrNL-TNX8JpeYeYA&oe=633011B2"
+          src={Ctu_background}
           alt=""
           className="img-container-1"
         />
@@ -107,7 +111,7 @@ const AboutUs = () => {
         </div>
         <div className="right-side">
           <img
-            src="https://scontent.fsgn7-1.fna.fbcdn.net/v/t39.30808-6/275923563_312625627631124_3867208868539288578_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=8bfeb9&_nc_ohc=YCebrKJSyUcAX8_bUT1&tn=W9uXi7Ccu9GehMj1&_nc_ht=scontent.fsgn7-1.fna&oh=00_AT9ShyBWBHgMQSvB6V6QxsaNeEZvRqcfshzj1Rx8zEYC7g&oe=632FBF85"
+            src={About_1}
             alt=""
             className="img-container-2"
           />
@@ -117,7 +121,7 @@ const AboutUs = () => {
       <div className="undergraduate">
         <div className="left-side">
           <img
-            src="https://scontent.fsgn7-1.fna.fbcdn.net/v/t39.30808-6/275879625_312625614297792_5165504687911934932_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=8bfeb9&_nc_ohc=86YBLRZqVswAX9YmsqQ&_nc_ht=scontent.fsgn7-1.fna&oh=00_AT-bMN476ukg5B0salzOKV8QisQd-YFbCH4WZ413FMzOhA&oe=632F241A"
+            src={About_2}
             alt=""
             className="img-container-2"
           />
@@ -155,7 +159,7 @@ const AboutUs = () => {
         </div>
         <div className="right-side">
           <img
-            src="https://scontent.fsgn7-1.fna.fbcdn.net/v/t39.30808-6/276176192_312625564297797_5373043511812122136_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=8bfeb9&_nc_ohc=F-E9BAq5H80AX_3KACZ&_nc_ht=scontent.fsgn7-1.fna&oh=00_AT_hgxNRXW8Kz21yywtNpDdyN8NXr43wYN5KFrLsI1312g&oe=632F6500"
+            src={About_3}
             alt=""
             className="img-container-2"
           />

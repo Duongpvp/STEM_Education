@@ -29,22 +29,7 @@ const Auth = () => {
       [e.target.name]: e.target.value,
     });
   };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (isSignUp) {
-      data.password === data.confirmpassword
-        ? dispatch(signUp(data))
-        : setConfirmPass(false);
-    } else {
-      try {
-        dispatch(logIn(data));
-      } catch (error) {
-        console.log(error);
-      }
-    }
-  };
-
+  
   const resetForm = () => {
     setConfirmPass(true);
     setData({
@@ -55,6 +40,21 @@ const Auth = () => {
       confirmpassword: "",
     });
   };
+  
+    const handleSubmit = (e) => {
+      e.preventDefault();
+      if (isSignUp) {
+        data.password === data.confirmpassword
+          ? dispatch(signUp(data, resetForm()))
+          : setConfirmPass(false);
+      } else {
+        try {
+          dispatch(logIn(data));
+        } catch (error) {
+          console.log(error);
+        }
+      }
+    };
 
   return (
     <div className="Auth">

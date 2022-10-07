@@ -18,10 +18,11 @@ export const getUserClass = (classId) => API.get(`class/getuserclass/${classId}`
 export const getAPost = (postId) => API.get(`classpost/exc/${postId}`);
 export const getAllPost = (classId) => API.get(`classpost/${classId}`);
 export const getAllExercise = (classId) => API.get(`exercise/${classId}`);
-export const createClass = (className, classAdmin, users, snippet) => API.post("/class/createclass", {
+export const createClass = (className, classAdmin, users, snippet, image) => API.post("/class/createclass", {
     className: className,
     classAdmin: classAdmin,
     users: users,
+    image: image,
     snippet: snippet,
   });
 export const deleteClass = (id, classAdmin, isAdmin) => API.put(`/class/deleteclass/${id}`, { classAdmin: classAdmin, isAdmin: isAdmin});

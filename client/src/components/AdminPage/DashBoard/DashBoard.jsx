@@ -240,7 +240,7 @@ const DashBoard = ({logOnlineUser}) => {
             </linearGradient>
             <linearGradient id="colorStudent" x1="0" y1="0" x2="0" y2="1">
               <stop offset="5%" stopColor="#fa8ca9" stopOpacity={0.8} />
-              <stop offset="95%" stopColor="#f54272" stopOpacity={0} />
+              <stop offset="95%" stopColor="#fa8ca9" stopOpacity={0} />
             </linearGradient>
           </defs>
           <XAxis dataKey="name" />
@@ -264,10 +264,11 @@ const DashBoard = ({logOnlineUser}) => {
           <Area
             type="monotone"
             dataKey="student"
-            stroke="#82ca9d"
+            stroke="#fa8ca9"
             fillOpacity={1}
             fill="url(#colorStudent)"
           />
+          <Legend />
         </AreaChart>
         <LineChart
           width={1200}
@@ -280,7 +281,7 @@ const DashBoard = ({logOnlineUser}) => {
           <YAxis domain={[0, 'dataMax + 4']}/>
           <Tooltip />
           <Legend />
-          <Line type="monotone" dataKey="length" stroke="#8884d8" />
+          <Line type="monotone" dataKey="user" stroke="#8884d8" />
         </LineChart>
       </div>
     </div>

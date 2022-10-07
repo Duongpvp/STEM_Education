@@ -1,8 +1,8 @@
 import * as ClassApi from "../api/ClassRequest";
 
-export const createClass = (className, classAdmin, users, snippet) => async () => {
+export const createClass = (className, classAdmin, users, snippet, image) => async () => {
     try {
-      await ClassApi.createClass(className, classAdmin, users, snippet);
+      await ClassApi.createClass(className, classAdmin, users, snippet, image);
     } catch (error) {
       console.log(error);
     }

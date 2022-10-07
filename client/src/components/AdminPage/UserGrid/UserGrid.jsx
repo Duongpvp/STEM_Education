@@ -23,6 +23,7 @@ import {
 } from "@mui/material";
 import CreateUserByAdmin from "../CreateUserByAdmin/CreateUserByAdmin";
 import { toast, ToastContainer } from "react-toastify";
+import moment from "moment";
 
 const UserGrid = () => {
   const CustomToolbar = () => {
@@ -63,8 +64,12 @@ const UserGrid = () => {
       username: userData[i].username,
       firstname: userData[i].firstname,
       lastname: userData[i].lastname,
-      createdAt: userData[i].createdAt,
-      updatedAt: userData[i].updatedAt,
+      createdAt: moment(userData[i].createdAt).format(
+        "MMMM Do YYYY, h:mm:ss a"
+      ),
+      updatedAt: moment(userData[i].updatedAt).format(
+        "MMMM Do YYYY, h:mm:ss a"
+      ),
       following: userData[i].following,
       followers: userData[i].followers,
       coverPicture: userData[i].coverPicture,
@@ -121,24 +126,24 @@ const UserGrid = () => {
 
   const columns = [
     { field: "id", headerName: "ID", width: 30, editable: false },
-    { field: "username", headerName: "User_Name", width: 180, editable: false },
+    { field: "username", headerName: "User_Name", width: 220, editable: false },
     {
       field: "firstname",
       headerName: "First_Name",
-      width: 120,
+      width: 150,
       editable: false,
     },
-    { field: "lastname", headerName: "Last_Name", width: 120, editable: false },
+    { field: "lastname", headerName: "Last_Name", width: 150, editable: false },
     {
       field: "createdAt",
       headerName: "Created At",
-      width: 220,
+      width: 240,
       editable: false,
     },
     {
       field: "updatedAt",
       headerName: "Updated At",
-      width: 220,
+      width: 240,
       editable: false,
     },
     {

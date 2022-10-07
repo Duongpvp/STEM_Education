@@ -24,7 +24,7 @@ export const createClass = async (req, res) => {
       snippet: req.body.snippet,
       users: users,
       code: generateString(8),
-      image: "",
+      image: req.body.image,
       classAdmin: classAdmin,
     });
 
@@ -32,7 +32,7 @@ export const createClass = async (req, res) => {
       .findOne({ _id: classRoom._id })
       .populate("users", "-password")
       .populate("classAdmin", "-password");
-    console.log(fullClassRoom)
+    console.log(fullClassRoom);
     res.status(200).send(fullClassRoom);
   } catch (error) {
     res.status(400).send(error);
@@ -85,7 +85,8 @@ export const getAllClass = async (req, res) => {
     const classed = await classModel
       .find()
       .populate("users", "-password")
-      .populate("classAdmin", "-password");
+      .populate("classAdmin", "-password")
+      .populate("image");
     res.status(200).json(classed);
   } catch (error) {
     console.log(error);
@@ -187,7 +188,7 @@ export const joinClass = async (req, res) => {
   const { code } = req.body;
 
   const classRoom = await classModel.find({ code: code });
-  console.log(classRoom)
+  console.log(classRoom);
   if (!classRoom) {
     res.status(404).json("Class not found");
   } else {

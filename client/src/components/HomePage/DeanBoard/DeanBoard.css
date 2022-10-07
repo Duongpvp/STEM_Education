@@ -12,12 +12,12 @@
 }
 
 .about-background {
-  background: #333;
+  background: rgb(250, 232, 255);
   margin: -1rem;
 }
 
 .about-title {
-  color: #fff;
+  color: #333;
   padding: 46px;
   width: 100%;
   display: flex;

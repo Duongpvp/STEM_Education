@@ -97,25 +97,25 @@ const ClassGrid = () => {
     {
       field: "classAdmin",
       headerName: "Class Admin",
-      width: 200,
+      width: 120,
       editable: false,
     },
     {
       field: "snippet",
       headerName: "Description",
-      width: 300,
+      width: 240,
       editable: false,
     },
     {
       field: "createdAt",
       headerName: "Created At",
-      width: 150,
+      width: 220,
       editable: false,
     },
     {
       field: "updatedAt",
       headerName: "Updated At",
-      width: 150,
+      width: 220,
       editable: false,
     },
     {
@@ -174,10 +174,10 @@ const ClassGrid = () => {
       classAdmin:  classData[i].classAdmin.map((admin) => admin.username),
       snippet: classData[i].snippet,
       createdAt: moment(classData[i].createdAt).format(
-        "HH:mm:ss -- MM/DD/YYYY"
+        "MMMM Do YYYY, h:mm:ss a"
       ),
       updatedAt: moment(classData[i].updatedAt).format(
-        "HH:mm:ss -- MM/DD/YYYY"
+        "MMMM Do YYYY, h:mm:ss a"
       ),
       code: classData[i].code,
       adminFull: classData[i].classAdmin.map((admin) => admin),

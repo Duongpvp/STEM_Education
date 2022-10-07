@@ -65,7 +65,6 @@ const CreateUserByAdmin = ({ fetchAgain, setFetchAgain }) => {
           id="outlined-basic"
           label="Username"
           name="username"
-          type="email"
           value={data.username}
           variant="outlined"
           fullWidth

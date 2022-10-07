@@ -10,8 +10,8 @@ const NoticeSide = () => {
         <Link to="/media">
           <Icon icon="ant-design:home-outlined" />
         </Link>
-        <Icon icon="ant-design:setting-outlined" />
-        <Icon icon="fe:notice-active" />
+        <Icon icon="ant-design:setting-outlined" style={{cursor: "not-allowed"}}/>
+        <Icon icon="fe:notice-active" style={{cursor: "not-allowed"}}/>
         <Link to="/chat">
           <Icon icon="bx:comment-dots" />
         </Link>
