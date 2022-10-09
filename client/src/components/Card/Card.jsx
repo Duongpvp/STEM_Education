@@ -4,15 +4,11 @@ import { Link } from "react-router-dom";
 import "./Card.css";
 
 const Card = ({ nameClass, snippet, idClass, img }) => {
-  console.log(img);
+  const serverPublicFolder = process.env.REACT_APP_FOLDER;
   return (
     <div className="card">
       <figure className="card__thumb">
-        <img
-          src={img}
-          alt=""
-          className="card__image"
-        />
+        <img src={img ? serverPublicFolder + img : serverPublicFolder + "DefaultBackground.png"} alt="" className="card__image" />
         <figcaption className="card__caption">
           <h2 className="card__title">{nameClass}</h2>
           <p className="card__snippet">{snippet}</p>

@@ -98,8 +98,13 @@ export const getUserClass = async (req, res) => {
   try {
     const classRoom = await classModel
       .findById(classId)
-      .populate("users", "-password");
-    res.status(200).json(classRoom.users);
+      .populate("users", "-password")
+      .populate("classAdmin","-password")
+    // console.log("Admin :", classRoom);
+    let classRoomUser = classRoom.users;
+    let classRoomTeacher = classRoom.classAdmin;
+    classRoomUser.push(...classRoomTeacher);
+    res.status(200).json(classRoomUser);
   } catch (error) {
     console.log(error);
   }

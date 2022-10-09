@@ -13,6 +13,7 @@ import "./CreateClassByAdmin.css";
 import { toast } from "react-toastify";
 import { uploadImage } from "actions/UploadAction";
 import { createClass } from "actions/ClassAction";
+import ReactTextareaAutosize from "react-textarea-autosize";
 
 const CreateClassByAdmin = ({ fetchAgain, setFetchAgain }) => {
   const { user } = useSelector((state) => state.AuthReducer.authData);
@@ -115,11 +116,13 @@ const CreateClassByAdmin = ({ fetchAgain, setFetchAgain }) => {
 
   const handleDelete = (user) => {
     setSelectedUsers(selectedUsers.filter((select) => select._id !== user._id));
+    setFetchAgain(!fetchAgain)
   };
   const handleDeleteTeacher = (user) => {
     setSelectedUsersTeacher(
       selectedUsersTeacher.filter((select) => select._id !== user._id)
     );
+    setFetchAgain(!fetchAgain)
   };
 
   const handleGroup = (user) => {
@@ -160,7 +163,17 @@ const CreateClassByAdmin = ({ fetchAgain, setFetchAgain }) => {
           onChange={handleChange}
           style={{ marginBottom: "12px" }}
         />
-        <TextField
+        <div className="input-box">
+        <ReactTextareaAutosize
+          minRows={2}
+          name="snippet"
+          required
+          value={data.snippet}
+          onChange={handleChange}
+        />
+        <label>Description</label>
+      </div>
+        {/* <TextField
           id="outlined-basic"
           label="Description Class"
           name="snippet"
@@ -169,7 +182,7 @@ const CreateClassByAdmin = ({ fetchAgain, setFetchAgain }) => {
           fullWidth
           onChange={handleChange}
           style={{ marginBottom: "12px" }}
-        />
+        /> */}
         <FormControl fullWidth>
           <TextField
             placeholder="Ex: YanG, Denis, Flex, Aliz ( Teacher users ) "

@@ -2,16 +2,18 @@
 import PeopleIcon from "@mui/icons-material/People";
 import SendIcon from "@mui/icons-material/Send";
 import { getAPost } from "api/ClassRequest";
+import { fetchAllExercises } from "api/ExerciseRequest";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import TextareaAutosize from "react-textarea-autosize";
-import "./ExerciseContainer.css"
+import "./ExerciseContainer.css";
 
 const ExerciseContainer = () => {
   const params = useParams();
-  const serverPublicFile = process.env.REACT_APP_FILES
+  const serverPublicFile = process.env.REACT_APP_FILES;
   const [post, setPost] = useState(null);
+  const [exercise, setExercise] = useState(null);
   const serverPublicFolder = process.env.REACT_APP_FOLDER;
   const { user } = useSelector((state) => state.AuthReducer.authData);
 
@@ -27,22 +29,44 @@ const ExerciseContainer = () => {
   useEffect(() => {
     getPost();
   }, []);
+
+  const getExercise = async () => {
+    try {
+      const { data } = await fetchAllExercises(params.eid);
+      setExercise(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getExercise();
+  }, []);
+
+  const exerciseUser = exercise?.find((e) => e.sender._id === user._id);
+
   return (
     <>
       <span className="exercise-title">{post?.postTitle}</span>
       <span className="timestamp">
         Updated: {post?.updatedAt.slice(0, 10)}-{post?.updatedAt.slice(11, 19)}
       </span>
-      <span className="grade">Current grade: 0/100</span>
+      {(user && user.isAdmin) || (user && user.isTeacher)
+        ? ""
+        : user && (
+            <span className="grade">
+              Current grade: {exerciseUser?.grade}/10
+            </span>
+          )}
       <div className="hr-line">
         <hr className="lines" />
       </div>
 
       <p className="exercise-desc">{post?.desc}</p>
       <div className="exercise-files">
-        {post?.files.map((file) => (
-          <div key={file._id} className="exercise-file-item">
-            <a href={`${serverPublicFile + file}`}>{file.slice(18,-1)}</a>
+        {post?.files.map((file, i) => (
+          <div key={i} className="exercise-file-item">
+            <a href={`${serverPublicFile + file}`}>{file.slice(18, -1)}</a>
           </div>
         ))}
       </div>

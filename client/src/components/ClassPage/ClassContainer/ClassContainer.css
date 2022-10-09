@@ -16,7 +16,6 @@
 }
 
 .sidebar {
-    width: 14rem;
     height: 90%;
     display: flex;
     justify-content: flex-start;

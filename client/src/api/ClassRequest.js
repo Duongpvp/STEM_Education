@@ -13,7 +13,7 @@ API.interceptors.request.use((req) => {
 
 export const fetchAllClass = () => API.get("/class/");
 export const updateClass = (id, className, desc) => API.put(`/class/update/${id}`, { className: className, desc: desc });
-export const getAllClass = (userId) => API.get(`class/${userId}`);
+export const getAllClass = () => API.get(`class/`);
 export const getUserClass = (classId) => API.get(`class/getuserclass/${classId}`);
 export const getAPost = (postId) => API.get(`classpost/exc/${postId}`);
 export const getAllPost = (classId) => API.get(`classpost/${classId}`);

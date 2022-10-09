@@ -57,6 +57,8 @@ const UserGrid = () => {
 
   const rows = [];
 
+  console.log(userData);
+
   for (var i = 0; i < userData?.length; i++) {
     rows.push({
       id: i,
@@ -73,6 +75,7 @@ const UserGrid = () => {
       following: userData[i].following,
       followers: userData[i].followers,
       coverPicture: userData[i].coverPicture,
+      profilePicture: userData[i].profilePicture,
       role: userData[i].isAdmin
         ? "Admin"
         : userData[i].isTeacher

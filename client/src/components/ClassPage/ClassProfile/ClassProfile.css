@@ -139,6 +139,7 @@
 .class-modal-content .input-box label {
     position: absolute;
     left: 0;
+    top: 0;
     padding: 5px 0;
     font-size: 1rem;
     margin: 10px 0;

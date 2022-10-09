@@ -1,9 +1,25 @@
-import React from "react";
+// @ts-nocheck
+import { followUser, unFollowUser } from "actions/UserAction";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import "./FlashUserCard.css";
 
 const FlashUserCard = ({ user }) => {
+  const userReducer = useSelector((state) => state.AuthReducer.authData);
+  const dispatch = useDispatch();
   const serverPublicFolder = process.env.REACT_APP_FOLDER;
+  const [following, setFollowing] = useState(
+    user.followers.includes(userReducer.user._id)
+  );
+
+  const handleFollow = () => {
+    following
+      ? dispatch(unFollowUser(user._id, userReducer.user))
+      : dispatch(followUser(user._id, userReducer.user));
+    setFollowing((prev) => !prev);
+  };
+
   return (
     <div className="flash-user-card">
       <img
@@ -30,7 +46,12 @@ const FlashUserCard = ({ user }) => {
           </div>
         </div>
         <hr />
-        <Link to={`/profile/${user._id}`}>Profile</Link>
+        { user._id !== userReducer.user._id && <button
+          className={following ? "UnFollow-btn" : "Follow-btn"}
+          onClick={handleFollow}
+        >
+          {!following ? "Follow" : "UnFollow"}
+        </button>}
       </div>
     </div>
   );

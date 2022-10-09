@@ -94,6 +94,7 @@
     pointer-events: none;
     transition: 0.5s;
     color: #666;
+    background-color: transparent;
 }
 
 .student-upload-file .input-box textarea {

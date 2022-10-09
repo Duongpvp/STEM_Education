@@ -7,13 +7,12 @@ import { useSelector } from "react-redux";
 import "./ClassManagementBody.css";
 
 const ClassManagementBody = () => {
-  const { user } = useSelector((state) => state.AuthReducer.authData);
 
   const [classroom, setClassroom] = useState([]);
 
   const fetchAllClass = async () => {
     try {
-      const { data } = await getAllClass(user._id);
+      const { data } = await getAllClass();
       setClassroom(data);
     } catch (error) {
       console.log(error);
@@ -38,6 +37,7 @@ const ClassManagementBody = () => {
                 nameClass={room.className}
                 snippet={room.snippet}
                 idClass={room._id}
+                img={room.image}
               />
             ))}
           </div>

@@ -136,6 +136,7 @@
     pointer-events: none;
     transition: 0.5s;
     color: #666;
+    background-color: transparent;
 }
 
 .body-exercise-container .input-box textarea:valid~label,

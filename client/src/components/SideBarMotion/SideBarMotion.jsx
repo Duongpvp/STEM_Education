@@ -54,14 +54,10 @@ const SideBarMotion = () => {
     true: {
       width: "5rem",
       height: "5rem",
-      objectFit: "cover",
-      objectPosition: "center",
     },
     false: {
       width: "2.5rem",
       height: "2.5rem",
-      objectFit: "cover",
-      objectPosition: "center",
     }
   }
 

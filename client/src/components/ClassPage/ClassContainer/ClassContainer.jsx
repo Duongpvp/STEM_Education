@@ -131,7 +131,7 @@ const ClassContainer = () => {
                 nameClass={room.className}
                 snippet={room.snippet}
                 idClass={room._id}
-                img={serverPublicFolder + room.image}
+                img={room.image}
               />
             ))}
           </div>
