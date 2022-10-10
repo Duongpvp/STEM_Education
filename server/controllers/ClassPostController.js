@@ -3,29 +3,33 @@ import classPostModel from "../models/classPostModel.js";
 export const createClassPost = async (req, res) => {
   const { classId, postTitle, desc } = req.body;
   const listFile = JSON.parse(req.body.files);
-  if (!req.body) {
-    return res.status(400).json("Invalid data passed into request");
-  }
-  var newPost = {
-    classId: classId,
-    postTitle: postTitle,
-    desc: desc,
-    files: listFile,
-  };
   try {
-    var post = await classPostModel.create(newPost);
-    post = await post.populate("classId")
-    res.status(200).json(post);
+    if (!req.body) {
+      return res.status(400).json("Invalid data passed into request");
+    }
+    var newPost = {
+      classId: classId,
+      postTitle: postTitle,
+      desc: desc,
+      files: listFile,
+    };
+    try {
+      var post = await classPostModel.create(newPost);
+      post = await post.populate("classId")
+      res.status(200).json(post);
+    } catch (error) {
+      res.status(400).json(error);
+    }
+    // const newPost = new classPostModel(req.body);
+    // try {
+    //   await newPost.save();
+    //   res.status(200).json(newPost);
+    // } catch (error) {
+    //   console.log(error);
+    // }
   } catch (error) {
-    res.status(400).json(error);
+    res.status(500).json(error)
   }
-  // const newPost = new classPostModel(req.body);
-  // try {
-  //   await newPost.save();
-  //   res.status(200).json(newPost);
-  // } catch (error) {
-  //   console.log(error);
-  // }
 };
 
 export const getAPost = async (req, res) => {

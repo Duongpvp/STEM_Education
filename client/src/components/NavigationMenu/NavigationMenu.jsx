@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { Icon } from "@iconify/react";
 import "./NavigationMenu.css";
 import { Link } from "react-router-dom";
+import { Tooltip } from "@mui/material";
 
 const NavigationMenu = (props) => {
   const [isActive, setIsActive] = useState(false);
@@ -17,44 +18,60 @@ const NavigationMenu = (props) => {
         <Icon icon="carbon:add" />
       </div>
       <li style={{ "--i": 0 }}>
-        <Link to="/home">
-          <Icon icon="clarity:home-line" />
-        </Link>
+        <Tooltip title="Home" placement="bottom">
+          <Link to="/home">
+            <Icon icon="clarity:home-line" />
+          </Link>
+        </Tooltip>
       </li>
       <li style={{ "--i": 1 }}>
-        <Link to="/home/studyprograms">
-          <Icon icon="material-symbols:energy-program-time-used" />
-        </Link>
+        <Tooltip title="Study Programs" placement="bottom">
+          <Link to="/home/studyprograms">
+            <Icon icon="material-symbols:energy-program-time-used" />
+          </Link>
+        </Tooltip>
       </li>
       <li style={{ "--i": 2 }}>
-        <Link to="/home/department">
-          <Icon icon="mingcute:department-line" />
-        </Link>
+        <Tooltip title="Department" placement="bottom">
+          <Link to="/home/department">
+            <Icon icon="mingcute:department-line" />
+          </Link>
+        </Tooltip>
       </li>
       <li style={{ "--i": 3 }}>
-        <Link to="/home/deanboard">
-          <Icon icon="carbon:user-multiple" />
-        </Link>
+        <Tooltip title="Dean Board" placement="bottom">
+          <Link to="/home/deanboard">
+            <Icon icon="carbon:user-multiple" />
+          </Link>
+        </Tooltip>
       </li>
       <li style={{ "--i": 4 }}>
-        <Link to="/home/about">
-          <Icon icon="fluent:people-team-20-regular" />
-        </Link>
+        <Tooltip title="About" placement="bottom">
+          <Link to="/home/about">
+            <Icon icon="fluent:people-team-20-regular" />
+          </Link>
+        </Tooltip>
       </li>
       <li style={{ "--i": 5 }}>
-        <Link to="/media">
-          <Icon icon="icon-park-outline:connect" />
-        </Link>
+        <Tooltip title="Media" placement="bottom">
+          <Link to="/media">
+            <Icon icon="icon-park-outline:connect" />
+          </Link>
+        </Tooltip>
       </li>
       <li style={{ "--i": 6 }}>
-        <Link to="/class">
-          <Icon icon="ph:student" />
-        </Link>
+        <Tooltip title="Class" placement="bottom">
+          <Link to="/class">
+            <Icon icon="ph:student" />
+          </Link>
+        </Tooltip>
       </li>
       <li style={{ "--i": 7 }}>
-        <Link to="/chat">
-          <Icon icon="bi:chat" />
-        </Link>
+        <Tooltip title="Chat" placement="bottom">
+          <Link to="/chat">
+            <Icon icon="bi:chat" />
+          </Link>
+        </Tooltip>
       </li>
     </div>
   );

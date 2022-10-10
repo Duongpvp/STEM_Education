@@ -6,13 +6,14 @@ import {
   getClassPost,
   updateClassPost,
 } from "../controllers/ClassPostController.js";
+import authMiddleWare from '../MiddleWare/authMiddleWare.js';
 
 const router = express.Router();
 
-router.post("/", createClassPost);
-router.get("/exc/:id", getAPost);
-router.get("/:id", getClassPost);
-router.put("/:id", updateClassPost);
-router.delete("/:id", deleteClassPost);
+router.post("/", authMiddleWare, createClassPost);
+router.get("/exc/:id", authMiddleWare, getAPost);
+router.get("/:id", authMiddleWare, getClassPost);
+router.put("/:id", authMiddleWare, updateClassPost);
+router.delete("/:id", authMiddleWare, deleteClassPost);
 
 export default router;

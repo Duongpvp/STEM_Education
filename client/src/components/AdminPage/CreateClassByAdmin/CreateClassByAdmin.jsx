@@ -77,10 +77,17 @@ const CreateClassByAdmin = ({ fetchAgain, setFetchAgain }) => {
       data.users = listUsers;
       data.classAdmin = listUsersTeacher;
       dispatch(
-        createClass(data.className, data.classAdmin, data.users, data.snippet, data.image)
+        createClass(
+          data.className,
+          data.classAdmin,
+          data.users,
+          data.snippet,
+          data.image,
+          setFetchAgain,
+          fetchAgain
+        )
       );
       toast.success("Created class successfully");
-      setFetchAgain(!fetchAgain);
     } catch (error) {
       console.log(error);
     }
@@ -116,32 +123,37 @@ const CreateClassByAdmin = ({ fetchAgain, setFetchAgain }) => {
 
   const handleDelete = (user) => {
     setSelectedUsers(selectedUsers.filter((select) => select._id !== user._id));
-    setFetchAgain(!fetchAgain)
   };
   const handleDeleteTeacher = (user) => {
     setSelectedUsersTeacher(
       selectedUsersTeacher.filter((select) => select._id !== user._id)
     );
-    setFetchAgain(!fetchAgain)
   };
 
   const handleGroup = (user) => {
-    if (selectedUsers.includes(user)) {
-      toast.error("User already added");
-      return;
+    let selectedUserId = [];
+    for (var i = 0; i < selectedUsers.length; i++) {
+      selectedUserId.push(selectedUsers[i]._id);
     }
-    setSelectedUsers([...selectedUsers, user]);
+
+    if (selectedUserId.includes(user._id)) {
+      toast.error("User already added");
+    } else {
+      setSelectedUsers([...selectedUsers, user]);
+    }
   };
 
   const handleGroupTeacher = (user) => {
-    if (selectedUsersTeacher.includes(user)) {
-      toast.error("User already added");
-      return;
+    let selectedTeacherId = [];
+    for (var i = 0; i < selectedUsersTeacher.length; i++) {
+      selectedTeacherId.push(selectedUsersTeacher[i]._id);
     }
-    setSelectedUsersTeacher([...selectedUsersTeacher, user]);
+    if (selectedTeacherId.includes(user._id)) {
+      toast.error("User already added");
+    } else {
+      setSelectedUsersTeacher([...selectedUsersTeacher, user]);
+    }
   };
-
-  console.log(data);
 
   return (
     <>
@@ -164,15 +176,15 @@ const CreateClassByAdmin = ({ fetchAgain, setFetchAgain }) => {
           style={{ marginBottom: "12px" }}
         />
         <div className="input-box">
-        <ReactTextareaAutosize
-          minRows={2}
-          name="snippet"
-          required
-          value={data.snippet}
-          onChange={handleChange}
-        />
-        <label>Description</label>
-      </div>
+          <ReactTextareaAutosize
+            minRows={2}
+            name="snippet"
+            required
+            value={data.snippet}
+            onChange={handleChange}
+          />
+          <label>Description</label>
+        </div>
         {/* <TextField
           id="outlined-basic"
           label="Description Class"
@@ -205,8 +217,9 @@ const CreateClassByAdmin = ({ fetchAgain, setFetchAgain }) => {
         </Box>
         {isLoadingTeacher
           ? "Loading..."
-          : searchResultTeacher
-              ?.slice(0, 7)
+          : searchResultTeacher &&
+            searchResultTeacher
+              ?.slice(0, 10)
               ?.map((user) => (
                 <UserListItems
                   key={user._id}
@@ -236,7 +249,8 @@ const CreateClassByAdmin = ({ fetchAgain, setFetchAgain }) => {
         </Box>
         {isLoading
           ? "Loading..."
-          : searchResult
+          : searchResult &&
+            searchResult
               ?.slice(0, 7)
               ?.map((user) => (
                 <UserListItems

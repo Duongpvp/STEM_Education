@@ -11,18 +11,19 @@ import {
   updateClass,
   updateImgClass,
 } from "../controllers/ClassController.js";
+import authMiddleWare from "../MiddleWare/authMiddleWare.js";
 
 const router = express.Router();
 
-router.route("/").get(getAllClass);
-router.route("/:userId").get(getClass);
-router.route("/getuserclass/:id").get(getUserClass);
-router.route("/:id").put(updateImgClass);
-router.route("/join/:id").put(joinClass)
-router.route("/update/:id").put(updateClass);
-router.route("/createclass").post(createClass);
-router.route("/deleteclass/:id").put(deleteClass);
-router.route("/classadd/adduser").put(addToClass);
-router.route("/classremove/removeuser").put(removeFromClass);
+router.route("/").get(authMiddleWare, getAllClass);
+router.route("/:userId").get(authMiddleWare, getClass);
+router.route("/getuserclass/:id").get(authMiddleWare, getUserClass);
+router.route("/:id").put(authMiddleWare, updateImgClass);
+router.route("/join/:id").put(authMiddleWare, joinClass);
+router.route("/update/:id").put(authMiddleWare, updateClass);
+router.route("/createclass").post(authMiddleWare, createClass);
+router.route("/deleteclass/:id").put(authMiddleWare, deleteClass);
+router.route("/classadd/adduser").put(authMiddleWare, addToClass);
+router.route("/classremove/removeuser").put(authMiddleWare, removeFromClass);
 
 export default router;

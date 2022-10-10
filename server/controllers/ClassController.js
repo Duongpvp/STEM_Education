@@ -89,6 +89,7 @@ export const getAllClass = async (req, res) => {
       .populate("image");
     res.status(200).json(classed);
   } catch (error) {
+    res.status(500).json(error);
     console.log(error);
   }
 };
@@ -99,13 +100,14 @@ export const getUserClass = async (req, res) => {
     const classRoom = await classModel
       .findById(classId)
       .populate("users", "-password")
-      .populate("classAdmin","-password")
-    // console.log("Admin :", classRoom);
+      .populate("classAdmin", "-password");
+    console.log("Admin :", classRoom);
     let classRoomUser = classRoom.users;
     let classRoomTeacher = classRoom.classAdmin;
     classRoomUser.push(...classRoomTeacher);
     res.status(200).json(classRoomUser);
   } catch (error) {
+    res.status(500).json(error);
     console.log(error);
   }
 };
@@ -174,17 +176,38 @@ export const addToClass = async (req, res) => {
 };
 
 export const removeFromClass = async (req, res) => {
-  const { classId, userId } = req.body;
+  const { classId, userId, adminId } = req.body;
 
-  const addedClass = await classModel
-    .findByIdAndUpdate(classId, { $pull: { users: userId } }, { new: true })
-    .populate("users", "-password")
-    .populate("classAdmin", "-password");
+  try {
+    if (userId) {
+      const addedClass = await classModel
+        .findByIdAndUpdate(classId, { $pull: { users: userId } }, { new: true })
+        .populate("users", "-password")
+        .populate("classAdmin", "-password");
 
-  if (!addedClass) {
-    res.status(404).json("Class not Found");
-  } else {
-    res.send(addedClass);
+      if (!addedClass) {
+        res.status(404).json("Class not Found");
+      } else {
+        res.send(addedClass);
+      }
+    } else {
+      const addedClass = await classModel
+        .findByIdAndUpdate(
+          classId,
+          { $pull: { classAdmin: adminId } },
+          { new: true }
+        )
+        .populate("users", "-password")
+        .populate("classAdmin", "-password");
+
+      if (!addedClass) {
+        res.status(404).json("Class not Found");
+      } else {
+        res.send(addedClass);
+      }
+    }
+  } catch (error) {
+    res.status(500).json(error);
   }
 };
 
@@ -192,15 +215,18 @@ export const joinClass = async (req, res) => {
   const id = req.params.id;
   const { code } = req.body;
 
-  const classRoom = await classModel.find({ code: code });
-  console.log(classRoom);
-  if (!classRoom) {
-    res.status(404).json("Class not found");
-  } else {
-    const joinedClass = await classModel
-      .findOneAndUpdate({ code: code }, { users: id }, { new: true })
-      .populate("users", "-password")
-      .populate("classAdmin", "-password");
-    res.status(200).json(joinedClass);
+  try {
+    const classRoom = await classModel.find({ code: code });
+    if (!classRoom) {
+      res.status(404).json("Class not found");
+    } else {
+      const joinedClass = await classModel
+        .findOneAndUpdate({ code: code }, { users: id }, { new: true })
+        .populate("users", "-password")
+        .populate("classAdmin", "-password");
+      res.status(200).json(joinedClass);
+    }
+  } catch (error) {
+    res.status(500).json(error);
   }
 };

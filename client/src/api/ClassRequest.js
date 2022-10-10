@@ -27,4 +27,4 @@ export const createClass = (className, classAdmin, users, snippet, image) => API
   });
 export const deleteClass = (id, classAdmin, isAdmin) => API.put(`/class/deleteclass/${id}`, { classAdmin: classAdmin, isAdmin: isAdmin});
 export const joinClass = (id, code) => API.put(`class/join/${id}`, {code: code})
-export const removeUserFromClass = (classId, userId) => API.put("/class/classremove/removeuser", {classId: classId, userId: userId})
+export const removeUserFromClass = (classId, userId, adminId) => API.put("/class/classremove/removeuser", {classId: classId, userId: userId, adminId: adminId})

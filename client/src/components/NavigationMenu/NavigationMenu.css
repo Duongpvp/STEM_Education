@@ -29,7 +29,8 @@
 }
 
 .hash-menu li a {
-    background: #333;
+    background: rgb(141, 0, 205);
+    background: radial-gradient(circle, rgba(141, 0, 205, 1) 0%, rgba(144, 0, 162, 1) 100%);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -44,14 +45,17 @@
 }
 
 .hash-menu.active li a:hover {
-    color: orange;
+    color: #fff;
+    scale: 1.5;
+    box-shadow: 0 0 4px #333;
 }
 
 .toggle {
     position: absolute;
     width: 60px;
     height: 60px;
-    background: #333;
+    background: rgb(141, 0, 205);
+    background: radial-gradient(circle, rgba(141, 0, 205, 1) 0%, rgba(144, 0, 162, 1) 100%);
     color: #fff;
     display: flex;
     justify-content: center;
@@ -62,10 +66,12 @@
     box-shadow: 0 0 4px rgba(0, 0, 0, 0.15);
     font-size: 2em;
     transition: transform 1s;
+    transition: 0.5s;
 }
 
 .toggle:hover {
-    color: orange;
+    color: #fff;
+    scale: 1.2;
 }
 
 .hash-menu.active .toggle {

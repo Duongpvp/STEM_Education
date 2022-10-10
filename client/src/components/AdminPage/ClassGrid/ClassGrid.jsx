@@ -77,10 +77,17 @@ const ClassGrid = () => {
 
   const deleteClassHandler = () => {
     try {
-      dispatch(deleteClass(currentData.cid, user._id, user.isAdmin));
+      dispatch(
+        deleteClass(
+          currentData.cid,
+          user._id,
+          user.isAdmin,
+          setFetchAgain,
+          fetchAgain
+        )
+      );
       toast.success("Updated class successfully");
       setDeleteOpened(false);
-      setFetchAgain(!fetchAgain);
     } catch (error) {
       console.log(error);
     }
@@ -171,7 +178,7 @@ const ClassGrid = () => {
       id: i,
       cid: classData[i]._id,
       className: classData[i].className,
-      classAdmin:  classData[i].classAdmin.map((admin) => admin.username),
+      classAdmin: classData[i].classAdmin.map((admin) => admin.username),
       snippet: classData[i].snippet,
       createdAt: moment(classData[i].createdAt).format(
         "MMMM Do YYYY, h:mm:ss a"
@@ -242,10 +249,18 @@ const ClassGrid = () => {
           </AppBar>
 
           <TabPanel value={value} index={0} dir={theme.direction}>
-            <ClassOverView currentData={currentData} />
+            <ClassOverView
+              currentData={currentData}
+              setFetchAgain={setFetchAgain}
+              fetchAgain={fetchAgain}
+            />
           </TabPanel>
           <TabPanel value={value} index={1} dir={theme.direction}>
-            <UserOverview currentData={currentData} fetchAgain={fetchAgain} setFetchAgain={setFetchAgain} />
+            <UserOverview
+              currentData={currentData}
+              fetchAgain={fetchAgain}
+              setFetchAgain={setFetchAgain}
+            />
           </TabPanel>
         </Box>
       </Modal>

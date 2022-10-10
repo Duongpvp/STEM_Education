@@ -1,15 +1,27 @@
-import React from "react";
+// @ts-nocheck
+import React, { useEffect, useState } from "react";
 import DoDisturbIcon from "@mui/icons-material/DoDisturb";
 import "./UserOverview.css";
 import { removeUserFromClass } from "api/ClassRequest";
 import { toast } from "react-toastify";
 
 const UserOverview = ({ currentData, fetchAgain, setFetchAgain }) => {
-  const handleRemove = async (user) => {
-    const { data } = await removeUserFromClass(currentData.cid, user._id);
+  const [receiveAdmin, setReceiveAdmin] = useState(currentData.adminFull);
+  const [receiveUser, setReceiveUser] = useState(currentData.users);
+
+  const handleRemove = async (user, admin) => {
+    const { data } = await removeUserFromClass(
+      currentData.cid,
+      user?._id,
+      admin?._id
+    );
     if (!data) {
       toast.error("Failed to delete user !");
     } else {
+      const newListUser = receiveUser.filter((u) => u._id !== user._id);
+      setReceiveUser(newListUser);
+      const newListAdmin = receiveAdmin.filter((u) => u._id !== admin._id);
+      setReceiveAdmin(newListAdmin);
       toast.success("Deleted user successfully !");
       setFetchAgain(!fetchAgain);
     }
@@ -20,24 +32,25 @@ const UserOverview = ({ currentData, fetchAgain, setFetchAgain }) => {
       <div className="teacher-overview">
         <span className="user-overview-title">Teacher</span>
         <hr />
-        {currentData.adminFull.map((user) => (
-          <button
-            key={user._id}
-            onClick={() => handleRemove(user)}
-            className="user-overview-content"
-          >
-            {user.username} <DoDisturbIcon />
-          </button>
-        ))}
+        {receiveAdmin &&
+          receiveAdmin.map((user) => (
+            <button
+              key={user._id}
+              onClick={() => handleRemove("", user)}
+              className="user-overview-content"
+            >
+              {user.username} <DoDisturbIcon />
+            </button>
+          ))}
       </div>
       <div className="student-overview">
         <span className="user-overview-title">Student</span>
         <hr />
         <div className="overflow-overview">
-          {currentData.users &&
-            currentData.users.map((user) => (
+          {receiveUser &&
+            receiveUser.map((user) => (
               <button
-                onClick={() => handleRemove(user)}
+                onClick={() => handleRemove(user, "")}
                 className="user-overview-content"
                 key={user._id}
               >

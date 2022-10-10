@@ -1,16 +1,19 @@
 // @ts-nocheck
 import { Box } from "@chakra-ui/react";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import { CircularProgress } from "@mui/material";
-import {
-  notificationSend,
-  selectChat
-} from "actions/ChatAction";
+import { Avatar, CircularProgress, Tooltip } from "@mui/material";
+import { notificationSend, selectChat } from "actions/ChatAction";
 import { userOnline } from "actions/UserAction";
 import { fetchMessage, sendMessage } from "api/MessageRequest";
 import InfoModal from "components/InfoModal/InfoModal";
 import UpdateGroupModal from "components/UpdateGroupModal/UpdateGroupModal";
-import { getFullSender, getSender } from "config/chatLogics";
+import {
+  getFullSender,
+  getSender,
+  isLastMessage,
+  isSameSender,
+  isSameSenderMargin,
+} from "config/chatLogics";
 import React, { useEffect, useRef, useState } from "react";
 import InputEmoji from "react-input-emoji";
 import { useDispatch, useSelector } from "react-redux";
@@ -31,6 +34,7 @@ const MainChat = ({ fetchAgain, setFetchAgain }) => {
   const [sendMessageIO, setSendMessageIO] = useState(null);
   const [receiveMessage, setReceiveMessage] = useState(null);
   const [onlineUsers, setOnlineUsers] = useState([]);
+  const serverPublicFolder = process.env.REACT_APP_FOLDER;
 
   const socket = useRef();
   const scroll = useRef();
@@ -211,16 +215,71 @@ const MainChat = ({ fetchAgain, setFetchAgain }) => {
               >
                 {messages.map((message, i) => (
                   <div
-                    ref={scroll}
-                    className={
-                      message.sender._id === user._id
-                        ? "message own"
-                        : "message"
-                    }
+                    style={{
+                      display: "flex",
+                      alignItems: "flex-end",
+                    }}
                     key={i}
                   >
-                    <span>{message.content}</span>
-                    <span>{format(message.createdAt)}</span>
+                    {(isSameSender(messages, message, i, user._id) ||
+                      isLastMessage(messages, i, user._id)) && (
+                      <Tooltip
+                        title={message.sender.lastname}
+                        placement="bottom-start"
+                      >
+                        <Avatar
+                          cursor="pointer"
+                          name={message.sender.lastname}
+                          src={
+                            message.sender.profilePicture
+                              ? serverPublicFolder +
+                                message.sender.profilePicture
+                              : serverPublicFolder + "DefaultAvatar.png"
+                          }
+                        />
+                      </Tooltip>
+                    )}
+                    <span
+                      ref={scroll}
+                      style={{
+                        display: "flex",
+                        marginLeft: isSameSenderMargin(
+                          messages,
+                          message,
+                          i,
+                          user._id
+                        ),
+                        maxWidth: "35rem",
+                        marginTop: "0.7rem",
+                        padding: "0.8rem",
+                        overflow: "auto",
+                        flexDirection: "column",
+                        alignSelf: "flex-end",
+                        color: "#fff",
+                        borderRadius:
+                          message.sender?._id === user?._id
+                            ? "1rem 1rem 0 1rem"
+                            : "1rem 1rem 1rem 0",
+                        background:
+                          message.sender?._id === user?._id
+                            ? "linear-gradient(135deg, rgba(98,50,215,1) 0%, rgba(149,108,243,1) 100%)"
+                            : "linear-gradient(315deg, rgba(178,53,95,1) 0%, rgba(250,169,130,1) 100%)",
+                      }}
+                    >
+                      {message.content}
+                    </span>
+
+                    {/* <div
+                      ref={scroll}
+                      className={
+                        message.sender?._id === user._id
+                          ? "message own"
+                          : "message"
+                      }
+                    >
+                      <span>{message.content}</span>
+                      <span>{format(message.createdAt)}</span>
+                    </div> */}
                   </div>
                 ))}
                 {/* <ScrollableChat message={messages} /> */}

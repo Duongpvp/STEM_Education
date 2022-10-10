@@ -44,6 +44,7 @@ function App() {
         <Route path = "/class/"  element = {(user && user.user.isAdmin) || (user && user.user.isTeacher) ? <ClassManagement/> : user ? <Class/> : <Navigate to = "../auth"/>} />
         <Route path = "/class/:id/"  element = {user ? <ClassProfile/> : <Navigate to = "../auth"/>} />
         <Route path = "/class/:id/everyone" element = {user ? <EveryOne/> : <Navigate to = "../auth"/>} />
+        <Route path = "/classmanagement/:id/everyone" element = {user ? <EveryOne/> : <Navigate to = "../auth"/>} />
         <Route path = "/class/:id/exercise/:eid" element = {user ? <Exercise/> : <Navigate to = "../auth" />} />
 
         {/* Class Management for teacher and admin */}

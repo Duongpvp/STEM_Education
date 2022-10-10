@@ -1,10 +1,12 @@
+// @ts-nocheck
 import { Button, TextField } from "@mui/material";
 import { updateClass } from "api/ClassRequest";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ReactTextareaAutosize from "react-textarea-autosize";
+import { toast } from "react-toastify";
 import "./ClassOverView.css";
 
-const ClassOverView = ({ currentData }) => {
+const ClassOverView = ({ currentData, setFetchAgain, fetchAgain }) => {
   const [nameClass, setNameClass] = useState(currentData?.nameClass);
   const [desc, setDesc] = useState(currentData?.snippet);
 
@@ -16,13 +18,18 @@ const ClassOverView = ({ currentData }) => {
     setDesc(e.target.value);
   };
 
-  const handleUpdateClass = async() => {
+  const handleUpdateClass = async () => {
     try {
-        await updateClass(currentData.cid, nameClass, desc)
+      await updateClass(currentData.cid, nameClass, desc);
+      toast.success("Updated successfully!");
+      setFetchAgain(!fetchAgain);
     } catch (error) {
-        console.log(error)
+      toast.error("Fail to update class!");
+      console.log(error);
     }
-  }
+  };
+
+  
 
   return (
     <div className="class-overview">
@@ -52,7 +59,7 @@ const ClassOverView = ({ currentData }) => {
           justifyContent: "center",
           textAlign: "center",
           width: "120px",
-          margin: "0 0 0 auto"
+          margin: "0 0 0 auto",
         }}
       >
         UPDATE
