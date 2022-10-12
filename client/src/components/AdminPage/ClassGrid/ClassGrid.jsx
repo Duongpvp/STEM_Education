@@ -88,7 +88,7 @@ const ClassGrid = () => {
           fetchAgain
         )
       );
-      // await deletedImage({path: currentData.image})
+      await deletedImage({path: currentData.image})
       setDeleteOpened(false);
     } catch (error) {
       console.log(error);

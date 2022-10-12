@@ -12,7 +12,6 @@ export const createClass = (className, classAdmin, users, snippet, image, setFet
 
 export const deleteClass = (id, classAdmin, isAdmin, setFetchAgain, fetchAgain) => async () => {
   try {
-    console.log("HELOSAD");
     const {data} = await ClassApi.deleteClass(id, classAdmin, isAdmin);
     if (data) {
       setFetchAgain(!fetchAgain)

@@ -154,30 +154,42 @@ export const deleteClass = async (req, res) => {
     let listDeleteFiles = [];
     const classRoom = await classModel.findById(id);
     if (classRoom.classAdmin.toString().includes(user) || isAdmin) {
-      // await classRoom.deleteOne();
+      await classRoom.deleteOne();
       // Deleted relashionship
       // // Deleted Exercise
       const classPosts = await classPostModel.find({ classId: classRoom._id });
       for (let i = 0; i < classPosts.length; i++) {
-        let exercisePosts = await exerciseModel.find({
+        const exercisePosts = await exerciseModel.find({
           postId: classPosts[i]._id,
         });
-        if (exercisePosts[i]) {
-          for (let j = 0; j < exercisePosts[i].files.length; j++) {
-            listDeleteFiles.push(exercisePosts[i].files[j]);
+
+        // console.log(exercisePosts);
+
+        if (exercisePosts) {
+          for (let j = 0; j < exercisePosts.length; j++) {
+            // console.log(exercisePosts[j]);
+            
+            for (let g = 0; g < exercisePosts[j].files.length; g++) {
+              listDeleteFiles.push(exercisePosts[j].files[g]);
+            }
           }
         }
+
+        for (let h = 0; h < classPosts[i].files.length; h++) {
+          listDeleteFiles.push(classPosts[i].files[h]);
+        }
       }
+      console.log(listDeleteFiles);
+
       for (var k = 0; k < listDeleteFiles.length; k++) {
-        console.log(listDeleteFiles[k]);
         await unlinkAsync(`${serverPublicDirect}/${listDeleteFiles[k]}`);
       }
-      // await exerciseModel.deleteMany({ postId: classPosts._id });
+
+      await exerciseModel.deleteMany({ postId: classPosts._id });
       // //
       // // Deleted Post
-      // await classPostModel.deleteMany({ classId: classRoom._id.toString() });
+      await classPostModel.deleteMany({ classId: classRoom._id.toString() });
       // //
-      //
       res.status(200).json("Class deleted!");
     } else {
       res.status(403).json("Action forbidden");
