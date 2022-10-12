@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 import "./ClassManagementBody.css";
 
 const ClassManagementBody = () => {
+  const serverPublicFolder = process.env.REACT_APP_FOLDER
 
   const [classroom, setClassroom] = useState([]);
 
@@ -37,7 +38,7 @@ const ClassManagementBody = () => {
                 nameClass={room.className}
                 snippet={room.snippet}
                 idClass={room._id}
-                img={room.image}
+                img={room.image ? room.image : serverPublicFolder + "DefaultBackground.png"}
               />
             ))}
           </div>

@@ -1,10 +1,15 @@
 import express from "express";
-const router = express.Router();
 import multer from "multer";
+import fs from "fs";
+import { promisify } from "util";
+
+const router = express.Router();
+const unlinkAsync = promisify(fs.unlink);
+const serverPublicDirect = process.env.REACT_FILE_DIR
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, 'public/images');
+    cb(null, "public/images");
   },
   filename: (req, file, cb) => {
     cb(null, req.body.name);
@@ -18,6 +23,15 @@ router.post("/", upload.single("file"), (req, res) => {
     return res.status(200).json("File uploaded successfully");
   } catch (error) {
     console.error(error);
+  }
+});
+
+router.post("/deleted", upload.single("file"), async (req, res) => {
+  try {
+    await unlinkAsync(`${serverPublicDirect}/${req.body.path}`)
+    return res.status(200).json("File deleted successfully");
+  } catch (error) {
+    console.log(error);
   }
 });
 

@@ -1,5 +1,11 @@
 import classModel from "../models/classModel.js";
 import UserModel from "../models/userModel.js";
+import classPostModel from "../models/classPostModel.js";
+import exerciseModel from "../models/exerciseModel.js";
+import fs from "fs";
+import { promisify } from "util";
+const unlinkAsync = promisify(fs.unlink);
+const serverPublicDirect = process.env.REACT_FILES_DIR;
 
 export const createClass = async (req, res) => {
   if (!req.body.users || !req.body.className || !req.body.classAdmin) {
@@ -32,7 +38,6 @@ export const createClass = async (req, res) => {
       .findOne({ _id: classRoom._id })
       .populate("users", "-password")
       .populate("classAdmin", "-password");
-    console.log(fullClassRoom);
     res.status(200).send(fullClassRoom);
   } catch (error) {
     res.status(400).send(error);
@@ -145,17 +150,40 @@ export const deleteClass = async (req, res) => {
   const id = req.params.id;
   const user = req.body.classAdmin;
   const isAdmin = req.body.isAdmin;
-
-  console.log(req.body);
   try {
+    let listDeleteFiles = [];
     const classRoom = await classModel.findById(id);
     if (classRoom.classAdmin.toString().includes(user) || isAdmin) {
-      await classRoom.deleteOne();
+      // await classRoom.deleteOne();
+      // Deleted relashionship
+      // // Deleted Exercise
+      const classPosts = await classPostModel.find({ classId: classRoom._id });
+      for (let i = 0; i < classPosts.length; i++) {
+        let exercisePosts = await exerciseModel.find({
+          postId: classPosts[i]._id,
+        });
+        if (exercisePosts[i]) {
+          for (let j = 0; j < exercisePosts[i].files.length; j++) {
+            listDeleteFiles.push(exercisePosts[i].files[j]);
+          }
+        }
+      }
+      for (var k = 0; k < listDeleteFiles.length; k++) {
+        console.log(listDeleteFiles[k]);
+        await unlinkAsync(`${serverPublicDirect}/${listDeleteFiles[k]}`);
+      }
+      // await exerciseModel.deleteMany({ postId: classPosts._id });
+      // //
+      // // Deleted Post
+      // await classPostModel.deleteMany({ classId: classRoom._id.toString() });
+      // //
+      //
       res.status(200).json("Class deleted!");
     } else {
       res.status(403).json("Action forbidden");
     }
   } catch (error) {
+    console.log(error);
     res.status(500).json(error);
   }
 };

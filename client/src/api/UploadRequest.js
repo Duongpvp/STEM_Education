@@ -13,8 +13,9 @@ API.interceptors.request.use((req) => {
 });
 
 export const uploadImage = (data) => API.post("/upload/", data);
-
+export const deletedImage = (data) => API.post("/upload/deleted", data)
 export const uploadMultiFile = (data) => API.post("/uploadmultiple", data);
+
 export const deleteFile = (userId, exerciseId) =>
   API.delete("/exercise/cancel", { userId: userId, exerciseId: exerciseId });
 

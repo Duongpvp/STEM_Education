@@ -1,17 +1,17 @@
-import React from "react";
-import Logo from "../../../assets/img/Logo_Education.png";
 import DashboardIcon from "@mui/icons-material/Dashboard";
-import SupervisedUserCircleIcon from "@mui/icons-material/SupervisedUserCircle";
-import ChatIcon from "@mui/icons-material/Chat";
-import ShareIcon from "@mui/icons-material/Share";
 import SchoolIcon from "@mui/icons-material/School";
-import "./AdminSidebar.css";
+import SupervisedUserCircleIcon from "@mui/icons-material/SupervisedUserCircle";
+import React from "react";
 import { Link } from "react-router-dom";
+import Logo from "../../../assets/img/Logo_Education.png";
+import "./AdminSidebar.css";
 
 const AdminSidebar = () => {
   return (
     <section className="admin-sidebar">
-      <img src={Logo} alt="" />
+      <Link to="/home">
+        <img src={Logo} alt="" />
+      </Link>
       <Link to="/admin/">
         <div className="feature-group">
           <DashboardIcon />

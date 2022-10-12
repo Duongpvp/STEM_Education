@@ -15,6 +15,7 @@ import {
 } from "@mui/x-data-grid";
 import { deleteClass } from "actions/ClassAction";
 import { fetchAllClass } from "api/ClassRequest";
+import { deletedImage } from "api/UploadRequest";
 import moment from "moment/moment";
 import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
@@ -50,6 +51,7 @@ const ClassGrid = () => {
   const [deleteOpened, setDeleteOpened] = useState(false);
   const [currentData, setCurrentData] = useState();
   const dispatch = useDispatch();
+  const serverPulicFolder = process.env.REACT_APP_FOLDER
   const { user } = useSelector((state) => state.AuthReducer.authData);
 
   useEffect(() => {
@@ -75,7 +77,7 @@ const ClassGrid = () => {
     setCurrentData(cellValues.row);
   };
 
-  const deleteClassHandler = () => {
+  const deleteClassHandler = async() => {
     try {
       dispatch(
         deleteClass(
@@ -86,7 +88,7 @@ const ClassGrid = () => {
           fetchAgain
         )
       );
-      toast.success("Updated class successfully");
+      // await deletedImage({path: currentData.image})
       setDeleteOpened(false);
     } catch (error) {
       console.log(error);
@@ -186,6 +188,7 @@ const ClassGrid = () => {
       updatedAt: moment(classData[i].updatedAt).format(
         "MMMM Do YYYY, h:mm:ss a"
       ),
+      image: classData[i].image,
       code: classData[i].code,
       adminFull: classData[i].classAdmin.map((admin) => admin),
       users: classData[i].users,

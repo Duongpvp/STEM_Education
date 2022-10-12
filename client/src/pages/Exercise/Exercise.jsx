@@ -9,11 +9,11 @@ import "./Exercise.css";
 const Exercise = () => {
   return (
     <div className="exercise">
-      <ToastContainer/>
       <SideBarMotion />
       <div className="body-exercise-container">
         <ExerciseContainer />
       </div>
+      <ToastContainer/>
       <div className="review-exercise">
         <div className="preview-card">
           <span className="preview-title">Your current exercises</span>

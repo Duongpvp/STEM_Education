@@ -27,6 +27,7 @@
 .card__thumb {
     position: relative;
     max-height: 400px;
+    min-height: 400px;
     overflow: hidden;
     border-radius: 0.75rem;
 }
