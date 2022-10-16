@@ -2,14 +2,12 @@
     display: flex;
     justify-content: space-around;
     width: 100%;
-    height: 60vh;
     background-color: rgb(246, 230, 255);
     margin: 0 auto;
 }
 
 .left-int {
     z-index: 1;
-    padding: 2rem;
     padding-top: 1.5rem;
     flex: 4;
     margin-left: 7rem;
@@ -44,4 +42,28 @@
 .intro-content>span:nth-child(3) {
     display: flex;
     justify-content: flex-end;
+}
+
+@media only screen and (max-width: 1023px) {
+    .introduce {
+        flex-direction: column-reverse;
+    }
+
+    .left-int {
+        margin: 0 auto;
+    }
+
+    .left-int>img {
+        padding-top: 0;
+    }
+
+    .right-int {
+        margin: 0 auto;
+        width: 50%;
+        padding-top: 0;
+    }
+
+    .intro-content {
+        margin-top: 4rem;
+    }
 }

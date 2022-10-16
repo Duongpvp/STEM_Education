@@ -1,12 +1,24 @@
 .header {
     display: flex;
     justify-content: space-between;
+    position: relative;
+}
+
+#menu-header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: #fff;
+    font-size: 3rem;
+    display: none;
 }
 
 .logo {
     display: flex;
     width: 19rem;
+    align-items: center;
     transition: 0.5s ease;
+    margin-right: 2rem;
 }
 
 .logo:hover {
@@ -15,7 +27,6 @@
 }
 
 .header-menu {
-    margin-left: 2rem;
     list-style: none;
     display: flex;
     gap: 2rem;
@@ -24,7 +35,6 @@
 }
 
 .header-menu li {
-    transition: 0.5s ease;
     font-size: 1.2rem;
     font-weight: 700;
     cursor: pointer;
@@ -42,4 +52,50 @@
 
 .header-menu li:hover {
     scale: 130%;
+}
+
+@media only screen and (max-width: 1023px) {
+    .header {
+        justify-content: flex-start;
+    }
+
+    .logo {
+        margin: 0;
+        width: 12rem;
+    }
+
+    .header-menu {
+        display: flex;
+        justify-content: space-around;
+        gap: 0;
+        width: 100%;
+    }
+
+    .header-menu li a {
+        font-size: 0.9rem;
+    }
+}
+
+@media only screen and (max-width: 759px) {
+    .header-menu li a {
+        font-size: 0.5rem;
+    }
+
+    .logo {
+        width: 10rem;
+    }
+}
+
+@media only screen and (max-width: 645px) {
+    #menu-header {
+        display: block;
+    }
+
+    .logo {
+        display: none;
+    }
+
+    .header-menu {
+        display: none;
+    }
 }

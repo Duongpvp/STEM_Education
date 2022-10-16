@@ -36,7 +36,7 @@ const Home = () => {
   }, [user]);
   return (
     <div className="home">
-      <ToastContainer/>
+      <ToastContainer />
       <div className="hero">
         <div className="left-h">
           <Header />
@@ -44,9 +44,9 @@ const Home = () => {
         <div className="right-h">
           <Diversion />
         </div>
+        <Slider />
+        <ShortCutNav />
       </div>
-      <Slider />
-      <ShortCutNav />
       <IntroContent />
       <CardSlider />
       <HomeContact />

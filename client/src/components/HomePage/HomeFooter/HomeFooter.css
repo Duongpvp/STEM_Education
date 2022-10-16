@@ -155,3 +155,32 @@
         background-position-x: -1000px;
     }
 }
+
+@media only screen and (max-width : 1023px) {
+    .home-footer {
+        display: flex;
+        justify-content: center;
+        margin: 0 auto;
+        text-align: center;
+        height: 90vh;
+    }
+    .home-footer .footer-content {
+        justify-content: center;
+        width: 55%;
+        flex-direction: column;
+    }
+    .home-footer .footer-content .flex-2{
+        width: 100%;
+        padding-bottom: 2rem;
+    }
+    .home-footer .footer-content .flex-3 {
+        width: 80%;
+        margin: 0 auto;
+    }
+}
+
+@media only screen and (max-width : 750px) {
+    .home-footer {
+        height: 100vh;
+    }
+}

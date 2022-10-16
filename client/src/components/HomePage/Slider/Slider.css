@@ -1,6 +1,11 @@
 .slider-home {
     display: flex;
     flex-direction: column;
+    position: absolute;
+    bottom: 245px;
+    right: 0;
+    width: 100%;
+    height: 100%;
 }
 
 .slider-home .slogan {
@@ -10,7 +15,7 @@
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    top:-32rem;
+    /* top: -32rem; */
     z-index: 0;
     position: absolute;
     height: 100%;
@@ -35,9 +40,8 @@
     font-family: 'DynaPuff', cursive;
     display: block;
     position: absolute;
-    right: 0;
-    bottom: 26rem;
-    right: 5rem;
+    right: 80px;
+    bottom: -90px;
     width: 10rem;
     height: 4rem;
     border-radius: 0.75rem;
@@ -105,5 +109,36 @@
 
     100% {
         background-position: 0 0;
+    }
+}
+
+@media only screen and (max-width: 1023px) {
+    .slider-home {
+        top: -15%;
+    }
+
+    .slider-home .slogan {
+        width: 100%;
+        align-items: center;
+    }
+
+    .slider-home .slogan>span:nth-child(1),
+    .slider-home .slogan>span:nth-child(3) {
+        text-transform: uppercase;
+        font-size: 1.3rem;
+    }
+
+    .slider-home .slogan>span:nth-child(2) {
+        font-size: 1rem;
+    }
+
+    .join-btn {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 758px) {
+    .slider-home {
+        top: -20%;
     }
 }

@@ -11,8 +11,9 @@
     margin: 0 auto;
     position: absolute;
     left: 50%;
+    bottom: -2rem;
     transform: translate(-50%, 0);
-    top: 40rem;
+    /* top: 40rem; */
     border-radius: 10px;
     z-index: 2;
 }
@@ -69,6 +70,18 @@
 .shortcut-nav ul li:hover a .text {
     transform: translateY(10px);
     opacity: 1;
+}
+
+@media only screen and (max-width: 1023px) {
+    .shortcut-nav {
+        bottom: -1.7rem;
+    }
+}
+
+@media only screen and (max-width: 644px) {
+    .shortcut-nav {
+        display: none;
+    }
 }
 
 /* .indicator {

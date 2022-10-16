@@ -3,6 +3,7 @@
     display: flex;
     justify-content: space-between;
     background-image: url("../../../assets/img/contact.png");
+    background-repeat: no-repeat;
     background-size: 100%;
     position: relative;
     min-height: 80vh;
@@ -53,8 +54,8 @@
     margin-top: 10px;
 }
 
-.left-contact .input-box > textarea,
-.left-contact .input-box > input {
+.left-contact .input-box>textarea,
+.left-contact .input-box>input {
     width: 100%;
     padding: 5px 0;
     font-size: 1.2rem;
@@ -66,7 +67,7 @@
     resize: none;
 }
 
-.left-contact .input-box > label {
+.left-contact .input-box>label {
     position: absolute;
     top: 0;
     left: 0;
@@ -109,4 +110,16 @@
 
 .right-contact {
     flex: 1;
+}
+
+@media only screen and (max-width: 1023px) {
+    .home-contact {
+        background-position: center;
+        background-size: 300%;
+    }
+
+    .left-contact {
+        margin-left: 0;
+        width: 100%;
+    }
 }

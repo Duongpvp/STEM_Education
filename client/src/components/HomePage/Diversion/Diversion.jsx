@@ -32,8 +32,6 @@ const Diversion = () => {
                   className="avatar"
                   onClick={() => setIsOpenMenu((prev) => !prev)}
                 />
-                <Link className="link" to="/profile"></Link>
-
                 {isOpenMenu && (
                   <ul className="direct-menu">
                     <li>
@@ -47,6 +45,9 @@ const Diversion = () => {
                     </li>
                   </ul>
                 )}
+                <Link className="link" to="/profile"></Link>
+
+                
               </div>
               <div className="profile-info">
                 <span>Hello {user.lastname} !</span>

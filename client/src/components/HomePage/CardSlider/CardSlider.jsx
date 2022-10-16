@@ -1,15 +1,41 @@
+// @ts-nocheck
 import { FeatureData } from "Data/FeaturesData";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Slider from "react-slick";
 import "./CardSlider.css";
 
 const CardSlider = () => {
+  const getWindowDimensions = () => {
+    const { innerWidth: width, innerHeight: height } = window;
+    return {
+      width,
+      height
+    };
+  }
+  
+  const useWindowDimensions = () => {
+    const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
+  
+    useEffect(() => {
+      const handleResize = () => {
+        setWindowDimensions(getWindowDimensions());
+      }
+      
+      window.addEventListener('resize', handleResize);
+      return () => window.removeEventListener('resize', handleResize);
+    }, []);
+    
+    return windowDimensions;
+  }
+  
+  const { height, width } = useWindowDimensions();
+
   const settings = {
     className: "center",
     centerMode: true,
     infinite: true,
     centerPadding: "80px",
-    slidesToShow: 3,
+    slidesToShow: (width <= 1023 && width > 940) ? 2 : (width <= 940) ? 1 : 3,
     speed: 500,
   };
 

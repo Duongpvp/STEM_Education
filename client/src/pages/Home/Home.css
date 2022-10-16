@@ -12,8 +12,9 @@
     background-repeat: no-repeat;
     width: 100%;
     z-index: 1;
-    height: 85vh;
+    min-height: 85vh;
     image-rendering: pixelated;
+    position: relative;
 }
 
 
@@ -28,4 +29,38 @@
     z-index: 1;
     padding-top: 3.4rem;
     flex: 1;
+}
+
+@media only screen and (max-width: 1023px) {
+    .hero {
+        position: relative;
+        min-height: 45vh;
+        height: 100%;
+        background-position: center center;
+        background-repeat: no-repeat;
+    }
+
+    .left-h {
+        flex: 7;
+    }
+}
+
+@media only screen and (max-width: 759px) {
+    .hero {
+        top: -4rem;
+        padding-top: 4rem;
+        height: 100%;
+        width: 100%;
+        background-position: center center;
+        background-repeat: no-repeat;
+    }
+}
+
+
+@media only screen and (max-width: 479px) {
+    .hero {
+        background-size: cover;
+        position: relative;
+        object-fit: cover;
+    }
 }

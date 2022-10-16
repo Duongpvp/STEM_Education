@@ -18,6 +18,10 @@
     cursor: pointer;
 }
 
+.profile-card>.profile-avatar {
+    position: relative;
+}
+
 .direct-menu {
     display: block;
     position: absolute;
@@ -28,8 +32,7 @@
     background-color: #f3f3f3;
     color: #333;
     width: 8rem;
-    right: 14rem;
-    top: 6.5rem;
+    right: 0rem;
 }
 
 .direct-menu::before {
@@ -73,4 +76,26 @@
     object-fit: cover;
     object-position: center;
     border-radius: 50%;
+}
+
+@media only screen and (max-width: 1023px) {
+    .profile-info {
+        display: none;
+    }
+
+    
+    .profile-card>.profile-avatar>img {
+        width: 2rem;
+        height: 2rem;
+    }
+}
+
+@media only screen and (max-width: 645px) {
+    .profile-card>.profile-avatar>img {
+        display: none;
+    }
+
+    .direct-menu {
+        display: none;
+    }
 }
