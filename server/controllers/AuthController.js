@@ -1,7 +1,7 @@
-import UserModel from "../models/userModel.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import multer from "multer";
+import UserModel from "../models/userModel.js";
+import nodeMailer from "nodemailer";
 
 export const registerUser = async (req, res) => {
   const salt = await bcrypt.genSalt(10);
@@ -99,16 +99,14 @@ export const loginOutsideUser = async (req, res) => {
       { expiresIn: "24h" }
     );
     if (user) {
-      console.log("User nè");
       res.status(200).json({ user, token });
     } else {
-      console.log("Tạo user");
       const outsideUser = {
         username: userId,
         firstname: firstname,
         lastname: lastname,
         profilePicture: avatar,
-        outsideId: userId
+        outsideId: userId,
       };
       const newUser = new UserModel(outsideUser);
       const user = await newUser.save();
@@ -116,5 +114,40 @@ export const loginOutsideUser = async (req, res) => {
     }
   } catch (error) {
     res.status(500).json({ message: error.message });
+  }
+};
+
+export const sendMailer = async (req, res) => {
+  const { email } = req.body;
+  try {
+    const transporter = nodeMailer.createTransport({
+      host: "smtp.gmail.com",
+      port: 587,
+      secure: false,
+      auth: {
+        user: "duongb1807625@student.ctu.edu.vn",
+        pass: "DRDq2cz7",
+      },
+    });
+
+    const mailOptions = {
+      from: "duongb1807625@student.ctu.edu.vn",
+      to: "duong891109@gmail.com",
+      subject: "Sending Email With React And Nodejs",
+      html: "<img src='https://blognhanpham.com/wp-content/uploads/2021/01/tommy-shelby-6.jpg' alt='' />",
+    };
+
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        console.log(info);
+        console.log("Error : " + error);
+      } else {
+        console.log("Email sent:" + info.response);
+        res.status(201).json({ status: 201, info });
+      }
+    });
+  } catch (error) {
+    console.log("Error" + error);
+    res.status(401).json({ status: 401, error });
   }
 };

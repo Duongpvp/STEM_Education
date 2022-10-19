@@ -34,6 +34,7 @@ const Home = () => {
       }
     });
   }, [user]);
+
   return (
     <div className="home">
       <ToastContainer />
