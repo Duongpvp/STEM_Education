@@ -8,11 +8,11 @@ const UserSchema = mongoose.Schema(
         },
         password: {
             type: String,
-            required: true,
+            // required: true,
         },
         firstname: {
             type: String,
-            required: true,
+            // required: true,
         },
         lastname: {
             type: String,
@@ -26,6 +26,7 @@ const UserSchema = mongoose.Schema(
             type: Boolean,
             default: false,
         },
+        outsideId: String,
         profilePicture: String,
         coverPicture: String,
         about: String,

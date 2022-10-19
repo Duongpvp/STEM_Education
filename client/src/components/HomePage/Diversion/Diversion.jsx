@@ -12,8 +12,11 @@ const Diversion = () => {
   const [isOpenMenu, setIsOpenMenu] = useState(false);
 
   const handleLogOut = () => {
-    dispatch(logOut())
-  }
+    dispatch(logOut());
+    window.open("http://localhost:5000/auth/logout", "_self");
+  };
+
+  console.log(user.profilePicture);
 
   return (
     <div className="diversion">
@@ -24,7 +27,9 @@ const Diversion = () => {
               <div className="profile-avatar">
                 <img
                   src={
-                    user.profilePicture
+                    user.outsideId
+                      ? user.profilePicture
+                      : user.profilePicture
                       ? serverPublicFolder + user.profilePicture
                       : serverPublicFolder + "DefaultAvatar.png"
                   }
@@ -40,18 +45,21 @@ const Diversion = () => {
                       </Link>
                     </li>
 
-                    <li onClick={handleLogOut}>
-                        LOGOUT
-                    </li>
+                    <li onClick={handleLogOut}>LOGOUT</li>
                   </ul>
                 )}
                 <Link className="link" to="/profile"></Link>
-
-                
               </div>
               <div className="profile-info">
                 <span>Hello {user.lastname} !</span>
-                <span>Role: {user.isAdmin ? "Admin" : user.isTeacher ? "Teacher" : "Student"}</span>
+                <span>
+                  Role:{" "}
+                  {user.isAdmin
+                    ? "Admin"
+                    : user.isTeacher
+                    ? "Teacher"
+                    : "Student"}
+                </span>
               </div>
             </div>
           </div>

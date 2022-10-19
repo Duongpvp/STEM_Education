@@ -50,3 +50,37 @@ export const signUp =
 export const logOut = () => async (dispatch) => {
   dispatch({ type: "LOG_OUT" });
 };
+
+export const loginOutsideUser =
+  (userId, firstname, lastname, avatar) => async (dispatch) => {
+    dispatch({ type: "AUTH_START" });
+    try {
+      const { data } = await AuthApi.loginOutsideUser(
+        userId,
+        firstname,
+        lastname,
+        avatar
+      );
+      dispatch({ type: "AUTH_SUCCESS", data: data });
+      toast.success(" Login successfully!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    } catch (error) {
+      dispatch({ type: "AUTH_FAIL" });
+      toast.error(" Something went wrong with your account!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
+  };

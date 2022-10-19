@@ -30,7 +30,7 @@ function App() {
       <div className="blur" style={{top: '20%', left: '-20%'}}></div>
       <Routes>
         {/* Authentication */}
-        <Route path = "/auth/" element = {user && user.user.isAdmin ? <Navigate to = "../admin/"/> : user ? <Navigate to = "../home" /> : <Auth/>} />
+        <Route path = "/auth/" element = {user && user?.user.isAdmin ? <Navigate to = "../admin/"/> : user ? <Navigate to = "../home" /> : <Auth/>} />
         
         {/* Home Route */}
         <Route path = "/" element = { user && user.user.isAdmin ? <Navigate to = "admin/"/> : user ? <Navigate to = "home/"/> : <Navigate to = "auth" />}/>

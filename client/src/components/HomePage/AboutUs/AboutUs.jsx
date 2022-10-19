@@ -13,9 +13,9 @@ const AboutUs = () => {
         <NavigationMenu />
       </div>
       <h2 className="about-tittle">ABOUT US</h2>
-      <h3 className="about-nav">
+      <h4 className="about-nav">
         THE COLLEGE OF INFORMATION & COMMUNICATION TECHNOLOGY
-      </h3>
+      </h4>
       <div className="about-content">
         <img
           src={Ctu_background}

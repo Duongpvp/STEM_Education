@@ -54,6 +54,10 @@
     letter-spacing: 0.4rem;
 }
 
+.From > img {
+    display: none;
+}
+
 .From>div {
     width: 100%;
     align-items: center;
@@ -155,16 +159,10 @@ hr {
     cursor: pointer;
 }
 
-.FacebookIcon {
-    background: linear-gradient(to right, #0546A0 0%, #0546A0 40%, #663FB6 100%);
-}
-
-.InstagramIcon {
-    background: linear-gradient(to right, #A12AC4 0%, #ED586C 40%, #F0A853 100%);
-}
-
-.TwitterIcon {
-    background: linear-gradient(to right, #56C1E1 0%, #35A9CE 50%);
+.TwitterIcon > img,
+.InstagramIcon > img,
+.FacebookIcon > img {
+    width: 50px;
 }
 
 .area {
@@ -293,4 +291,53 @@ hr {
         border-radius: 50%;
     }
 
+}
+
+@media only screen and (max-width: 1365px) {
+    .Left-Info > img {
+        width: 30rem;
+    }
+
+    .From {
+        width: 40vw;
+    }
+}
+
+@media only screen and (max-width: 1023px) {
+    .Left-Info > img {
+        width: 25rem;
+    }
+
+    .From {
+        width: 45vw;
+    }
+
+    .infoInput {
+        text-align: center;
+    }
+
+    .From>h4 {
+        font-size: 2rem;
+    }
+}
+
+@media only screen and (max-width: 920px) {
+    .Auth {
+        height: 90vh;
+        flex-direction: column;
+    }
+
+    .Auth .Left-Info {
+        display: none;
+    } 
+
+    .From {
+        width: 80%;
+        height: 65vh;
+    }
+
+    .From > img { 
+        display: block;
+        width: 20rem;
+    }
 }

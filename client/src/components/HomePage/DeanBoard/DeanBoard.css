@@ -446,3 +446,66 @@
 .card__collection .cards--three__list li:nth-child(3) {
   transition-delay: 0.4s;
 }
+
+@media screen and (max-width: 1023px) {
+  .card__collection {
+    width: 70%;
+  }
+}
+
+@media screen and (max-width: 943px) {
+  .card__collection {
+    width: 75%;
+  }
+}
+
+@media screen and (max-width: 883px) {
+  .card__collection {
+    width: 80%;
+  }
+}
+
+@media screen and (max-width: 825px) {
+  .card__collection {
+    width: 85%;
+  }
+}
+
+@media screen and (max-width: 780px) {
+  .card__collection {
+    width: 87%;
+  }
+}
+
+@media screen and (max-width: 760px) {
+  .card__collection {
+    width: 90%;
+  }
+}
+
+@media screen and (max-width: 760px) {
+  .card__collection {
+    width: 95%;
+  }
+}
+
+@media screen and (max-width: 695px) {
+  .card__collection {
+    width: 100%;
+  }
+}
+/* 
+@media screen and (max-width: 695px) {
+  .card__collection {
+    width: 90%;
+  }
+  .card__collection .cards {
+    width: 700px;
+    height: 800px;
+  }
+
+  .cards--three img{
+    width: 600px;
+    height: 800px;
+  }
+} */

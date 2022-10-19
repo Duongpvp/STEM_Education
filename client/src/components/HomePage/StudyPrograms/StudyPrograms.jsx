@@ -1,3 +1,5 @@
+import ListIcon from "@mui/icons-material/List";
+import { Button, Drawer } from "@mui/material";
 import NavigationMenu from "components/NavigationMenu/NavigationMenu";
 import React, { useState } from "react";
 import "./StudyPrograms.css";
@@ -8,6 +10,17 @@ const StudyPrograms = () => {
   const handleTabs = (index) => {
     setToggleState(index);
   };
+  const [isOpenDrawer, setIsOpenDrawer] = useState(false);
+  const toggleDrawer = (open) => (event) => {
+    if (
+      event.type === "keydown" &&
+      (event.key === "Tab" || event.key === "Shift")
+    ) {
+      return;
+    }
+
+    setIsOpenDrawer(open);
+  };
   return (
     <div className="study-programs">
       <div className="nav-bot-right-menu">
@@ -15,6 +28,25 @@ const StudyPrograms = () => {
       </div>
       <div className="study-programs-header">Study Programs</div>
       <div className="study-programs-content">
+        <React.Fragment>
+          <ListIcon onClick={toggleDrawer(true)}></ListIcon>
+          <Drawer
+            anchor={"left"}
+            open={isOpenDrawer}
+            onClose={toggleDrawer(false)}
+          >
+            <Button id="study-programs-menu-item" onClick={() => handleTabs(1)} >SOFTWARE ENGINEERING</Button>
+            <Button id="study-programs-menu-item" onClick={() => handleTabs(2)} >
+              Computer Networks And Data Communication
+            </Button>
+            <Button id="study-programs-menu-item" onClick={() => handleTabs(3)} >COMPUTER SCIENCE</Button>
+            <Button id="study-programs-menu-item" onClick={() => handleTabs(4)} >INFORMATION SYSTEM</Button>
+            <Button id="study-programs-menu-item" onClick={() => handleTabs(5)} >
+              Information Technology
+            </Button>
+            <Button id="study-programs-menu-item" onClick={() => handleTabs(6)} >Applied Informatics</Button>
+          </Drawer>
+        </React.Fragment>
         <div className="study-programs-nav">
           <ul>
             <li

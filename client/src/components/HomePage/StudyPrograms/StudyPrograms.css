@@ -20,6 +20,18 @@
     backdrop-filter: blur(4.5px);
     -webkit-backdrop-filter: blur(4.5px);
     border: 1px solid rgba(255, 255, 255, 0.3);
+    position: relative;
+}
+
+#study-programs-menu-item {
+    padding: 12px;
+}
+
+.study-programs .study-programs-content svg {
+    position: absolute;
+    top: 12px;
+    left: 24px;
+    font-size: 3rem;
 }
 
 .study-programs .study-programs-header {
@@ -141,4 +153,10 @@
 .content ul li {
     list-style: none;
     text-align: justify;
+}
+
+@media screen and (max-width: 920px) {
+    .study-programs .study-programs-nav {
+        display: none;
+    }
 }

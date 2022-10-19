@@ -1,6 +1,7 @@
 import UserModel from "../models/userModel.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import multer from "multer";
 
 export const registerUser = async (req, res) => {
   const salt = await bcrypt.genSalt(10);
@@ -77,6 +78,41 @@ export const loginUser = async (req, res) => {
       }
     } else {
       res.status(404).json("User does not exist");
+    }
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// Login Outside User
+export const loginOutsideUser = async (req, res) => {
+  const { userId, firstname, lastname, avatar } = req.body;
+
+  try {
+    const user = await UserModel.findOne({ outsideId: userId });
+    const token = jwt.sign(
+      {
+        username: userId,
+        id: userId,
+      },
+      process.env.JWT_SECRETKEY,
+      { expiresIn: "24h" }
+    );
+    if (user) {
+      console.log("User nè");
+      res.status(200).json({ user, token });
+    } else {
+      console.log("Tạo user");
+      const outsideUser = {
+        username: userId,
+        firstname: firstname,
+        lastname: lastname,
+        profilePicture: avatar,
+        outsideId: userId
+      };
+      const newUser = new UserModel(outsideUser);
+      const user = await newUser.save();
+      res.status(200).json({ user, token });
     }
   } catch (error) {
     res.status(500).json({ message: error.message });

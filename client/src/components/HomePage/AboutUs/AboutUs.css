@@ -62,12 +62,10 @@
     justify-content: center;
 }
 
-.about-sub-content p {}
-
 .vision-toward {
     margin-top: 62px;
     width: 100%;
-    min-height: 100vh;
+    min-height: 80vh;
 }
 
 .vision-toward .vision-title {
@@ -92,6 +90,7 @@
 .vision-toward .vision-box .vision-item {
     display: flex;
     align-items: center;
+    justify-content: center;
     border-radius: 39px;
     background: linear-gradient(145deg, #dedede, #ffffff);
     box-shadow: 32px 32px 64px #d2d2d2,
@@ -262,4 +261,76 @@
     right: 0;
     bottom: 0;
     margin: auto;
+}
+
+@media only screen and (max-width: 1023px) {
+    .about-content {
+        flex-direction: column-reverse;
+    }
+
+    .about-sub-content {
+        width: 90%;
+    }
+
+    .about-content .img-container-1 {
+        width: 90%;
+    }
+
+    .vision-box {
+        flex-wrap: wrap;
+        margin-bottom: 32px;
+    }
+
+    .vision-toward {
+        margin-bottom: 32px;
+    }
+
+    .vision-toward .vision-box .vision-item {
+        padding: 50px;
+        width: 29%;
+    }
+
+    .college {
+        width: 85%;
+    }
+
+    .undergraduate {
+        width: 90%;
+        justify-content: space-between;
+    }
+
+    .img-container-2 {
+        width: 90%;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .vision-toward .vision-box .vision-item {
+        width: 44%;
+    }
+
+    .college,
+    .postgraduate {
+        flex-direction: column;
+    }
+
+    .college .college-item {
+        text-align: center;
+    }
+
+    .undergraduate .right-side .undergraduate-title,
+    .undergraduate .undergraduate-item ul li,
+    .postgraduate .postgraduate-item ul li {
+        text-align: center;
+    }
+
+    .undergraduate {
+        flex-direction: column-reverse;
+    }
+}
+
+@media only screen and (max-width: 660px) {
+    .vision-toward .vision-box .vision-item {
+        width: 100%;
+    }
 }

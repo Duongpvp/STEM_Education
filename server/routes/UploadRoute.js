@@ -9,6 +9,7 @@ const serverPublicDirect = process.env.REACT_FILE_DIR
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
+    console.log(req);
     cb(null, "public/images");
   },
   filename: (req, file, cb) => {

@@ -1,5 +1,8 @@
+// @ts-nocheck
 import NavigationMenu from "components/NavigationMenu/NavigationMenu";
 import React, { useState } from "react";
+import ListIcon from "@mui/icons-material/List";
+import { Button, Drawer } from "@mui/material";
 import "./Department.css";
 
 const Department = () => {
@@ -9,6 +12,18 @@ const Department = () => {
     setToggleState(index);
   };
 
+  const [isOpenDrawer, setIsOpenDrawer] = useState(false);
+  const toggleDrawer = (open) => (event) => {
+    if (
+      event.type === "keydown" &&
+      (event.key === "Tab" || event.key === "Shift")
+    ) {
+      return;
+    }
+
+    setIsOpenDrawer(open);
+  };
+
   return (
     <div className="department">
       <div className="nav-bot-right-menu">
@@ -16,6 +31,22 @@ const Department = () => {
       </div>
       <div className="depart-header">Department</div>
       <div className="depart-content">
+        <React.Fragment>
+          <ListIcon  onClick={toggleDrawer(true)}>anchor</ListIcon>
+          <Drawer
+            anchor={"left"}
+            open={isOpenDrawer}
+            onClose={toggleDrawer(false)}
+          >
+            <Button id="department-menu-item" onClick={() => handleTabs(1)} >ADMIN OFFICE</Button>
+            <Button id="department-menu-item" onClick={() => handleTabs(2)} >Software Engineering (DoSE)</Button>
+            <Button id="department-menu-item" onClick={() => handleTabs(3)} >COMPUTER SCIENCE</Button>
+            <Button id="department-menu-item" onClick={() => handleTabs(4)} >INFORMATION SYSTEM</Button>
+            <Button id="department-menu-item" onClick={() => handleTabs(5)} >Computer Networks And Communication</Button>
+            <Button id="department-menu-item" onClick={() => handleTabs(6)} >Information Technology</Button>
+            <Button id="department-menu-item" onClick={() => handleTabs(7)} >Applied Informatics</Button>
+          </Drawer>
+        </React.Fragment>
         <div className="depart-nav">
           <ul>
             <li
