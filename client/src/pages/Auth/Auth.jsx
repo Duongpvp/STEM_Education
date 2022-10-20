@@ -1,7 +1,14 @@
 // @ts-nocheck
-import { logIn, loginOutsideUser, signUp } from "actions/AuthAction";
+import {
+  logIn,
+  loginOutsideUser,
+  signUp,
+  verifySender,
+} from "actions/AuthAction";
+import { resetPassword } from "api/AuthRequest";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import facebookIcon from "../../assets/img/facebook.png";
@@ -19,11 +26,13 @@ const Auth = () => {
     password: "",
     confirmpassword: "",
   });
-
+  const params = useParams();
+  const [resetPassWord, setResetPassWord] = useState("");
+  const [verifyCode, setVerifyCode] = useState(null);
   const [outsideUser, setOutsideUser] = useState(null);
+  const [formState, setFormState] = useState("Login");
   const loading = useSelector((state) => state.AuthReducer.loading);
   const dispatch = useDispatch();
-  const [isSignUp, setIsSignUp] = useState(false);
   const [confirmPass, setConfirmPass] = useState(true);
 
   const handleChange = (e) => {
@@ -33,12 +42,19 @@ const Auth = () => {
     });
   };
 
+  const verifyChange = (e) => {
+    setVerifyCode(e.target.value);
+  };
+
+  const handleVerify = () => {
+    dispatch(verifySender(data.username, verifyCode));
+  };
+
   const resetForm = () => {
     setConfirmPass(true);
     setData({
       firstname: "",
       lastname: "",
-      username: "",
       password: "",
       confirmpassword: "",
     });
@@ -46,10 +62,12 @@ const Auth = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (isSignUp) {
-      data.password === data.confirmpassword
-        ? dispatch(signUp(data, resetForm()))
-        : setConfirmPass(false);
+    if (formState === "SignUp") {
+      if (data.password === data.confirmpassword) {
+        dispatch(signUp(data, resetForm()));
+      } else {
+        setConfirmPass(false);
+      }
     } else {
       try {
         dispatch(logIn(data));
@@ -107,7 +125,6 @@ const Auth = () => {
       // data.append("file", outsideUser.photos[0].value);
       // dispatch(uploadImage(data));
       // eslint-disable-next-line no-undef
-      console.log(outsideUser);
       if (outsideUser) {
         if (outsideUser.provider === "google") {
           dispatch(
@@ -138,6 +155,20 @@ const Auth = () => {
     }
   }, [fetchAgain]);
 
+  const handleChangePasswordReset = (e) => {
+    setResetPassWord(e.target.value);
+  };
+
+  const handleResetPassword = () => {
+    try {
+      dispatch(
+        resetPassword(resetPassWord, params.userEmail, params.id, params.token)
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className="Auth">
       <ToastContainer />
@@ -160,9 +191,15 @@ const Auth = () => {
       </div>
       <div className="From">
         <img src={Logo} alt="" />
-        <h4>{isSignUp ? "SIGN UP" : "LOGIN"}</h4>
+        <h4>
+          {formState === "SignUp"
+            ? "SIGN UP"
+            : formState === "Verify"
+            ? "ACTIVE USER"
+            : formState === "forgotPassword" ? "FORGOT PASSWORD" : "LOG IN"}
+        </h4>
         <form className="infoFrom" onSubmit={handleSubmit}>
-          {isSignUp && (
+          {formState === "SignUp" && (
             <div>
               <input
                 type="text"
@@ -182,27 +219,43 @@ const Auth = () => {
               />
             </div>
           )}
-          <div>
-            <input
-              type="email"
-              placeholder="User Name (Ex:user@gmail.com)"
-              className="infoInput"
-              name="username"
-              value={data.username}
-              onChange={handleChange}
-            />
-          </div>
-          <div>
-            <input
-              type="password"
-              placeholder="Password"
-              className="infoInput"
-              name="password"
-              value={data.password}
-              onChange={handleChange}
-            />
-          </div>
-          {isSignUp && (
+          {formState !== "forgotPassword" && (
+            <div>
+              <input
+                type="email"
+                placeholder="User Name (Ex:user@gmail.com)"
+                className="infoInput"
+                name="username"
+                value={data.username}
+                onChange={handleChange}
+              />
+            </div>
+          )}
+
+          {formState === "Verify" ? (
+            <div>
+              <input
+                className="infoInput"
+                type="text"
+                onChange={verifyChange}
+                placeholder="Code in your email"
+              />
+            </div>
+          ) : (
+            formState !== "forgotPassword" && (
+              <div>
+                <input
+                  type="password"
+                  placeholder="Password"
+                  className="infoInput"
+                  name="password"
+                  value={data.password}
+                  onChange={handleChange}
+                />
+              </div>
+            )
+          )}
+          {formState === "SignUp" && (
             <div>
               <input
                 type="password"
@@ -214,6 +267,18 @@ const Auth = () => {
               />
             </div>
           )}
+
+          {formState === "forgotPassword" && (
+            <div>
+              <input
+                type="password"
+                placeholder="New password"
+                className="infoInput"
+                onChange={handleChangePasswordReset}
+              />
+            </div>
+          )}
+
           <span
             style={{
               display: confirmPass ? "none" : "block",
@@ -226,19 +291,67 @@ const Auth = () => {
             * Confirm Password is not same *
           </span>
           <div>
-            <button type="submit" className="btn SignUp-btn" disabled={loading}>
-              {loading ? "Loading..." : isSignUp ? "SIGN UP" : "LOGIN"}
-            </button>
+            {formState === "SignUp" ? (
+              <button
+                type="submit"
+                className="btn SignUp-btn"
+                disabled={loading}
+              >
+                SIGN UP
+              </button>
+            ) : formState === "Login" ? (
+              <button
+                type="submit"
+                className="btn SignUp-btn"
+                disabled={loading}
+              >
+                LOG IN
+              </button>
+            ) : formState === "forgotPassword" ? (
+              <button disabled={loading} className="btn SignUp-btn" onClick={handleResetPassword}>RESET</button>
+            ) : (
+              <button
+                className="btn SignUp-btn"
+                disabled={loading}
+                onClick={handleVerify}
+              >
+                SEND
+              </button>
+            )}
           </div>
         </form>
-        <span
-          style={{ cursor: "pointer" }}
-          onClick={() => {
-            setIsSignUp((prev) => !prev);
-            resetForm();
-          }}
-        >
-          {isSignUp ? "ALready have an account. Login" : "No Account . Sign Up"}
+        <span style={{ cursor: "pointer" }}>
+          {formState === "SignUp" ? (
+            <div
+              onClick={() => {
+                setFormState("Login");
+                resetForm();
+              }}
+            >
+              Already have an account. Login
+            </div>
+          ) : (
+            <div
+              onClick={() => {
+                setFormState("SignUp");
+                resetForm();
+              }}
+            >
+              No Account. Sign Up
+            </div>
+          )}
+        </span>
+        <span style={{ cursor: "pointer" }}>
+          {formState !== "Verify" && (
+            <div
+              onClick={() => {
+                setFormState("Verify");
+                resetForm();
+              }}
+            >
+              Unverified account. Active User
+            </div>
+          )}
         </span>
         <hr />
         <span>Or login with</span>
@@ -253,7 +366,15 @@ const Auth = () => {
             <img src={githubIcon} alt="" />
           </div>
         </div>
-        <span>Forgot password</span>
+        <span
+          style={{ cursor: "pointer" }}
+          onClick={() => {
+            setFormState("forgotPassword");
+            resetForm();
+          }}
+        >
+          Forgot password
+        </span>
       </div>
     </div>
   );

@@ -30,7 +30,7 @@ export const logIn = (formData) => async (dispatch) => {
 };
 
 export const signUp =
-  (formData, fetchAgain, setFetchAgain, resetForm) => async (dispatch) => {
+  (formData, resetForm) => async (dispatch) => {
     dispatch({ type: "AUTH_START" });
     try {
       const { data } = await AuthApi.signUp(formData);
@@ -38,7 +38,7 @@ export const signUp =
         toast.error("Failed to create new user");
       } else {
         toast.success("Created user successfully");
-        setFetchAgain(!fetchAgain);
+        await AuthApi.activeCodeSender(formData.username);
         resetForm();
       }
     } catch (error) {
@@ -46,6 +46,22 @@ export const signUp =
       console.log(error);
     }
   };
+
+export const verifySender = (username, code) => async (dispatch) => {
+  dispatch({ type: "VERIFY_START" });
+  try {
+    const { data } = await AuthApi.verifySender(username, code);
+    if (data) {
+      toast.success("Verify code successfully");
+      dispatch({ type: "VERIFY_SUCCESS", data: data });
+    } else {
+      toast.error("Failed to verify code");
+    }
+  } catch (error) {
+    dispatch({ type: "VERIFY_FAIL" });
+    console.log(error);
+  }
+};
 
 export const logOut = () => async (dispatch) => {
   dispatch({ type: "LOG_OUT" });

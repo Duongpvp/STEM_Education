@@ -1,15 +1,19 @@
 import express from "express";
 import passport from "passport";
 import {
-  loginOutsideUser, loginUser, registerUser, sendMailer
+  forgotPassword,
+  loginOutsideUser, loginUser, registerUser, resetPassword, sendMailer, verifyCode
 } from "../controllers/AuthController.js";
 
 const router = express.Router();
 
 router.post("/register", registerUser);
+router.post("/verifyCode", verifyCode)
 router.post("/login", loginUser);
 router.post("/loginOutside", loginOutsideUser);
-router.post("/forgotPassword", sendMailer)
+router.post("/sendCode", sendMailer)
+router.post("/forgotPassword", forgotPassword)
+router.post("/resetPassword/:userEmail/:id/:token", resetPassword)
 
 const CLIENT_URL = "http://localhost:3000/";
 
