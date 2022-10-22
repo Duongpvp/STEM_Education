@@ -11,5 +11,5 @@ API.interceptors.request.use((req) => {
   return req;
 });
 
-export const sendMessage = (chatId, content) => API.post("/message", { chatId: chatId, content: content });
+export const sendMessage = (chatId, content, userId) => API.post("/message", { chatId: chatId, content: content, senderId: userId});
 export const fetchMessage = (chatId) => API.get(`/message/${chatId}`);

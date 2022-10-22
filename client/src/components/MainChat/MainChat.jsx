@@ -18,7 +18,6 @@ import React, { useEffect, useRef, useState } from "react";
 import InputEmoji from "react-input-emoji";
 import { useDispatch, useSelector } from "react-redux";
 import { io } from "socket.io-client";
-import { format } from "timeago.js";
 import "./MainChat.css";
 var selectedChatCompare;
 
@@ -102,7 +101,11 @@ const MainChat = ({ fetchAgain, setFetchAgain }) => {
     // Send message to socket server
     const receiverId = chats.selectChat.users.find((id) => id !== user._id);
     try {
-      const { data } = await sendMessage(chats.selectChat._id, newMessage);
+      const { data } = await sendMessage(
+        chats.selectChat._id,
+        newMessage,
+        user._id
+      );
       setSendMessageIO({ data, receiverId });
       setMessages([...messages, data]);
       setNewMessage("");
@@ -143,6 +146,34 @@ const MainChat = ({ fetchAgain, setFetchAgain }) => {
   // }
   //   });
   // }, [notification]);
+  
+
+  const getWindowDimensions = () => {
+    const { innerWidth: width, innerHeight: height } = window;
+    return {
+      width,
+      height,
+    };
+  };
+
+  const useWindowDimensions = () => {
+    const [windowDimensions, setWindowDimensions] = useState(
+      getWindowDimensions()
+    );
+
+    useEffect(() => {
+      const handleResize = () => {
+        setWindowDimensions(getWindowDimensions());
+      };
+
+      window.addEventListener("resize", handleResize);
+      return () => window.removeEventListener("resize", handleResize);
+    }, []);
+
+    return windowDimensions;
+  };
+
+  const { height, width } = useWindowDimensions();
 
   return (
     <>
@@ -159,11 +190,20 @@ const MainChat = ({ fetchAgain, setFetchAgain }) => {
               margin: "24px 28px 0 28px",
             }}
           >
-            <ArrowBackIcon
-              display="flex"
-              fontSize="32px"
-              onClick={() => dispatch(selectChat(null))}
-            />
+            <div
+              style={{
+                cursor: "pointer",
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
+              <ArrowBackIcon
+                display="flex"
+                fontSize="32px"
+                onClick={() => dispatch(selectChat(null))}
+              />
+            </div>
             {messages && !chats.selectChat.isGroupChat ? (
               <>
                 {getSender(user, chats?.selectChat?.users)}
@@ -221,24 +261,28 @@ const MainChat = ({ fetchAgain, setFetchAgain }) => {
                     }}
                     key={i}
                   >
+                    {console.log(message.sender)}
                     {(isSameSender(messages, message, i, user._id) ||
-                      isLastMessage(messages, i, user._id)) && (
-                      <Tooltip
-                        title={message.sender.lastname}
-                        placement="bottom-start"
-                      >
-                        <Avatar
-                          cursor="pointer"
-                          name={message.sender.lastname}
-                          src={
-                            message.sender.profilePicture
-                              ? serverPublicFolder +
-                                message.sender.profilePicture
-                              : serverPublicFolder + "DefaultAvatar.png"
-                          }
-                        />
-                      </Tooltip>
-                    )}
+                      isLastMessage(messages, i, user._id)) &&
+                      message.sender._id !== user._id && (
+                        <Tooltip
+                          title={message.sender.lastname}
+                          placement="bottom-start"
+                        >
+                          <Avatar
+                            cursor="pointer"
+                            name={message.sender.lastname}
+                            src={
+                              message.sender.outsideId
+                                ? message.sender.profilePicture
+                                : message.sender.profilePicture
+                                ? serverPublicFolder +
+                                  message.sender.profilePicture
+                                : serverPublicFolder + "DefaultAvatar.png"
+                            }
+                          />
+                        </Tooltip>
+                      )}
                     <span
                       ref={scroll}
                       style={{
@@ -249,7 +293,8 @@ const MainChat = ({ fetchAgain, setFetchAgain }) => {
                           i,
                           user._id
                         ),
-                        maxWidth: "35rem",
+                        // maxWidth: "35rem",
+                        maxWidth: "70%",
                         marginTop: "0.7rem",
                         padding: "0.8rem",
                         overflow: "auto",

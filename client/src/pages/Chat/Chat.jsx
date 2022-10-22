@@ -20,7 +20,7 @@ const Chat = () => {
         width="100%"
         height="85vh"
       >
-        {user && <ChatSide fetchAgain={fetchAgain} />}
+        {user && <ChatSide location={"chat"} />}
         {user && (
           <ChatBox fetchAgain={fetchAgain} setFetchAgain={setFetchAgain} />
         )}

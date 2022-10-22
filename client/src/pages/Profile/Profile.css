@@ -17,3 +17,21 @@
     bottom: 0;
     right: 0;
 }
+
+@media only screen and (max-width: 1280px) {
+    .Profile {
+        grid-template-columns: 20% 60% 20%;
+
+    }
+}
+
+@media only screen and (max-width: 940px) {
+    .Profile {
+        grid-template-columns: 0 100% 0;
+    }
+
+    .ProfileCenter {
+        margin-top: 40px;
+        width: 95%;
+    }
+}

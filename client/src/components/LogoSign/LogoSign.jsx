@@ -1,11 +1,12 @@
 // @ts-nocheck
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Logo from "../../assets/img/LogoSign.png";
 import { Icon } from "@iconify/react";
 import "./LogoSign.css";
 import { searchUser } from "api/UserRequest";
 import User from "components/User/User";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 const LogoSign = () => {
   const [search, setSearch] = useState("");
@@ -20,15 +21,49 @@ const LogoSign = () => {
     }
     try {
       setIsLoading(true);
-      const { data } = await searchUser(search);
+      const { data } = await searchUser(query);
       setIsLoading(false);
       setSearchResult(data);
     } catch (error) {}
   };
+
+  const getWindowDimensions = () => {
+    const { innerWidth: width, innerHeight: height } = window;
+    return {
+      width,
+      height,
+    };
+  };
+
+  const useWindowDimensions = () => {
+    const [windowDimensions, setWindowDimensions] = useState(
+      getWindowDimensions()
+    );
+
+    useEffect(() => {
+      const handleResize = () => {
+        setWindowDimensions(getWindowDimensions());
+      };
+
+      window.addEventListener("resize", handleResize);
+      return () => window.removeEventListener("resize", handleResize);
+    }, []);
+
+    return windowDimensions;
+  };
+
+  const { height, width } = useWindowDimensions();
+
   return (
     <>
       <div className="LogoSign">
-        <img src={Logo} alt="Logo Sign" />
+        <Link
+          style={{ textDecoration: "none", color: "inherit" }}
+          to={`../media`}
+        >
+          <img src={Logo} alt="Logo Sign" />
+        </Link>
+        
         <div className="SearchInput">
           <input
             type="text"
@@ -45,16 +80,6 @@ const LogoSign = () => {
         className="FollowersCard"
         style={{
           display: search ? "block" : "none",
-          position: "absolute",
-          padding: "12px",
-          width: "300px",
-          zIndex: "2",
-          background: "rgba( 255, 255, 255, 1 )",
-          boxshadow: "0 8px 32px 0 rgba( 31, 38, 135, 0.37 )",
-          WebkitBackdropFilter: "blur( 8.5px )",
-          backdropfilter: "blur( 8.5px )",
-          borderradius: "10px",
-          border: "1px solid rgba( 255, 255, 255, 0.18 )",
         }}
       >
         {isLoading

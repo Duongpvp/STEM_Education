@@ -5,6 +5,7 @@ import { Icon } from "@iconify/react";
 import { useDispatch, useSelector } from "react-redux";
 import { uploadImage, uploadPost } from "actions/UploadAction";
 import { toast, ToastContainer } from "react-toastify";
+import { Link } from "react-router-dom";
 
 const PostShare = () => {
   const loading = useSelector((state) => state.postReducer.uploading);
@@ -37,7 +38,7 @@ const PostShare = () => {
 
     // if there is an image with post
     if (image) {
-      const data = new FormData()
+      const data = new FormData();
       const fileName = Date.now() + image.name;
       data.append("name", fileName);
       data.append("file", image);
@@ -49,9 +50,9 @@ const PostShare = () => {
         console.log(err);
       }
     }
-    if ( !newPost.desc || !newPost.image) {
-      toast.warn("Please fill out all information.")
-    }else {
+    if (!newPost.desc || !newPost.image) {
+      toast.warn("Please fill out all information.");
+    } else {
       dispatch(uploadPost(newPost));
       resetShare();
     }
@@ -59,14 +60,22 @@ const PostShare = () => {
 
   return (
     <div className="PostShare">
-      <img
-        src={
-          user.profilePicture
-            ? serverPublicFolder + user.profilePicture
-            : serverPublicFolder + "DefaultAvatar.png"
-        }
-        alt="avatar"
-      />
+      <Link
+        style={{ textDecoration: "none", color: "inherit" }}
+        to={`/profile/${user._id}`}
+      >
+        <img
+          src={
+            user.outsideId
+              ? user.profilePicture
+              : user.profilePicture
+              ? serverPublicFolder + user.profilePicture
+              : serverPublicFolder + "DefaultAvatar.png"
+          }
+          alt="avatar"
+        />
+      </Link>
+
       <div>
         <input
           ref={descRef}
@@ -87,7 +96,7 @@ const PostShare = () => {
             Video
           </div>
           <div className="Option" disabled="disabled">
-            <Icon icon="akar-icons:location" className="op-icon"  /> Location
+            <Icon icon="akar-icons:location" className="op-icon" /> Location
           </div>
           <div className="Option" disabled="disabled">
             <Icon icon="ant-design:schedule-outlined" className="op-icon" />

@@ -38,6 +38,9 @@ export const getAllUser = async (req, res) => {
 export const updateUser = async (req, res) => {
   const id = req.params.id;
   const { _id, password } = req.body;
+  const data = req.body
+
+  console.log(data)
 
   if (id === _id) {
     try {
@@ -60,7 +63,7 @@ export const updateUser = async (req, res) => {
     } catch (error) {
       res.status(500).json(error);
     }
-  } else {
+  }  else {
     res
       .status(403)
       .json("Access denied ! You can only update your own profile");

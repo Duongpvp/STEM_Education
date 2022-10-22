@@ -47,3 +47,9 @@
     background: #f3f3f3;
     transition: all 0.5s linear;
 }
+
+@media only screen and (max-width: 940px) {
+    .InfoCard {
+        display: none;
+    }
+}

@@ -6,7 +6,7 @@
     padding: 1rem;
 }
 
-.PostShare>img {
+.PostShare>a>img {
     display: flex;
     width: 3rem;
     height: 3rem;
@@ -45,6 +45,10 @@
     padding: 0.3rem 0.5rem 0 0.5rem;
     border-radius: 50%;
     font-size: 1.2rem;
+}
+
+.PostOptions .Option:first-child {
+    cursor: pointer;
 }
 
 .Option:hover {
@@ -95,3 +99,8 @@
     border-radius: 0.5rem;
 }
 
+@media only screen and (max-width: 1280px) {
+    .Option {
+        font-size: 0.7rem;
+    }
+}

@@ -10,7 +10,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "./ChatSide.css";
 
-const ChatSide = () => {
+const ChatSide = ({location}) => {
   const { user } = useSelector((state) => state.AuthReducer.authData);
   const userOnline = useSelector((state) => state.UserReducer.onlineUser);
   const chatStore = useSelector((state) => state.ChatReducer);
@@ -41,9 +41,34 @@ const ChatSide = () => {
     return online ? true : false;
   };
 
+  const getWindowDimensions = () => {
+    const { innerWidth: width, innerHeight: height } = window;
+    return {
+      width,
+      height
+    };
+  }
+  
+  const useWindowDimensions = () => {
+    const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
+  
+    useEffect(() => {
+      const handleResize = () => {
+        setWindowDimensions(getWindowDimensions());
+      }
+      
+      window.addEventListener('resize', handleResize);
+      return () => window.removeEventListener('resize', handleResize);
+    }, []);
+    
+    return windowDimensions;
+  }
+  
+  const { height, width } = useWindowDimensions();
+
   return (
     <Box
-      display="flex"
+      display={ width < 768 && location === "chat" ? "none" : "flex"}
       flexDirection="column"
       alignItems="center"
       backgroundColor="#fff"
@@ -52,7 +77,7 @@ const ChatSide = () => {
       height="100%"
       my="12px"
     >
-      <Box
+      { location === "chat" && <Box
         py={2}
         px={3}
         fontSize="1rem"
@@ -71,7 +96,7 @@ const ChatSide = () => {
             New Chats
           </Button>
         </GroupChatModal>
-      </Box>
+      </Box>}
       <Box
         display="flex"
         flexDirection="column"
@@ -91,7 +116,7 @@ const ChatSide = () => {
               {myChat.map((chat) => {
                 return (
                   <div key={chat._id}>
-                    {!chat.isGroupChat && chat.users.length > 1 && (
+                    {!chat.isGroupChat && chat.users.length > 0 && (
                       <Box width="100%">
                         <Tooltip
                           title={
@@ -128,10 +153,13 @@ const ChatSide = () => {
                             borderRadius="0.5rem"
                             justifyContent="flex-start"
                           >
-                            
                             <Avatar
                               src={
-                                getFullSender(user, chat.users).profilePicture
+                                getFullSender(user, chat.users).outsideId
+                                  ? getFullSender(user, chat.users)
+                                      .profilePicture
+                                  : getFullSender(user, chat.users)
+                                      .profilePicture
                                   ? serverPublicFolder +
                                     getFullSender(user, chat.users)
                                       .profilePicture

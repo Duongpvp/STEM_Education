@@ -39,6 +39,7 @@ const DirectChat = () => {
 
   const handleLogOut = () => {
     dispatch(logOut());
+    window.open("http://localhost:5000/auth/logout", "_self");
   };
 
   const [anchorEl2, setAnchorEl2] = useState(null);
@@ -93,10 +94,7 @@ const DirectChat = () => {
           )}
 
           {chat.map((notify) => (
-            <MenuItem
-              onClick={() => handleDirectChat(notify)}
-              key={notify._id}
-            >
+            <MenuItem onClick={() => handleDirectChat(notify)} key={notify._id}>
               {notify.chat?.isGroupChat
                 ? `New message in ${notify.chat.chatName}`
                 : `${getSender(
@@ -118,9 +116,11 @@ const DirectChat = () => {
           >
             <Avatar
               sx={{ width: 40, height: 40 }}
-              style={{boxShadow: "0 2px 8px #333"}}
+              style={{ boxShadow: "0 2px 8px #333" }}
               src={
-                user.profilePicture
+                user.outsideId
+                  ? user.profilePicture
+                  : user.profilePicture
                   ? serverPublicFolder + user.profilePicture
                   : serverPublicFolder + "DefaultAvatar.png"
               }
@@ -165,7 +165,9 @@ const DirectChat = () => {
           <MenuItem>
             <Avatar
               src={
-                user.profilePicture
+                user.outsideId
+                  ? user.profilePicture
+                  : user.profilePicture
                   ? serverPublicFolder + user.profilePicture
                   : serverPublicFolder + "DefaultAvatar.png"
               }
@@ -176,7 +178,7 @@ const DirectChat = () => {
           </MenuItem>
           <Divider />
 
-          <MenuItem  onClick={()=> setModalOpened(true)}>
+          <MenuItem onClick={() => setModalOpened(true)}>
             <ListItemIcon>
               <Settings fontSize="small" />
             </ListItemIcon>

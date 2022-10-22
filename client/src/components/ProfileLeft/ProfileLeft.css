@@ -1,3 +1,9 @@
 .ProfileLeft {
     position: relative;
 }
+
+@media only screen and (max-width: 940px) {
+    .ProfileLeft {
+        position: initial;
+    }
+}

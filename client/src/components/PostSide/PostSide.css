@@ -5,3 +5,10 @@
     gap: 1rem;
     height: 120vh;
 }
+
+@media only screen and (max-width: 940px) {
+    .PostSide {
+        margin-top: 55px;
+        width: 97%;
+    }
+}

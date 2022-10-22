@@ -17,6 +17,31 @@ const SearchChat = () => {
   const [searchResult, setSearchResult] = useState([]);
   const serverPublicFolder = process.env.REACT_APP_FOLDER;
 
+  const getWindowDimensions = () => {
+    const { innerWidth: width, innerHeight: height } = window;
+    return {
+      width,
+      height
+    };
+  }
+  
+  const useWindowDimensions = () => {
+    const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
+  
+    useEffect(() => {
+      const handleResize = () => {
+        setWindowDimensions(getWindowDimensions());
+      }
+      
+      window.addEventListener('resize', handleResize);
+      return () => window.removeEventListener('resize', handleResize);
+    }, []);
+    
+    return windowDimensions;
+  }
+  
+  const { height, width } = useWindowDimensions();
+
   const toggleDrawer = (open) => (event) => {
     if (
       event.type === "keydown" &&
@@ -52,12 +77,12 @@ const SearchChat = () => {
         </Button>
       </Tooltip>
       <Drawer open={isDrawer} onClose={toggleDrawer(false)}>
-        <Box width="20vw" margin="30px" display="flex">
+        <Box width={width < 1080 ? "30vw" : "20vw" } margin="30px" display="flex">
           <Avatar
             sx={{ width: 56, height: 56 }}
             alt="Avatar"
             src={
-              user.profilePicture
+              user.outsideId ? user.profilePicture : user.profilePicture
                 ? serverPublicFolder + user.profilePicture
                 : serverPublicFolder + "DefaultAvatar.png"
             }
@@ -69,11 +94,13 @@ const SearchChat = () => {
               alignItems: "center",
               marginLeft: "8px",
               fontWeight: "600",
+              width: "100%"
             }}
           >
             {user.firstname} {user.lastname} <br></br> {user.username}
           </span>
         </Box>
+        
         <Box
           style={{ display: "flex", width: "320px", margin: "0 auto 8px auto" }}
         >
