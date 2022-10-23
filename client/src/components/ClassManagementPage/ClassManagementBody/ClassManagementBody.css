@@ -3,5 +3,31 @@
 }
 
 .class-management-body {
-    width: 100%;
+    width: 90%;
+    position: absolute;
+    margin-left: 6rem;
+}
+
+@media only screen and (max-width: 1366px ){
+    .class-management-body {
+        width: 88%;
+    }
+}
+
+@media only screen and (max-width: 1024px ){
+    .class-management-body {
+        width: 85%;
+    }
+}
+
+@media only screen and (max-width: 860px ){
+    .class-management-body {
+        width: 82%;
+    }
+}
+
+@media only screen and (max-width: 720px ){
+    .class-management-body {
+        width: 80%;
+    }
 }

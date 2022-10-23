@@ -5,6 +5,7 @@ import {
   loginOutsideUser,
   loginUser,
   registerUser,
+  registerUserByAdmin,
   resetPassword,
   sendMailer,
   verifyCode,
@@ -14,6 +15,7 @@ import authMiddleWare from "../MiddleWare/authMiddleWare.js";
 const router = express.Router();
 
 router.post("/register", registerUser);
+router.post("/register-by-admin", registerUserByAdmin);
 router.post("/verifyCode", verifyCode);
 router.post("/login", loginUser);
 router.post("/loginOutside", loginOutsideUser);
@@ -21,7 +23,6 @@ router.post("/sendCode", sendMailer);
 router.post("/forgotPassword", forgotPassword);
 router.post(
   "/resetPassword/:userEmail/:id/:token",
-  authMiddleWare,
   resetPassword
 );
 

@@ -24,7 +24,9 @@ const FlashUserCard = ({ user }) => {
     <div className="flash-user-card">
       <img
         src={
-          user.profilePicture
+          user.outsideId
+            ? user.profilePicture
+            : user.profilePicture
             ? serverPublicFolder + user.profilePicture
             : serverPublicFolder + "DefaultAvatar.png"
         }
@@ -46,12 +48,14 @@ const FlashUserCard = ({ user }) => {
           </div>
         </div>
         <hr />
-        { user._id !== userReducer.user._id && <button
-          className={following ? "UnFollow-btn" : "Follow-btn"}
-          onClick={handleFollow}
-        >
-          {!following ? "Follow" : "UnFollow"}
-        </button>}
+        {user._id !== userReducer.user._id && (
+          <button
+            className={following ? "UnFollow-btn" : "Follow-btn"}
+            onClick={handleFollow}
+          >
+            {!following ? "Follow" : "UnFollow"}
+          </button>
+        )}
       </div>
     </div>
   );

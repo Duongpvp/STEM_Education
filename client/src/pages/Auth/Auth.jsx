@@ -1,11 +1,12 @@
 // @ts-nocheck
 import {
+  forgotPassword,
   logIn,
   loginOutsideUser,
+  resetPassword,
   signUp,
   verifySender,
 } from "actions/AuthAction";
-import { forgotPassword, resetPassword } from "api/AuthRequest";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
@@ -103,7 +104,7 @@ const Auth = ({ isReset }) => {
     e.preventDefault();
     if (formState === "SignUp") {
       if (data.password === data.confirmpassword) {
-        dispatch(signUp(data, resetForm()));
+        dispatch(signUp(data, resetForm(), setFormState));
       } else {
         setConfirmPass(false);
       }
@@ -116,15 +117,28 @@ const Auth = ({ isReset }) => {
         }
       } else {
         if (formState === "Verify") {
-          console.log(data);
-          dispatch(verifySender(data.username, verifyCode));
+          try {
+            dispatch(verifySender(data.username, verifyCode));
+          } catch (error) {
+            console.log(error);
+          }
         } else {
           if (formState === "forgotPassword") {
-            dispatch(forgotPassword(data.username));
+            try {
+              dispatch(forgotPassword(data.username));
+            } catch (error) {
+              console.log(error);
+            }
           } else {
             try {
               dispatch(
-                resetPassword(resetPassWord, params.userEmail, params.id, params.token)
+                resetPassword(
+                  resetPassWord,
+                  params.userEmail,
+                  params.id,
+                  params.token,
+                  setFormState
+                )
               );
             } catch (error) {
               console.log(error);
@@ -333,11 +347,8 @@ const Auth = ({ isReset }) => {
               >
                 LOG IN
               </button>
-            ) : formState === "resetPassWord" ? (
-              <button
-                disabled={loading}
-                className="btn SignUp-btn"
-              >
+            ) : formState === "resetPassword" ? (
+              <button disabled={loading} className="btn SignUp-btn">
                 RESET
               </button>
             ) : formState === "Verify" ? (

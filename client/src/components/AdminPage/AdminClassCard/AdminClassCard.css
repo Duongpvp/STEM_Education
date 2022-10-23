@@ -1,4 +1,8 @@
-.admin-class-card > span{
+.admin-class-card>span {
     font-size: 1.4em;
     font-weight: bold;
+}
+
+.admin-class-card {
+    white-space: pre-line;
 }

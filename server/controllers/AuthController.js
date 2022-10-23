@@ -68,6 +68,56 @@ export const registerUser = async (req, res) => {
   }
 };
 
+export const registerUserByAdmin = async (req, res) => {
+  const salt = await bcrypt.genSalt(10);
+  const hashedPass = await bcrypt.hash(req.body.password, salt);
+  req.body.password = hashedPass;
+  const newUser = new UserModel(req.body);
+  const { username } = req.body;
+  try {
+    const oldUser = await UserModel.findOne({ username });
+    if (oldUser) {
+      return res.status(400).json({ mess: "username is already registered!" });
+    }
+    const user = await newUser.save();
+
+    const token = jwt.sign(
+      {
+        username: user.username,
+        id: user._id,
+      },
+      process.env.JWT_SECRETKEY,
+      { expiresIn: "1d" }
+    );
+
+    await newUser.update({ activeCode: "" }, { new: true });
+
+    if (req.body.role === "Admin") {
+      const outputUser = await newUser.update(
+        { isAdmin: true, isTeacher: false },
+        { new: true }
+      );
+      res.status(200).json({ outputUser, token });
+    } else {
+      if (req.body.role === "Teacher") {
+        const outputUser = await newUser.update(
+          { isAdmin: false, isTeacher: true },
+          { new: true }
+        );
+        res.status(200).json({ outputUser, token });
+      } else {
+        const outputUser = await newUser.update(
+          { isAdmin: false, isTeacher: false },
+          { new: true }
+        );
+        res.status(200).json({ outputUser, token });
+      }
+    }
+  } catch (error) {
+    res.status(500).json({ mess: error.message });
+  }
+};
+
 // Login User
 export const loginUser = async (req, res) => {
   const { username, password } = req.body;
@@ -180,9 +230,7 @@ export const verifyCode = async (req, res) => {
     console.log(user);
     if (user) {
       if (user.activeCode === receiveCode) {
-        const result = await user.update({ activeCode: "" }, { new: true });
-        console.log(result);
-
+        await user.update({ activeCode: "" }, { new: true });
         res.status(200).json({ user });
       } else {
         res.status(400).json("Code does not correct");

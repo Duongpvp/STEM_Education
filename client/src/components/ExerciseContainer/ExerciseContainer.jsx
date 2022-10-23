@@ -62,7 +62,9 @@ const ExerciseContainer = () => {
         <hr className="lines" />
       </div>
 
-      <p className="exercise-desc">{post?.desc}</p>
+      <div style={{whiteSpace: "pre-line"}}>
+        <p className="exercise-desc">{post?.desc}</p>
+      </div>
       <div className="exercise-files">
         {post?.files.map((file, i) => (
           <div key={i} className="exercise-file-item">
@@ -112,7 +114,7 @@ const ExerciseContainer = () => {
           }
           alt=""
         />
-        <form style={{width: "100%"}}>
+        <form style={{ width: "100%" }}>
           <div className="input-box">
             <TextareaAutosize minRows={2} name="message" required />
             <label>Message</label>

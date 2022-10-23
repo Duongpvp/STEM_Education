@@ -12,9 +12,9 @@ import {
   RadioGroup,
   TextField,
 } from "@mui/material";
-import { signUp } from "actions/AuthAction";
 import { useDispatch } from "react-redux";
 import { ToastContainer } from "react-toastify";
+import { signUpByAdmin } from "actions/AuthAction";
 
 const CreateUserByAdmin = ({ fetchAgain, setFetchAgain }) => {
   const dispatch = useDispatch();
@@ -44,7 +44,7 @@ const CreateUserByAdmin = ({ fetchAgain, setFetchAgain }) => {
       alert("Please fill out the content");
     } else {
       try {
-        dispatch(signUp(data, fetchAgain, setFetchAgain));
+        dispatch(signUpByAdmin(data, fetchAgain, setFetchAgain));
       } catch (error) {
         console.log(error);
       }

@@ -14,7 +14,7 @@ const Exercise = () => {
   return (
     <div className="exercise">
       <SideBarMotion />
-      <div className="body-exercise-container">
+      <div className="body-exercise-management-container">
         <Button
           size="large"
           variant="contained"

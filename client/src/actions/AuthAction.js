@@ -30,14 +30,17 @@ export const logIn = (formData) => async (dispatch) => {
 };
 
 export const signUp =
-  (formData, resetForm) => async (dispatch) => {
+  (formData, resetForm, setFormState) => async (dispatch) => {
     dispatch({ type: "AUTH_START" });
     try {
       const { data } = await AuthApi.signUp(formData);
       if (!data) {
         toast.error("Failed to create new user");
       } else {
-        toast.success("Created user successfully");
+        toast.success(
+          "Created user successfully, check your mail to active account"
+        );
+        setFormState("Verify");
         await AuthApi.activeCodeSender(formData.username);
         resetForm();
       }
@@ -47,6 +50,50 @@ export const signUp =
     }
   };
 
+export const signUpByAdmin =
+  (formData, fetchAgain, setFetchAgain) => async (dispatch) => {
+    dispatch({ type: "AUTH_START" });
+    try {
+      const { data } = await AuthApi.signUpByAdmin(formData);
+      if (!data) {
+        toast.error("Failed to create new user");
+      } else {
+        toast.success(
+          "Created user successfully!"
+        );
+        setFetchAgain(!fetchAgain)
+      }
+    } catch (error) {
+      dispatch({ type: "AUTH_FAIL" });
+      console.log(error);
+    }
+  };
+
+export const forgotPassword = (username) => async () => {
+  try {
+    const { data } = await AuthApi.forgotPassword(username);
+    if (data) {
+      toast.success("Code has been sent to your email.");
+    }
+  } catch (error) {
+    toast.error("Failed to sent code to your email");
+    console.log(error);
+  }
+};
+
+export const resetPassword = (password, userEmail, id, token, setFormState) => async () => {
+  try {
+    const { data } = await AuthApi.resetPassword(password, userEmail, id, token);
+    if (data) {
+      toast.success("Reset password is successfully");
+      setFormState("Login")
+    }
+  } catch (error) {
+    toast.error("Failed to reset password");
+    console.log(error);
+  }
+};
+
 export const verifySender = (username, code) => async (dispatch) => {
   dispatch({ type: "VERIFY_START" });
   try {
@@ -54,10 +101,9 @@ export const verifySender = (username, code) => async (dispatch) => {
     if (data) {
       toast.success("Verify code successfully");
       dispatch({ type: "VERIFY_SUCCESS", data: data });
-    } else {
-      toast.error("Failed to verify code");
     }
   } catch (error) {
+    toast.error("Failed to verify code");
     dispatch({ type: "VERIFY_FAIL" });
     console.log(error);
   }

@@ -106,7 +106,7 @@ function ProfileModal({ modalOpened, setModalOpened, data }) {
             type="text"
             className="infoInput"
             name="workAt"
-            placeholder="Work At"
+            placeholder="Status"
             onChange={handleChange}
             value={formData.workAt}
           />

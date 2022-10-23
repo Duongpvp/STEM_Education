@@ -1,4 +1,4 @@
-  // @ts-nocheck
+// @ts-nocheck
 import { Group, Modal } from "@mantine/core";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import { getAllPost } from "api/ClassRequest";
@@ -15,6 +15,7 @@ import { ToastContainer } from "react-toastify";
 
 const ClassProfile = () => {
   const { user } = useSelector((state) => state.AuthReducer.authData);
+  const [fetchAgain, setFetchAgain] = useState(false);
 
   const params = useParams();
   const [posts, setPosts] = useState([]);
@@ -33,24 +34,25 @@ const ClassProfile = () => {
 
   useEffect(() => {
     fetchExercise();
-  }, []);
+  }, [fetchAgain]);
 
   const handleOpen = () => {
     setOpened(true);
   };
 
   const handleChangeDesc = (e) => {
-    setDesc(e.target.value)
+    setDesc(e.target.value);
   };
 
   const handleChangeTitle = (e) => {
-    setTitle(e.target.value)
-  }
+    setTitle(e.target.value);
+  };
 
   return (
     <div className="sidebar-container">
       <SideBarMotion />
       <div className="sidebar-body">
+        <ToastContainer />
         <ClassHeader />
         <div className="news">
           <img
@@ -58,41 +60,51 @@ const ClassProfile = () => {
             alt="thumbnail"
           />
           <div className="glass-card-grid">
-          {(user.isAdmin || user.isTeacher) && (
-            <div className="create-post-modal">
-              <Modal
-                opened={opened}
-                onClose={() => setOpened(false)}
-                title="Create new post"
-                centered
-              >
-                <ToastContainer/>
-                <div className="class-modal-content">
-                  <div className="input-box">
-                    <ReactTextareaAutosize minRows={1} name="title" required onChange={handleChangeTitle}/>
-                    <label>Title</label>
-                  </div>
-                  <div className="input-box">
-                    <ReactTextareaAutosize
-                      minRows={1}
-                      name="message"
-                      required
-                      className="submission"
-                      onChange={handleChangeDesc}
+            {(user.isAdmin || user.isTeacher) && (
+              <div className="create-post-modal">
+                <Modal
+                  opened={opened}
+                  onClose={() => setOpened(false)}
+                  title="Create new post"
+                  centered
+                >
+                  <div className="class-modal-content">
+                    <div className="input-box">
+                      <ReactTextareaAutosize
+                        minRows={1}
+                        name="title"
+                        required
+                        onChange={handleChangeTitle}
+                      />
+                      <label>Title</label>
+                    </div>
+                    <div className="input-box">
+                      <ReactTextareaAutosize
+                        minRows={1}
+                        name="message"
+                        required
+                        className="submission"
+                        onChange={handleChangeDesc}
+                      />
+                      <label>Description</label>
+                    </div>
+                    <UploadPost
+                      title={title}
+                      desc={desc}
+                      setFetchAgain={setFetchAgain}
+                      fetchAgain={fetchAgain}
+                      setOpened={setOpened}
                     />
-                    <label>Description</label>
                   </div>
-                  <UploadPost title={title} desc={desc}/>
-                </div>
-              </Modal>
+                </Modal>
 
-              <Group position="center">
-                <button className="btn-create" onClick={handleOpen}>
-                  <AddCircleIcon /> CREATE POST
-                </button>
-              </Group>
-            </div>
-          )}
+                <Group position="center">
+                  <button className="btn-create" onClick={handleOpen}>
+                    <AddCircleIcon /> CREATE POST
+                  </button>
+                </Group>
+              </div>
+            )}
             {posts.map((post) => (
               <Link to={`./exercise/${post._id}`} key={post._id}>
                 <article className="glass-card">

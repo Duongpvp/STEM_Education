@@ -85,7 +85,7 @@ const ProfileCard = ({ user, location }) => {
               name="firstname"
               placeholder="First Name"
               onChange={handleChange}
-              value={formData.firstname}
+              value={formData?.firstname}
             />
             <input
               type="text"
@@ -93,7 +93,7 @@ const ProfileCard = ({ user, location }) => {
               name="lastname"
               placeholder="Last Name"
               onChange={handleChange}
-              value={formData.lastname}
+              value={formData?.lastname}
             />
           </div>
           <div>
@@ -103,7 +103,7 @@ const ProfileCard = ({ user, location }) => {
               name="workAt"
               placeholder="Work At"
               onChange={handleChange}
-              value={formData.workAt}
+              value={formData?.workAt}
             />
           </div>
           <div>
@@ -113,7 +113,7 @@ const ProfileCard = ({ user, location }) => {
               name="livein"
               placeholder="Lives in"
               onChange={handleChange}
-              value={formData.livein}
+              value={formData?.livein}
             />
 
             <input
@@ -122,7 +122,7 @@ const ProfileCard = ({ user, location }) => {
               name="country"
               placeholder="Country"
               onChange={handleChange}
-              value={formData.country}
+              value={formData?.country}
             />
           </div>
 
@@ -133,7 +133,7 @@ const ProfileCard = ({ user, location }) => {
               placeholder="RelationShip Status"
               name="relationship"
               onChange={handleChange}
-              value={formData.relationship}
+              value={formData?.relationship}
             />
           </div>
 
@@ -160,6 +160,7 @@ const ProfileCard = ({ user, location }) => {
         </form>
       </Modal>
       <div className="ProfileImages">
+        {console.log(serverPublicFolder + user.profilePicture)}
         <img
           src={
             user?.coverPicture
@@ -173,7 +174,7 @@ const ProfileCard = ({ user, location }) => {
             <img
               src={
                 user?.outsideId
-                  ? user.profilePicture
+                  ? serverPublicFolder + user.profilePicture
                   : user?.profilePicture
                   ? serverPublicFolder + user.profilePicture
                   : serverPublicFolder + "DefaultAvatar.png"

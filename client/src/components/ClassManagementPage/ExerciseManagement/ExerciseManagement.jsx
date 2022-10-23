@@ -29,10 +29,10 @@ const ExerciseManagement = () => {
 
   return (
     <div className="exercise-management">
-      <ToastContainer/>
+      <ToastContainer />
       <SideBarMotion />
-      <div className="body-exercise-container" style={{ width: "100%" }}>
-        {isPreview ? <ExerciseContainer /> : <Grading/>}
+      <div className="body-exercise-container">
+        {isPreview ? <ExerciseContainer /> : <Grading />}
       </div>
       <div className="toggle-preview">
         <div
