@@ -178,17 +178,14 @@ const HeaderChat = () => {
         padding="1rem 2rem"
       >
         <SearchChat />
-        <div>
+        <div style={{ display: width < 768 ? "flex" : "none" }}>
           <Button
             style={{ height: "100%" }}
             onClick={() => setIsOpenDrawer(true)}
           >
             <MenuOpenIcon />
           </Button>
-          <Button
-            style={{ height: "100%" }}
-            onClick={() => setOpened(true)}
-          >
+          <Button style={{ height: "100%" }} onClick={() => setOpened(true)}>
             <GroupAddIcon />
           </Button>
         </div>

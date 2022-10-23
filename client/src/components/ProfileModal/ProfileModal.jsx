@@ -6,6 +6,8 @@ import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { uploadImage } from "actions/UploadAction";
 import { updateUser } from "actions/UserAction";
+import ImageIcon from "@mui/icons-material/Image";
+import AccountBoxIcon from "@mui/icons-material/AccountBox";
 
 function ProfileModal({ modalOpened, setModalOpened, data }) {
   const theme = useMantineTheme();
@@ -44,9 +46,9 @@ function ProfileModal({ modalOpened, setModalOpened, data }) {
       data.append("file", profileImage);
       userData.profilePicture = fileName;
       try {
-        dispatch(uploadImage(data))
+        dispatch(uploadImage(data));
       } catch (error) {
-        console.log(error)
+        console.log(error);
       }
     }
 
@@ -140,24 +142,92 @@ function ProfileModal({ modalOpened, setModalOpened, data }) {
           />
         </div>
 
-        <div>
-          <span>Profile Image</span>
-          <input
-            type="file"
-            name="profileImage"
-            id="chooseFile"
-            onChange={onImageChange}
-          />
-          <span>Cover Image</span>
-          <input
-            type="file"
-            name="coverImage"
-            id="chooseFile"
-            onChange={onImageChange}
-          />
+        <div
+          style={{
+            position: "relative",
+            display: "flex",
+            justifyContent: "space-between",
+          }}
+        >
+          <div
+            style={{
+              borderRadius: "50px",
+              background: "linear-gradient(145deg, #cacaca, #f0f0f0)",
+              boxShadow: "-7px 7px 14px #cecece, 7px -7px 14px #f2f2f2",
+              width: "50%",
+              textAlign: "center",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              padding: "8px 4px",
+            }}
+          >
+            <span
+              style={{
+                fontSize: "0.8rem",
+                width: "100%",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <ImageIcon style={{ zIndex: "1" }} />
+              Profile Image
+            </span>
+            <input
+              type="file"
+              name="profileImage"
+              id="chooseFile"
+              onChange={onImageChange}
+              style={{
+                opacity: "0",
+                position: "absolute",
+                zIndex: "2",
+                cursor: "pointer",
+              }}
+            />
+          </div>
+          <div
+            style={{
+              borderRadius: "50px",
+              background: "linear-gradient(145deg, #cacaca, #f0f0f0)",
+              boxShadow: "-7px 7px 14px #cecece, 7px -7px 14px #f2f2f2",
+              width: "50%",
+              textAlign: "center",
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
+            <span
+              style={{
+                fontSize: "0.8rem",
+                width: "100%",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <AccountBoxIcon />
+              Cover Image
+            </span>
+            <input
+              type="file"
+              name="coverImage"
+              id="chooseFile"
+              onChange={onImageChange}
+              style={{
+                opacity: "0",
+                position: "absolute",
+                zIndex: "2",
+                cursor: "pointer",
+              }}
+            />
+          </div>
         </div>
 
-        <button className="btn Info-btn" onClick = {handleSubmit}>Update</button>
+        <button className="btn Info-btn" onClick={handleSubmit}>
+          Update
+        </button>
       </form>
     </Modal>
   );

@@ -55,7 +55,6 @@ const ClassContainer = () => {
           toast.error("Failed to join the class !");
         } else {
           for ( var i=0; i< data.users.length; i++) {
-            console.log(data.users[i]._id)
             if ( data.users[i]._id === user._id ) {
               toast.warn("You have entered this class !");
             } else {
@@ -123,7 +122,6 @@ const ClassContainer = () => {
               </Button>
             </div>
           </Popover>
-          {console.log(classroom)}
           <div className="class-list">
             {classroom.map((room) => (
               <Card

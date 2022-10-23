@@ -78,13 +78,14 @@ h3 {
     flex: 1;
     position: absolute;
     z-index: 1;
-    margin: 1rem 1rem 1rem 7rem;
+    width: 93%;
+    margin: 1rem 1rem 1rem 5.5rem;
     min-height: 100vh;
 }
 
 .class-list-container {
     position: relative;
-    min-width: 90vw;
+    width: 100%;
     min-height: 130vh;
     background: rgba(255, 255, 255, 0.44);
     border-radius: 16px;
@@ -189,3 +190,35 @@ h3 {
 .join-container .join-submit:hover {
     background-color: blueviolet;
 }
+
+@media only screen and (max-width: 1366px ){
+    .body-container  {
+        width: 92%;
+    }
+}
+
+@media only screen and (max-width: 1024px ){
+    .body-container  {
+        width: 90%;
+    }
+}
+
+@media only screen and (max-width: 860px ){
+    .body-container  {
+        width: 87%;
+    }
+
+    .class-list-container .btn-join-class {
+        position: initial;
+        margin: 0 auto;
+        width: 50%;
+        justify-content: center;
+    }
+}
+
+@media only screen and (max-width: 620px ){
+    .body-container  {
+        width: 85%;
+    }
+}
+

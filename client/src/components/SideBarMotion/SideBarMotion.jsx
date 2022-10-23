@@ -111,7 +111,7 @@ const SideBarMotion = () => {
               <motion.img
               variants={avatarVariant}
                 src={
-                  user.profilePicture
+                  user.outsideId ? user.profilePicture : user.profilePicture
                     ? serverPublicFolder + user.profilePicture
                     : serverPublicFolder + "DefaultAvatar.png"
                 }

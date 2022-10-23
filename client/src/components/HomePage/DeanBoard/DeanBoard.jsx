@@ -7,7 +7,7 @@ import "./DeanBoard.css";
 const DeanBoard = () => {
   return (
     <div className="about-background">
-      <div className="nav-top-right-menu">
+      <div className="nav-bottom-right-menu">
         <NavigationMenu />
       </div>
       <h2 className="about-title">DEAN BOARD</h2>

@@ -30,7 +30,6 @@ export const sendMessage = async (req, res) => {
     chat: chatId,
   };
 
-  console.log(newMessage);
   try {
     var message = await messageModel.create(newMessage);
 

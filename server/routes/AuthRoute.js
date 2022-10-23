@@ -2,18 +2,28 @@ import express from "express";
 import passport from "passport";
 import {
   forgotPassword,
-  loginOutsideUser, loginUser, registerUser, resetPassword, sendMailer, verifyCode
+  loginOutsideUser,
+  loginUser,
+  registerUser,
+  resetPassword,
+  sendMailer,
+  verifyCode,
 } from "../controllers/AuthController.js";
+import authMiddleWare from "../MiddleWare/authMiddleWare.js";
 
 const router = express.Router();
 
 router.post("/register", registerUser);
-router.post("/verifyCode", verifyCode)
+router.post("/verifyCode", verifyCode);
 router.post("/login", loginUser);
 router.post("/loginOutside", loginOutsideUser);
-router.post("/sendCode", sendMailer)
-router.post("/forgotPassword", forgotPassword)
-router.post("/resetPassword/:userEmail/:id/:token", resetPassword)
+router.post("/sendCode", sendMailer);
+router.post("/forgotPassword", forgotPassword);
+router.post(
+  "/resetPassword/:userEmail/:id/:token",
+  authMiddleWare,
+  resetPassword
+);
 
 const CLIENT_URL = "http://localhost:3000/";
 
@@ -50,10 +60,7 @@ router.get(
   })
 );
 
-router.get(
-  "/github",
-  passport.authenticate("github", { scope: ["profile"] })
-);
+router.get("/github", passport.authenticate("github", { scope: ["profile"] }));
 
 router.get(
   "/github/callback",

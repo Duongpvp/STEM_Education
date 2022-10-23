@@ -1,3 +1,7 @@
 .class-management-body>.user-management-card {
     margin-top: 0.7rem;
 }
+
+.class-management-body {
+    width: 100%;
+}

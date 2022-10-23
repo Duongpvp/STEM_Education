@@ -31,7 +31,7 @@ function App() {
       <Routes>
         {/* Authentication */}
         <Route path = "/auth/" element = {user && user?.user.isAdmin ? <Navigate to = "../admin/"/> : user ? <Navigate to = "../home" /> : <Auth/>} />
-        <Route  path = "/auth/resetPassword/:userEmail/:id/:token/" element = { <Auth/> } />
+        <Route  path = "/auth/resetPassword/:userEmail/:id/:token/" element = {user && user?.user.isAdmin ? <Navigate to = "../admin/"/> : user ? <Home/> : <Auth isReset={true}/> } />
         
         {/* Home Route */}
         <Route path = "/" element = { user && user.user.isAdmin ? <Navigate to = "admin/"/> : user ? <Navigate to = "home/"/> : <Navigate to = "auth" />}/>

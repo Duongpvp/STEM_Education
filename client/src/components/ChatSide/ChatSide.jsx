@@ -153,6 +153,7 @@ const ChatSide = ({location}) => {
                             borderRadius="0.5rem"
                             justifyContent="flex-start"
                           >
+                            {console.log("Chat : ",chat)}
                             <Avatar
                               src={
                                 getFullSender(user, chat.users).outsideId

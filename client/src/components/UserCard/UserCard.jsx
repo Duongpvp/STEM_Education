@@ -1,5 +1,4 @@
 // @ts-nocheck
-
 import React, { memo } from "react";
 import { useSelector } from "react-redux";
 import "./UserCard.css";
@@ -12,7 +11,9 @@ const UserCard = () => {
       <div className="user-profile">
         <img
           src={
-            user.profilePicture
+            user.outsideId
+              ? user.profilePicture
+              : user.profilePicture
               ? serverPublicFolder + user.profilePicture
               : serverPublicFolder + "DefaultAvatar.png"
           }
@@ -28,7 +29,8 @@ const UserCard = () => {
           <b>Email </b> : {user.username}
         </span>
         <span>
-          <b>Role</b> : {user.isAdmin ? "Admin" : user.isTeacher ? "Teacher" : "Student"}
+          <b>Role</b> :{" "}
+          {user.isAdmin ? "Admin" : user.isTeacher ? "Teacher" : "Student"}
         </span>
       </div>
     </div>

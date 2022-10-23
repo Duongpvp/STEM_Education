@@ -23,4 +23,6 @@
 .list-card-user-class {
     padding: 12px 32px;
     display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 }

@@ -16,8 +16,6 @@ const Diversion = () => {
     window.open("http://localhost:5000/auth/logout", "_self");
   };
 
-  console.log(user.profilePicture);
-
   return (
     <div className="diversion">
       <div className="controller">

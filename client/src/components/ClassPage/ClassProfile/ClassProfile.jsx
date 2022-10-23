@@ -1,4 +1,4 @@
-// @ts-nocheck
+  // @ts-nocheck
 import { Group, Modal } from "@mantine/core";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import { getAllPost } from "api/ClassRequest";

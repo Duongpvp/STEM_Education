@@ -21,7 +21,7 @@ export const accessChat = async (req, res) => {
 
   isChat = await UserModel.populate(isChat, {
     path: "latestMessage.sender",
-    select: "username firstname lastname followers following",
+    select: "username firstname lastname followers following outsideId",
   });
 
   if (isChat.length > 0) {
@@ -53,7 +53,7 @@ export const fetchChat = async (req, res) => {
       .then(async (result) => {
         result = await UserModel.populate(result, {
           path: "latestMessage.sender",
-          select: "username firstname lastname followers  ",
+          select: "username firstname lastname followers outsideId",
         });
         res.status(200).send(result);
       });

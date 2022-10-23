@@ -80,7 +80,9 @@ const ExerciseContainer = () => {
       <div className="user-exercise">
         <img
           src={
-            user.profilePicture
+            user.outsideId
+              ? user.profilePicture
+              : user.profilePicture
               ? serverPublicFolder + user.profilePicture
               : serverPublicFolder + "DefaultAvatar.png"
           }
@@ -102,13 +104,15 @@ const ExerciseContainer = () => {
       <div className="user-input">
         <img
           src={
-            user.profilePicture
+            user.outsideId
+              ? user.profilePicture
+              : user.profilePicture
               ? serverPublicFolder + user.profilePicture
               : serverPublicFolder + "DefaultAvatar.png"
           }
           alt=""
         />
-        <form>
+        <form style={{width: "100%"}}>
           <div className="input-box">
             <TextareaAutosize minRows={2} name="message" required />
             <label>Message</label>

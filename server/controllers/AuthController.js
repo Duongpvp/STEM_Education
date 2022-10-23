@@ -175,12 +175,13 @@ export const sendMailer = async (req, res) => {
 
 export const verifyCode = async (req, res) => {
   const { username, receiveCode } = req.body;
-
   try {
     const user = await UserModel.findOne({ username: username });
+    console.log(user);
     if (user) {
       if (user.activeCode === receiveCode) {
         const result = await user.update({ activeCode: "" }, { new: true });
+        console.log(result);
 
         res.status(200).json({ user });
       } else {
@@ -212,7 +213,34 @@ export const forgotPassword = async (req, res) => {
         { expiresIn: "10m" }
       );
       const link = `http://localhost:3000/auth/resetPassword/${user.username}/${user._id}/${token}}`;
-      res.status(200).json({ link });
+      const outputLink = link.substring(0, link.length - 1);
+
+      const transporter = nodeMailer.createTransport({
+        host: "smtp.gmail.com",
+        port: 587,
+        secure: false,
+        auth: {
+          user: "duongb1807625@student.ctu.edu.vn",
+          pass: "DRDq2cz7",
+        },
+      });
+
+      const mailOptions = {
+        from: "duongb1807625@student.ctu.edu.vn",
+        to: "duong891109@gmail.com",
+        subject: "Sending Email With React And Nodejs",
+        html: `<h2>${outputLink}</h2>`,
+      };
+
+      transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+          console.log("Error : " + error);
+        } else {
+          res.status(201).json({ status: 201, info });
+        }
+      });
+
+      res.status(200).json({ outputLink });
     }
   } catch (error) {
     res.status(500).json(error);
@@ -223,9 +251,13 @@ export const resetPassword = async (req, res) => {
   const { userEmail, id, token } = req.params;
   const { password } = req.body;
 
+  console.log(req.params);
+
   try {
     const user = await UserModel.findOne({ userEmail });
     const secret = process.env.JWT_SECRETKEY;
+    // console.log(id);
+    // console.log(user);
     if (id !== user._id.toString()) {
       res.status(400).json("Invalid user id");
     } else {
