@@ -176,6 +176,7 @@ const HeaderChat = () => {
         alignContent="center"
         width="100%"
         padding="1rem 2rem"
+        borderRadius="0.7rem"
       >
         <SearchChat />
         <div style={{ display: width < 768 ? "flex" : "none" }}>

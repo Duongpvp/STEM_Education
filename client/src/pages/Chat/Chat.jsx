@@ -11,7 +11,7 @@ const Chat = () => {
   const [fetchAgain, setFetchAgain] = useState(false);
 
   return (
-    <div className="Chat" style={{ width: "100%"}}>
+    <div className="Chat" style={{ width: "100%", position: "relative"}}>
       {user && <HeaderChat />}
       <Box
         display="flex"

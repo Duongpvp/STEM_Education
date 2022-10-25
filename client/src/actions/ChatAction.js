@@ -6,12 +6,12 @@ export const accessChat = (id, chats, users, user) => async (dispatch) => {
     const { data } = await ChatApi.accessChat(id);
     const result = chats.chatData.find((c) => c._id === data._id);
     const accessData = { ...data, users: [user, users] };
-    console.log(accessData);
+    console.log("Access: ",accessData);
     if (!result) {
       dispatch({ type: "ACCESSCHAT_SUCCESS", data: accessData });
     } else {
-      console.log(data);
-      dispatch({ type: "ACCESS_WITHOUT_RENDER", data: data });
+      console.log("Access:_2 ",accessData);
+      dispatch({ type: "ACCESS_WITHOUT_RENDER", data: accessData });
     }
   } catch (error) {
     dispatch({ type: "ACCESSCHAT_FAIL" });

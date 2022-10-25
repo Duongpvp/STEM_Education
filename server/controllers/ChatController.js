@@ -4,6 +4,8 @@ import UserModel from "../models/userModel.js";
 export const accessChat = async (req, res) => {
   const userId = req.body.id;
 
+  console.log(req.body._id);
+
   if (!userId) {
     console.log("UserId param not sent with request");
     return res.sendStatus(400);
@@ -44,19 +46,20 @@ export const accessChat = async (req, res) => {
 };
 
 export const fetchChat = async (req, res) => {
+  console.log( req.body._id );
   try {
     ChatModel.find({ users: { $elemMatch: { $eq: req.body._id } } })
-      .populate("users", "-password")
-      .populate("groupAdmin", "-password")
-      .populate("latestMessage")
-      .sort({ updateAt: -1 })
-      .then(async (result) => {
-        result = await UserModel.populate(result, {
-          path: "latestMessage.sender",
-          select: "username firstname lastname followers outsideId",
-        });
-        res.status(200).send(result);
+    .populate("users", "-password")
+    .populate("groupAdmin", "-password")
+    .populate("latestMessage")
+    .sort({ updateAt: -1 })
+    .then(async (result) => {
+      result = await UserModel.populate(result, {
+        path: "latestMessage.sender",
+        select: "username firstname lastname followers outsideId",
       });
+      res.status(200).send(result);
+    });
   } catch (error) {
     res.status(400).json(error);
   }

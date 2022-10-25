@@ -42,6 +42,7 @@ export const signUp =
         );
         setFormState("Verify");
         await AuthApi.activeCodeSender(formData.username);
+        console.log("asd");
         resetForm();
       }
     } catch (error) {
@@ -58,10 +59,8 @@ export const signUpByAdmin =
       if (!data) {
         toast.error("Failed to create new user");
       } else {
-        toast.success(
-          "Created user successfully!"
-        );
-        setFetchAgain(!fetchAgain)
+        toast.success("Created user successfully!");
+        setFetchAgain(!fetchAgain);
       }
     } catch (error) {
       dispatch({ type: "AUTH_FAIL" });
@@ -81,44 +80,53 @@ export const forgotPassword = (username) => async () => {
   }
 };
 
-export const resetPassword = (password, userEmail, id, token, setFormState) => async () => {
-  try {
-    const { data } = await AuthApi.resetPassword(password, userEmail, id, token);
-    if (data) {
-      toast.success("Reset password is successfully");
-      setFormState("Login")
+export const resetPassword =
+  (password, userEmail, id, token, setFormState) => async () => {
+    try {
+      const { data } = await AuthApi.resetPassword(
+        password,
+        userEmail,
+        id,
+        token
+      );
+      if (data) {
+        toast.success("Reset password is successfully");
+        setFormState("Login");
+      }
+    } catch (error) {
+      toast.error("Failed to reset password");
+      console.log(error);
     }
-  } catch (error) {
-    toast.error("Failed to reset password");
-    console.log(error);
-  }
-};
+  };
 
-export const verifySender = (username, code) => async (dispatch) => {
-  dispatch({ type: "VERIFY_START" });
-  try {
-    const { data } = await AuthApi.verifySender(username, code);
-    if (data) {
-      toast.success("Verify code successfully");
-      dispatch({ type: "VERIFY_SUCCESS", data: data });
+export const verifySender =
+  (username, code, setFormState) => async (dispatch) => {
+    dispatch({ type: "VERIFY_START" });
+    try {
+      const { data } = await AuthApi.verifySender(username, code);
+      if (data) {
+        toast.success("Verify code successfully");
+        dispatch({ type: "VERIFY_SUCCESS" });
+        setFormState("Login");
+      }
+    } catch (error) {
+      toast.error("Failed to verify code");
+      dispatch({ type: "VERIFY_FAIL" });
+      console.log(error);
     }
-  } catch (error) {
-    toast.error("Failed to verify code");
-    dispatch({ type: "VERIFY_FAIL" });
-    console.log(error);
-  }
-};
+  };
 
 export const logOut = () => async (dispatch) => {
   dispatch({ type: "LOG_OUT" });
 };
 
 export const loginOutsideUser =
-  (userId, firstname, lastname, avatar) => async (dispatch) => {
+  (userId, username, firstname, lastname, avatar) => async (dispatch) => {
     dispatch({ type: "AUTH_START" });
     try {
       const { data } = await AuthApi.loginOutsideUser(
         userId,
+        username,
         firstname,
         lastname,
         avatar

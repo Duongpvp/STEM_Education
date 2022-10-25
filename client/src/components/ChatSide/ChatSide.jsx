@@ -10,7 +10,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "./ChatSide.css";
 
-const ChatSide = ({location}) => {
+const ChatSide = ({ location }) => {
   const { user } = useSelector((state) => state.AuthReducer.authData);
   const userOnline = useSelector((state) => state.UserReducer.onlineUser);
   const chatStore = useSelector((state) => state.ChatReducer);
@@ -45,30 +45,32 @@ const ChatSide = ({location}) => {
     const { innerWidth: width, innerHeight: height } = window;
     return {
       width,
-      height
+      height,
     };
-  }
-  
+  };
+
   const useWindowDimensions = () => {
-    const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
-  
+    const [windowDimensions, setWindowDimensions] = useState(
+      getWindowDimensions()
+    );
+
     useEffect(() => {
       const handleResize = () => {
         setWindowDimensions(getWindowDimensions());
-      }
-      
-      window.addEventListener('resize', handleResize);
-      return () => window.removeEventListener('resize', handleResize);
+      };
+
+      window.addEventListener("resize", handleResize);
+      return () => window.removeEventListener("resize", handleResize);
     }, []);
-    
+
     return windowDimensions;
-  }
-  
+  };
+
   const { height, width } = useWindowDimensions();
 
   return (
     <Box
-      display={ width < 768 && location === "chat" ? "none" : "flex"}
+      display={width < 768 && location === "chat" ? "none" : "flex"}
       flexDirection="column"
       alignItems="center"
       backgroundColor="#fff"
@@ -77,26 +79,29 @@ const ChatSide = ({location}) => {
       height="100%"
       my="12px"
     >
-      { location === "chat" && <Box
-        py={2}
-        px={3}
-        fontSize="1rem"
-        display="flex"
-        width="100%"
-        justifyContent="space-around"
-        alignItems="center"
-      >
-        <span>LOGO-CHAT</span>
-        <GroupChatModal>
-          <Button
-            style={{ backgroundColor: "#6a1b9a" }}
-            variant="contained"
-            endIcon={<AddOutlined />}
-          >
-            New Chats
-          </Button>
-        </GroupChatModal>
-      </Box>}
+      {location === "chat" && (
+        <Box
+          py={2}
+          px={3}
+          mt="12px"
+          fontSize="1rem"
+          display="flex"
+          width="100%"
+          justifyContent="space-around"
+          alignItems="center"
+        >
+          <span>LOGO-CHAT</span>
+          <GroupChatModal>
+            <Button
+              style={{ backgroundColor: "#6a1b9a" }}
+              variant="contained"
+              endIcon={<AddOutlined />}
+            >
+              New Chats
+            </Button>
+          </GroupChatModal>
+        </Box>
+      )}
       <Box
         display="flex"
         flexDirection="column"
@@ -153,7 +158,6 @@ const ChatSide = ({location}) => {
                             borderRadius="0.5rem"
                             justifyContent="flex-start"
                           >
-                            {console.log("Chat : ",chat)}
                             <Avatar
                               src={
                                 getFullSender(user, chat.users).outsideId

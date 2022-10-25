@@ -101,10 +101,9 @@ const Auth = ({ isReset }) => {
   }, []);
 
   const handleSubmit = (e) => {
-    e.preventDefault();
     if (formState === "SignUp") {
       if (data.password === data.confirmpassword) {
-        dispatch(signUp(data, resetForm(), setFormState));
+        dispatch(signUp(data, resetForm, setFormState));
       } else {
         setConfirmPass(false);
       }
@@ -118,7 +117,7 @@ const Auth = ({ isReset }) => {
       } else {
         if (formState === "Verify") {
           try {
-            dispatch(verifySender(data.username, verifyCode));
+            dispatch(verifySender(data.username, verifyCode, setFormState));
           } catch (error) {
             console.log(error);
           }
@@ -162,6 +161,7 @@ const Auth = ({ isReset }) => {
           dispatch(
             loginOutsideUser(
               outsideUser.id,
+              outsideUser.profileUrl.slice(8),
               "",
               outsideUser.name.givenName,
               outsideUser.photos[0].value
@@ -172,6 +172,7 @@ const Auth = ({ isReset }) => {
             dispatch(
               loginOutsideUser(
                 outsideUser.id,
+                outsideUser.profileUrl.slice(8),
                 "",
                 outsideUser.displayName,
                 outsideUser.photos[0].value
@@ -224,7 +225,7 @@ const Auth = ({ isReset }) => {
             ? "RESET PASSWORD"
             : "LOG IN"}
         </h4>
-        <form className="infoFrom" onSubmit={handleSubmit}>
+        <form className="infoFrom">
           {formState === "SignUp" && (
             <div>
               <input
@@ -336,6 +337,7 @@ const Auth = ({ isReset }) => {
                 type="submit"
                 className="btn SignUp-btn"
                 disabled={loading}
+                onClick={handleSubmit}
               >
                 SIGN UP
               </button>
@@ -344,19 +346,32 @@ const Auth = ({ isReset }) => {
                 type="submit"
                 className="btn SignUp-btn"
                 disabled={loading}
+                onClick={handleSubmit}
               >
                 LOG IN
               </button>
             ) : formState === "resetPassword" ? (
-              <button disabled={loading} className="btn SignUp-btn">
+              <button
+                disabled={loading}
+                className="btn SignUp-btn"
+                onClick={handleSubmit}
+              >
                 RESET
               </button>
             ) : formState === "Verify" ? (
-              <button disabled={loading} className="btn SignUp-btn">
+              <button
+                disabled={loading}
+                className="btn SignUp-btn"
+                onClick={handleSubmit}
+              >
                 SEND
               </button>
             ) : (
-              <button disabled={loading} className="btn SignUp-btn">
+              <button
+                disabled={loading}
+                className="btn SignUp-btn"
+                onClick={handleSubmit}
+              >
                 SEND MAIL
               </button>
             )}

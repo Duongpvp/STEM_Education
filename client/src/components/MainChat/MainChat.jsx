@@ -230,7 +230,7 @@ const MainChat = ({ fetchAgain, setFetchAgain }) => {
             p="12px"
             mx="18px"
             width="97%"
-            height="92%"
+            height="88%"
             backgroundColor="#e8e8e8"
             borderRadius="0.5rem"
           >
@@ -261,7 +261,6 @@ const MainChat = ({ fetchAgain, setFetchAgain }) => {
                     }}
                     key={i}
                   >
-                    {console.log(message.sender)}
                     {(isSameSender(messages, message, i, user._id) ||
                       isLastMessage(messages, i, user._id)) &&
                       message.sender._id !== user._id && (

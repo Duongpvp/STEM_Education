@@ -160,7 +160,6 @@ const ProfileCard = ({ user, location }) => {
         </form>
       </Modal>
       <div className="ProfileImages">
-        {console.log(serverPublicFolder + user.profilePicture)}
         <img
           src={
             user?.coverPicture

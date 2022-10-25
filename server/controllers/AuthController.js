@@ -40,7 +40,7 @@ export const registerUser = async (req, res) => {
 
     const code = generateString(8);
 
-    await newUser.update({ activeCode: code }, { new: true });
+    await newUser.update({ activeCode: code, outsideId: "" }, { new: true });
 
     if (req.body.role === "Admin") {
       const outputUser = await newUser.update(
@@ -80,7 +80,7 @@ export const registerUserByAdmin = async (req, res) => {
       return res.status(400).json({ mess: "username is already registered!" });
     }
     const user = await newUser.save();
-
+    console.log(user);
     const token = jwt.sign(
       {
         username: user.username,
@@ -90,7 +90,7 @@ export const registerUserByAdmin = async (req, res) => {
       { expiresIn: "1d" }
     );
 
-    await newUser.update({ activeCode: "" }, { new: true });
+    await newUser.update({ activeCode: "", outsideId: "" }, { new: true });
 
     if (req.body.role === "Admin") {
       const outputUser = await newUser.update(
@@ -124,7 +124,6 @@ export const loginUser = async (req, res) => {
 
   try {
     const user = await UserModel.findOne({ username: username });
-    console.log(user);
 
     if (user) {
       const validity = await bcrypt.compare(password, user.password);
@@ -154,14 +153,14 @@ export const loginUser = async (req, res) => {
 
 // Login Outside User
 export const loginOutsideUser = async (req, res) => {
-  const { userId, firstname, lastname, avatar } = req.body;
+  const { userId, username, firstname, lastname, avatar } = req.body;
 
   try {
     const user = await UserModel.findOne({ outsideId: userId });
     const token = jwt.sign(
       {
-        username: userId,
-        id: userId,
+        username: username,
+        id: user._id,
       },
       process.env.JWT_SECRETKEY,
       { expiresIn: "24h" }
@@ -170,14 +169,21 @@ export const loginOutsideUser = async (req, res) => {
       res.status(200).json({ user, token });
     } else {
       const outsideUser = {
-        username: userId,
+        username: username,
         firstname: firstname,
         lastname: lastname,
         profilePicture: avatar,
         outsideId: userId,
       };
+
       const newUser = new UserModel(outsideUser);
       const user = await newUser.save();
+
+      console.log(user);
+
+      // const newUser = new UserModel(outsideUser);
+      // const user = await newUser.save();
+      // console.log(outsideUser);
       res.status(200).json({ user, token });
     }
   } catch (error) {

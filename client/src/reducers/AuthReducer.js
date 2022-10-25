@@ -19,7 +19,6 @@ const AuthReducer = (
     case "VERIFY_START":
       return { ...state, loading: true, error: false };
     case "VERIFY_SUCCESS":
-      localStorage.setItem("profile", JSON.stringify({ ...action?.data }));
       return { ...state, authData: action.data, loading: false, error: false };
     case "VERIFY_FAIL":
       return { ...state, loading: false, error: true };

@@ -20,7 +20,6 @@ io.on("connection", (socket) => {
     // send all active users to new user
     io.emit("get-users", activeUsers);
 
-    console.log(activeUsers);
     let logUser = [
       {
         name: moment().format("HH") + "H",
@@ -66,13 +65,10 @@ io.on("connection", (socket) => {
       if (user._id == data.data.sender._id) return;
       let userSocket;
       for (var i = 0; i < activeUsers.length; i++) {
-        console.log("Active user :", activeUsers[i].userId);
-        console.log("userID :", user._id);
         if (activeUsers[i].userId === user._id) {
           userSocket = activeUsers[i].socketId;
         }
       }
-      console.log(userSocket);
       io.to(userSocket).emit("receive-message", data.data);
 
       // socket.in(user._id).emit("receive-message", data.data);
