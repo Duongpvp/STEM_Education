@@ -26,7 +26,7 @@ router.post(
   resetPassword
 );
 
-const CLIENT_URL = "http://localhost:3000/";
+const CLIENT_URL = process.env.REACT_APP_URL_LOCAL;
 
 router.get("/login/success", (req, res) => {
   if (req.user) {

@@ -32,17 +32,16 @@ export const sendMessage = async (req, res) => {
 
   try {
     var message = await messageModel.create(newMessage);
-
     message = await message.populate("sender", "firstname lastname followers following profilePicture outsideId");
     message = await message.populate("chat");
     message = await UserModel.populate(message, {
       path: "chat.users",
       select: "firstname lastname followers following username outsideId",
     });
-
+    
     await ChatModel.findByIdAndUpdate(req.body.chatId, {
       latestMessage: message,
-    });
+    }).populate("users","-password");
 
     res.status(200).json(message);
   } catch (error) {

@@ -76,7 +76,7 @@ const Auth = ({ isReset }) => {
 
   useEffect(() => {
     const getUser = () => {
-      fetch("http://localhost:5000/auth/login/success", {
+      fetch(`${process.env.REACT_APP_URL_SERVER_LOCAL}auth/login/success`, {
         method: "GET",
         credentials: "include",
         headers: {
@@ -101,6 +101,8 @@ const Auth = ({ isReset }) => {
   }, []);
 
   const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(formState);
     if (formState === "SignUp") {
       if (data.password === data.confirmpassword) {
         dispatch(signUp(data, resetForm, setFormState));
@@ -225,7 +227,7 @@ const Auth = ({ isReset }) => {
             ? "RESET PASSWORD"
             : "LOG IN"}
         </h4>
-        <form className="infoFrom">
+        <form className="infoFrom" onSubmit={handleSubmit}>
           {formState === "SignUp" && (
             <div>
               <input
@@ -258,7 +260,6 @@ const Auth = ({ isReset }) => {
               />
             </div>
           )}
-
           {formState === "Verify" ? (
             <div>
               <input

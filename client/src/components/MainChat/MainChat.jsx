@@ -39,7 +39,7 @@ const MainChat = ({ fetchAgain, setFetchAgain }) => {
   const scroll = useRef();
 
   useEffect(() => {
-    socket.current = io("http://localhost:8800");
+    socket.current = io(process.env.REACT_APP_URL_SOCKET_LOCAL);
     socket.current.emit("new-user-add", user._id);
     socket.current.on("get-users", (users) => {
       socket.current.on("get-users", (users) => {
@@ -80,7 +80,7 @@ const MainChat = ({ fetchAgain, setFetchAgain }) => {
   // Receive message from socket server
   useEffect(() => {
     socket.current.on("receive-message", (data) => {
-      setFetchAgain(!fetchAgain);
+      
       if (
         !selectedChatCompare || // if chat is not selected or doesn't match current chat
         selectedChatCompare._id !== data.chat?._id
@@ -301,16 +301,16 @@ const MainChat = ({ fetchAgain, setFetchAgain }) => {
                         alignSelf: "flex-end",
                         color: "#fff",
                         borderRadius:
-                          message.sender?._id === user?._id
+                          message?.sender?._id === user?._id
                             ? "1rem 1rem 0 1rem"
                             : "1rem 1rem 1rem 0",
                         background:
-                          message.sender?._id === user?._id
+                          message?.sender?._id === user?._id
                             ? "linear-gradient(135deg, rgba(98,50,215,1) 0%, rgba(149,108,243,1) 100%)"
                             : "linear-gradient(315deg, rgba(178,53,95,1) 0%, rgba(250,169,130,1) 100%)",
                       }}
                     >
-                      {message.content}
+                      {message?.content}
                     </span>
 
                     {/* <div

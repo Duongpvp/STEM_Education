@@ -25,6 +25,7 @@ const ChatSide = ({ location }) => {
   useEffect(() => {
     const fetchChats = async () => {
       const { data } = await fetchChat();
+      console.log(data);
       setMychat(data);
     };
     fetchChats();

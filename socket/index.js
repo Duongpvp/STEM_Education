@@ -14,7 +14,7 @@ io.on("connection", (socket) => {
     // if user is not added previously
     if (!activeUsers.some((user) => user.userId === newUserId)) {
       activeUsers.push({ userId: newUserId, socketId: socket.id });
-      // console.log("New User Connected", activeUsers);
+      console.log("New User Connected", activeUsers);
     }
     socket.join(newUserId);
     // send all active users to new user
@@ -70,7 +70,6 @@ io.on("connection", (socket) => {
         }
       }
       io.to(userSocket).emit("receive-message", data.data);
-
       // socket.in(user._id).emit("receive-message", data.data);
       // const { receiverId } = data;
       // const userIO = activeUsers.find((user) => user.userId === receiverId._id);

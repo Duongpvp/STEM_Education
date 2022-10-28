@@ -157,10 +157,11 @@ export const loginOutsideUser = async (req, res) => {
 
   try {
     const user = await UserModel.findOne({ outsideId: userId });
+
     const token = jwt.sign(
       {
         username: username,
-        id: user._id,
+        id: userId,
       },
       process.env.JWT_SECRETKEY,
       { expiresIn: "24h" }
@@ -179,7 +180,6 @@ export const loginOutsideUser = async (req, res) => {
       const newUser = new UserModel(outsideUser);
       const user = await newUser.save();
 
-      console.log(user);
 
       // const newUser = new UserModel(outsideUser);
       // const user = await newUser.save();
@@ -193,23 +193,22 @@ export const loginOutsideUser = async (req, res) => {
 
 export const sendMailer = async (req, res) => {
   const { email } = req.body;
-
   try {
     const transporter = nodeMailer.createTransport({
       host: "smtp.gmail.com",
       port: 587,
       secure: false,
       auth: {
-        user: "duongb1807625@student.ctu.edu.vn",
-        pass: "DRDq2cz7",
+        user: process.env.MAIL_USERNAME,
+        pass: process.env.MAIL_PASSWORD
       },
     });
-
+    
     const user = await UserModel.findOne({ username: email });
-
+    
     const mailOptions = {
-      from: "duongb1807625@student.ctu.edu.vn",
-      to: "duong891109@gmail.com",
+      from: process.env.MAIL_USERNAME,
+      to: email,
       subject: "Sending Email With React And Nodejs",
       html: `<h2>${user.activeCode}</h2>`,
     };
@@ -266,7 +265,7 @@ export const forgotPassword = async (req, res) => {
         secret,
         { expiresIn: "10m" }
       );
-      const link = `http://localhost:3000/auth/resetPassword/${user.username}/${user._id}/${token}}`;
+      const link = `${process.env.REACT_APP_URL_LOCAL}auth/resetPassword/${user.username}/${user._id}/${token}}`;
       const outputLink = link.substring(0, link.length - 1);
 
       const transporter = nodeMailer.createTransport({

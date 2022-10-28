@@ -22,7 +22,7 @@ const Home = () => {
   const onlineUser = useSelector((state) => state.UserReducer.onlineUser);
 
   useEffect(() => {
-    socket.current = io("http://localhost:8800");
+    socket.current = io(`${process.env.REACT_APP_URL_SOCKET_LOCAL}`);
     socket.current.emit("new-user-add", user._id);
     socket.current.on("get-users", (users) => {
       for (var i = 0; i < onlineUser.length; i++) {

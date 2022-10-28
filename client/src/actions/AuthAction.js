@@ -37,6 +37,7 @@ export const signUp =
       if (!data) {
         toast.error("Failed to create new user");
       } else {
+        dispatch({ type: "SIGNUP_SUCCESS" });
         toast.success(
           "Created user successfully, check your mail to active account"
         );
