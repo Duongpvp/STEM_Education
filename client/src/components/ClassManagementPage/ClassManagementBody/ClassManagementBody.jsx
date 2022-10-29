@@ -1,9 +1,8 @@
 // @ts-nocheck
-import { getAllClass } from "api/ClassRequest";
+import { getUserClass } from "api/ClassRequest";
 import Card from "components/Card/Card";
 import UserCard from "components/UserCard/UserCard";
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
 import "./ClassManagementBody.css";
 
 const ClassManagementBody = () => {
@@ -13,7 +12,7 @@ const ClassManagementBody = () => {
 
   const fetchAllClass = async () => {
     try {
-      const { data } = await getAllClass();
+      const { data } = await getUserClass();
       setClassroom(data);
     } catch (error) {
       console.log(error);

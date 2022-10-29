@@ -80,7 +80,6 @@ const MainChat = ({ fetchAgain, setFetchAgain }) => {
   // Receive message from socket server
   useEffect(() => {
     socket.current.on("receive-message", (data) => {
-      
       if (
         !selectedChatCompare || // if chat is not selected or doesn't match current chat
         selectedChatCompare._id !== data.chat?._id
@@ -146,7 +145,6 @@ const MainChat = ({ fetchAgain, setFetchAgain }) => {
   // }
   //   });
   // }, [notification]);
-  
 
   const getWindowDimensions = () => {
     const { innerWidth: width, innerHeight: height } = window;

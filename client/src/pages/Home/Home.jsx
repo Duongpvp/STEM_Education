@@ -21,19 +21,19 @@ const Home = () => {
   const { user } = useSelector((state) => state.AuthReducer.authData);
   const onlineUser = useSelector((state) => state.UserReducer.onlineUser);
 
-  useEffect(() => {
-    socket.current = io(`${process.env.REACT_APP_URL_SOCKET_LOCAL}`);
-    socket.current.emit("new-user-add", user._id);
-    socket.current.on("get-users", (users) => {
-      for (var i = 0; i < onlineUser.length; i++) {
-        if (onlineUser[i].userId === users) {
-          return;
-        } else {
-          dispatch(userOnline(users));
-        }
-      }
-    });
-  }, [user]);
+  // useEffect(() => {
+  //   socket.current = io(`${process.env.REACT_APP_URL_SOCKET_LOCAL}`);
+  //   socket.current.emit("new-user-add", user._id);
+  //   socket.current.on("get-users", (users) => {
+  //     for (var i = 0; i < onlineUser.length; i++) {
+  //       if (onlineUser[i].userId === users) {
+  //         return;
+  //       } else {
+  //         dispatch(userOnline(users));
+  //       }
+  //     }
+  //   });
+  // }, [user]);
 
   return (
     <div className="home">

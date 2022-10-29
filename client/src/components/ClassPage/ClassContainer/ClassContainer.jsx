@@ -1,6 +1,6 @@
 // @ts-nocheck
 import { Button, Popover, TextField } from "@mui/material";
-import { getAllClass, joinClass } from "api/ClassRequest";
+import { getAllClassForUser, getClassForUser, getUserClass, joinClass } from "api/ClassRequest";
 import Card from "components/Card/Card";
 import SideBarMotion from "components/SideBarMotion/SideBarMotion";
 import UserCard from "components/UserCard/UserCard";
@@ -15,9 +15,10 @@ const ClassContainer = () => {
   const [classroom, setClassroom] = useState([]);
   const [code, setCode] = useState(null);
   const [fetchAgain, setFetchAgain] = useState(false);
+
   const fetchAllClass = async () => {
   try {
-      const { data } = await getAllClass(user._id);
+      const { data } = await getAllClassForUser();
       setClassroom(data);
     } catch (error) {
       console.log(error);

@@ -5,9 +5,9 @@ const classSchema = mongoose.Schema(
     className: { type: "String", trim: true },
     snippet: { type: "String", trim: true },
     image: String, 
-    users: [
+    users: [ 
       {
-        type: mongoose.Schema.Types.ObjectId,
+        type: String,
         ref: "Users",
       },
     ],

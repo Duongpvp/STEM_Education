@@ -1,9 +1,9 @@
-import classModel from "../models/classModel.js";
-import UserModel from "../models/userModel.js";
-import classPostModel from "../models/classPostModel.js";
-import exerciseModel from "../models/exerciseModel.js";
 import fs from "fs";
 import { promisify } from "util";
+import classModel from "../models/classModel.js";
+import classPostModel from "../models/classPostModel.js";
+import exerciseModel from "../models/exerciseModel.js";
+import UserModel from "../models/userModel.js";
 const unlinkAsync = promisify(fs.unlink);
 const serverPublicDirect = process.env.REACT_FILES_DIR;
 
@@ -44,14 +44,16 @@ export const createClass = async (req, res) => {
   }
 };
 
-export const getClass = async (req, res) => {
-  const userId = req.params.userId;
-
+export const getClassForUser = async (req, res) => {
+  const userId = req.body._id;
   try {
-    const currentUser = await UserModel.findById(userId);
-    const userClass = await classModel
-      .find({ users: currentUser })
-      .populate("users", "-password");
+    const currentUser = await UserModel.find({ _id: userId });
+    const data = await classModel.find({users: {$in : userId}})
+    res.status(200).json(data)
+    // console.log(classData.length);
+    // const userClass = await classModel
+    //   .find({users: currentUser})
+    //   .populate("users", "-password");
     // console.log(userClass);
     // const exerciseUser = await exerciseModel.aggregate([
     //   {
@@ -79,7 +81,7 @@ export const getClass = async (req, res) => {
     //     return b.createdAt - a.createdAt;
     //   })
     // );
-    res.status(200).json(userClass);
+    // res.status(200).json(userClass);
   } catch (error) {
     res.status(500).json(error);
   }
@@ -168,7 +170,7 @@ export const deleteClass = async (req, res) => {
         if (exercisePosts) {
           for (let j = 0; j < exercisePosts.length; j++) {
             // console.log(exercisePosts[j]);
-            
+
             for (let g = 0; g < exercisePosts[j].files.length; g++) {
               listDeleteFiles.push(exercisePosts[j].files[g]);
             }
