@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { getUserClass } from "api/ClassRequest";
+import { getAllClassForUser, getUserClass } from "api/ClassRequest";
 import Card from "components/Card/Card";
 import UserCard from "components/UserCard/UserCard";
 import React, { useEffect, useState } from "react";
@@ -12,7 +12,8 @@ const ClassManagementBody = () => {
 
   const fetchAllClass = async () => {
     try {
-      const { data } = await getUserClass();
+      const { data } = await getAllClassForUser();
+      console.log(data);
       setClassroom(data);
     } catch (error) {
       console.log(error);

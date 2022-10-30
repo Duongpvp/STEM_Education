@@ -158,15 +158,15 @@ export const loginOutsideUser = async (req, res) => {
   try {
     const user = await UserModel.findOne({ outsideId: userId });
 
-    const token = jwt.sign(
-      {
-        username: username,
-        id: userId,
-      },
-      process.env.JWT_SECRETKEY,
-      { expiresIn: "24h" }
-    );
     if (user) {
+      const token = jwt.sign(
+        {
+          username: username,
+          id: user._id,
+        },
+        process.env.JWT_SECRETKEY,
+        { expiresIn: "24h" }
+      );
       res.status(200).json({ user, token });
     } else {
       const outsideUser = {
@@ -179,7 +179,14 @@ export const loginOutsideUser = async (req, res) => {
 
       const newUser = new UserModel(outsideUser);
       const user = await newUser.save();
-
+      const token = jwt.sign(
+        {
+          username: username,
+          id: user._id,
+        },
+        process.env.JWT_SECRETKEY,
+        { expiresIn: "24h" }
+      );
 
       // const newUser = new UserModel(outsideUser);
       // const user = await newUser.save();
@@ -200,12 +207,12 @@ export const sendMailer = async (req, res) => {
       secure: false,
       auth: {
         user: process.env.MAIL_USERNAME,
-        pass: process.env.MAIL_PASSWORD
+        pass: process.env.MAIL_PASSWORD,
       },
     });
-    
+
     const user = await UserModel.findOne({ username: email });
-    
+
     const mailOptions = {
       from: process.env.MAIL_USERNAME,
       to: email,
