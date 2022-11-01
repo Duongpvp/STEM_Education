@@ -29,7 +29,7 @@ const StudyPrograms = () => {
       <div className="study-programs-header">Study Programs</div>
       <div className="study-programs-content">
         <React.Fragment>
-          <ListIcon onClick={toggleDrawer(true)}></ListIcon>
+          <ListIcon onClick={toggleDrawer(true)}/>
           <Drawer
             anchor={"left"}
             open={isOpenDrawer}

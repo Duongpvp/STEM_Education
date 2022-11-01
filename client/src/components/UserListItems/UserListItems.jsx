@@ -34,7 +34,7 @@ const UserListItems = ({ user, handleFunction }) => {
             size="sm"
             cursor="pointer"
             src={
-              user.profilePicture
+              user.outsideId ? user.profilePicture : user.profilePicture
                 ? serverPublicFolder + user.profilePicture
                 : serverPublicFolder + "DefaultAvatar.png"
             }

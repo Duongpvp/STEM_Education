@@ -32,6 +32,7 @@
     top: 12px;
     left: 24px;
     font-size: 3rem;
+    display: none;
 }
 
 .study-programs .study-programs-header {
@@ -158,5 +159,9 @@
 @media screen and (max-width: 920px) {
     .study-programs .study-programs-nav {
         display: none;
+    }
+
+    .study-programs .study-programs-content svg {
+        display: block;
     }
 }

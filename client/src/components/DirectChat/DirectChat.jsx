@@ -21,6 +21,7 @@ import { Effect } from "react-notification-badge";
 import NotificationBadge from "react-notification-badge/lib/components/NotificationBadge";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import HomeIcon from "@mui/icons-material/Home";
 
 const DirectChat = () => {
   const dispatch = useDispatch();
@@ -39,7 +40,10 @@ const DirectChat = () => {
 
   const handleLogOut = () => {
     dispatch(logOut());
-    window.open("http://localhost:5000/auth/logout", "_self");
+    window.open(
+      `${process.env.REACT_APP_URL_SERVER_LOCAL}auth/logout`,
+      "_self"
+    );
   };
 
   const [anchorEl2, setAnchorEl2] = useState(null);
@@ -176,8 +180,18 @@ const DirectChat = () => {
               Profile
             </Link>
           </MenuItem>
-          <Divider />
-
+          <Divider variant="middle" />
+          <MenuItem>
+            <ListItemIcon>
+              <HomeIcon fontSize="small" />
+            </ListItemIcon>
+            <Link
+              to="../home/"
+              style={{ textDecoration: "none", color: "#000" }}
+            >
+              Home
+            </Link>
+          </MenuItem>
           <MenuItem onClick={() => setModalOpened(true)}>
             <ListItemIcon>
               <Settings fontSize="small" />

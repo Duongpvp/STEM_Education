@@ -57,6 +57,7 @@ const ClassGrid = () => {
   useEffect(() => {
     const getAllUsers = async () => {
       const { data } = await fetchAllClass();
+      console.log(data);
       setClassData(data);
     };
     getAllUsers();

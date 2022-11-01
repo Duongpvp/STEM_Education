@@ -31,6 +31,7 @@ const InfoCard = () => {
 
   const handleLogout = () => {
     dispatch(logOut());
+    window.open(`${process.env.REACT_APP_URL_SERVER_LOCAL}auth/logout`, "_self");
   };
   return (
     <div className="InfoCard">

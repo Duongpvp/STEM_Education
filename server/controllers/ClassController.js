@@ -4,6 +4,9 @@ import classModel from "../models/classModel.js";
 import classPostModel from "../models/classPostModel.js";
 import exerciseModel from "../models/exerciseModel.js";
 import UserModel from "../models/userModel.js";
+import dotenv from "dotenv";
+
+dotenv.config();
 const unlinkAsync = promisify(fs.unlink);
 const serverPublicDirect = process.env.REACT_FILES_DIR;
 

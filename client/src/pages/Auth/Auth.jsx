@@ -76,7 +76,7 @@ const Auth = ({ isReset }) => {
 
   useEffect(() => {
     const getUser = () => {
-      fetch(`${process.env.REACT_APP_URL_SERVER_LOCAL}auth/login/success`, {
+      fetch(serverURL + "auth/login/success", {
         method: "GET",
         credentials: "include",
         headers: {
@@ -102,7 +102,6 @@ const Auth = ({ isReset }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formState);
     if (formState === "SignUp") {
       if (data.password === data.confirmpassword) {
         dispatch(signUp(data, resetForm, setFormState));
@@ -158,12 +157,13 @@ const Auth = ({ isReset }) => {
       // data.append("file", outsideUser.photos[0].value);
       // dispatch(uploadImage(data));
       // eslint-disable-next-line no-undef
+      console.log(outsideUser);
       if (outsideUser) {
         if (outsideUser.provider === "google") {
           dispatch(
             loginOutsideUser(
               outsideUser.id,
-              outsideUser.profileUrl.slice(8),
+              `https://${outsideUser.displayName.split(" ").join("")}@google.com`,
               "",
               outsideUser.name.givenName,
               outsideUser.photos[0].value

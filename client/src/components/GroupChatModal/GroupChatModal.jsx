@@ -10,6 +10,7 @@ import UserListItems from "components/UserListItems/UserListItems";
 import UserTagItem from "components/UserTagItem/UserTagItem";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
+import { toast, ToastContainer } from "react-toastify";
 
 const GroupChatModal = () => {
   const [opened, setOpened] = useState(false);
@@ -35,11 +36,16 @@ const GroupChatModal = () => {
   };
 
   const handleGroup = (user) => {
-    if (selectedUsers.includes(user)) {
-      console.log("User already added");
-      return;
+    let selectedUserId = [];
+    for (var i = 0; i < selectedUsers.length; i++) {
+      selectedUserId.push(selectedUsers[i]._id);
     }
-    setSelectedUsers([...selectedUsers, user]);
+
+    if (selectedUserId.includes(user._id)) {
+      toast.error("User already added");
+    } else {
+      setSelectedUsers([...selectedUsers, user]);
+    }
   };
 
   const handleDelete = (user) => {
@@ -48,13 +54,14 @@ const GroupChatModal = () => {
 
   const handleSubmit = () => {
     if (!groupChatName || !selectedUsers) {
-      console.log("Please fill all the fields");
+      toast.warn("Please fill all the fields");
       return;
     }
 
     try {
       const listUsers = JSON.stringify(selectedUsers.map((u) => u._id));
       dispatch(createGroupChat(groupChatName, listUsers));
+      setOpened(false);
     } catch (error) {
       console.log(error);
     }
@@ -62,6 +69,7 @@ const GroupChatModal = () => {
 
   return (
     <>
+      <ToastContainer />
       <Modal
         opened={opened}
         onClose={() => setOpened(false)}

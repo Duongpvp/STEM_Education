@@ -32,7 +32,7 @@ app.use("/images", express.static("images"));
 app.use(
   cookieSession({
     name: "session",
-    keys: ["stem_education"],
+    keys: ["stempeducation"],
     maxAge: 24 * 60 * 60 * 100,
   })
 );

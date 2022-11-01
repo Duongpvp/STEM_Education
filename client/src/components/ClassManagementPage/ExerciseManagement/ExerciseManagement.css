@@ -34,6 +34,7 @@
     backdrop-filter: blur(7.5px);
     -webkit-backdrop-filter: blur(7.5px);
     border: 1px solid rgba(255, 255, 255, 0.52);
+    cursor: pointer;
 }
 
 .exercise-management .toggle-preview .grade-toggle,

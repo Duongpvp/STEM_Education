@@ -67,3 +67,15 @@
         margin-top: 4rem;
     }
 }
+
+@media only screen and (max-width: 1023px) {
+    .left-int>img {
+        width: 100%;
+    }
+}
+
+@media only screen and (max-width: 680px) {
+    .right-int {
+        width: 65%;
+    }
+}

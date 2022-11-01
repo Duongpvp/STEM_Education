@@ -28,17 +28,17 @@ const Post = ({ data, id }) => {
         {liked ? (
           <Icon icon="emojione-v1:red-heart" style={{cursor: "pointer"}} onClick = {handleLike} />
         ) : (
-          <Icon icon="akar-icons:heart" style={{cursor: "pointer"}} onClick = {handleLike} />
+          <Icon icon="akar-icons:heart" style={{cursor: "pointer]"}} onClick = {handleLike} />
         )}
-        <Icon icon="akar-icons:comment" style={{cursor: "pointer"}}/>
-        <Icon icon="bxs:share" style={{cursor: "pointer"}}/>
+        <Icon icon="akar-icons:comment" style={{cursor: "not-allowed"}}/>
+        <Icon icon="bxs:share" style={{cursor: "not-allowed"}}/>
       </div>
       <span style={{ color: "var(--gray)", fontSize: "0.8rem" }}>
         {likes} Likes
       </span>
       <div className="DetailPost">
         <span>
-          <b>{data.name} - </b>
+          <b>{data.auth} - </b>
         </span>
         <span>{data.desc}</span>
       </div>

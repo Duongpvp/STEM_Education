@@ -1,3 +1,4 @@
+import { toast } from "react-toastify";
 import * as ChatApi from "../api/ChatRequest";
 
 export const accessChat = (id, chats, users, user) => async (dispatch) => {
@@ -37,9 +38,11 @@ export const createGroupChat =
     try {
       const { data } = await ChatApi.createGroupChat(chatName, selectedUsers);
       dispatch({ type: "CREATE_GROUP_CHAT_SUCCESS", data: data });
+      toast.success("Create group chat successfully")
     } catch (error) {
       console.log(error);
       dispatch({ type: "CREATE_GROUP_CHAT_FAIL" });
+      toast.error("Failed to create group chat")
     }
   };
 

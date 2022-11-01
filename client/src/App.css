@@ -36,3 +36,10 @@
 ::-webkit-scrollbar {
     display: none;
 }
+
+
+@media only screen and (max-width: 481px) {
+    .App {
+        padding: 0;
+    }
+}

@@ -342,3 +342,39 @@ hr {
         width: 20rem;
     }
 }
+
+@media only screen and (max-width: 481px) {
+    .Auth {
+        height: 90vh;
+        flex-direction: column;
+    }
+
+    .From {
+        width: 93%;
+        height: 80vh;
+    }
+
+
+    .From>h4 {
+        font-size: 1.2rem;
+    }
+}
+
+@media only screen and (max-width: 381px) {
+  
+
+    .From {
+        width: 93%;
+    }
+
+    .infoFrom>div {
+        width: 90%;
+    }
+
+    .From > img {
+        width: 16rem;
+    }
+    .From>h4 {
+        font-size: 1rem;
+    }
+}

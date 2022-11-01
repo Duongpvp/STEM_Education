@@ -32,7 +32,7 @@ const Department = () => {
       <div className="depart-header">Department</div>
       <div className="depart-content">
         <React.Fragment>
-          <ListIcon  onClick={toggleDrawer(true)}>anchor</ListIcon>
+          <ListIcon  onClick={toggleDrawer(true)}/>
           <Drawer
             anchor={"left"}
             open={isOpenDrawer}

@@ -13,6 +13,7 @@ import UserListItems from "components/UserListItems/UserListItems";
 import UserTagItem from "components/UserTagItem/UserTagItem";
 import { React, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
+import { toast, ToastContainer } from "react-toastify";
 import "./HeaderChat.css";
 
 const HeaderChat = () => {
@@ -53,7 +54,7 @@ const HeaderChat = () => {
 
   const handleSubmit = () => {
     if (!groupChatName || !selectedUsers) {
-      console.log("Please fill all the fields");
+      toast.warn("Please fill all the fields");
       return;
     }
 
@@ -105,6 +106,7 @@ const HeaderChat = () => {
 
   return (
     <>
+      <ToastContainer />
       <Drawer open={isOpenDrawer} onClose={toggleDrawer(false)}>
         <ChatSide location={"header-chat"} />
       </Drawer>

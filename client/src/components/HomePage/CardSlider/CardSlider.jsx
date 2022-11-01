@@ -34,10 +34,12 @@ const CardSlider = () => {
     className: "center",
     centerMode: true,
     infinite: true,
-    centerPadding: "80px",
-    slidesToShow: (width <= 1023 && width > 940) ? 2 : (width <= 940) ? 1 : 3,
+    centerPadding: width < 550 ? 0 : "80px" ,
+    slidesToShow: width < 940 ? 1 : width < 1023 ? 2 : 3,
     speed: 500,
   };
+
+  // (width <= 1023 && width > 940) ? 2 : (width <= 940) ? 1 : 3
 
   return (
     <div>
