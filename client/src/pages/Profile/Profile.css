@@ -28,6 +28,7 @@
 @media only screen and (max-width: 940px) {
     .Profile {
         grid-template-columns: 0 100% 0;
+        padding-right: 1rem;
     }
 
     .ProfileCenter {

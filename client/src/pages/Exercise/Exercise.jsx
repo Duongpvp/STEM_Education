@@ -3,14 +3,34 @@ import { Modal } from "@mantine/core";
 import ExerciseContainer from "components/ExerciseContainer/ExerciseContainer";
 import SideBarMotion from "components/SideBarMotion/SideBarMotion";
 import UploadForm from "components/UploadForm/UploadForm";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import WidgetsIcon from "@mui/icons-material/Widgets";
 import { ToastContainer } from "react-toastify";
 import "./Exercise.css";
 import { Button } from "@mui/material";
+import { getExercise } from "api/ExerciseRequest";
+import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const Exercise = () => {
   const [opened, setOpened] = useState(false);
+  const { user } = useSelector((state) => state.AuthReducer.authData);
+  const [exerciseData, setExerciseData] = useState("");
+  const [fetchAgain, setFetchAgain] = useState(false);
+  const params = useParams();
+
+  useEffect(() => {
+    const fetchExercise = async () => {
+      try {
+        const { data } = await getExercise(params.eid, user._id);
+        setExerciseData(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchExercise();
+  }, [fetchAgain]);
+
   return (
     <div className="exercise">
       <SideBarMotion />
@@ -34,8 +54,31 @@ const Exercise = () => {
       </Modal>
       <div className="review-exercise">
         <div className="preview-card">
-          <span className="preview-title">Your current exercises</span>
-          <UploadForm />
+          <span className="preview-title">YOUR CURRENT EXERCISES</span>
+          <span
+            className="isSubmit"
+            style={{
+              color:
+                exerciseData && exerciseData.length > 0 ? "#017a22" : "#ff1f40",
+            }}
+          >
+            {exerciseData && exerciseData.length > 0
+              ? "Submitted"
+              : "Unsubmitted"}
+          </span>
+          <UploadForm setFetchAgain={setFetchAgain} fetchAgain={fetchAgain} />
+          <span className="submited-title">
+              SUBMITED FILES
+          </span>
+          <div className="file-submited">
+            {exerciseData[0]?.files.map((e, i) => (
+              <a target="_blank" href={process.env.REACT_APP_FILES + e}>
+                <Button color="secondary" key={i} variant="contained">
+                  <p>{e}</p>
+                </Button>
+              </a>
+            ))}
+          </div>
         </div>
       </div>
     </div>

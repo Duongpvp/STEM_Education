@@ -7,6 +7,8 @@ import EditIcon from "@mui/icons-material/Edit";
 import { Modal } from "@mantine/core";
 import { uploadImage } from "actions/UploadAction";
 import { updateUser } from "actions/UserAction";
+import ImageIcon from "@mui/icons-material/Image";
+import AccountBoxIcon from "@mui/icons-material/AccountBox";
 
 const ProfileCard = ({ user, location }) => {
   const { userMain } = useSelector((state) => state.AuthReducer.authData.user);
@@ -70,14 +72,9 @@ const ProfileCard = ({ user, location }) => {
 
   return (
     <div className="ProfileCard">
-      <Modal
-        size="auto"
-        opened={opened}
-        onClose={() => setOpened(false)}
-        title="Introduce yourself!"
-      >
+      <Modal size="auto" opened={opened} onClose={() => setOpened(false)}>
         <form className="infoForm">
-          <h3>Your infor</h3>
+          <h4>YOUR INFORMATION</h4>
           <div>
             <input
               type="text"
@@ -137,7 +134,90 @@ const ProfileCard = ({ user, location }) => {
             />
           </div>
 
-          <div>
+          <div
+            style={{
+              position: "relative",
+              display: "flex",
+              justifyContent: "space-between",
+            }}
+          >
+            <div
+              style={{
+                borderRadius: "50px",
+                background: "linear-gradient(145deg, #cacaca, #f0f0f0)",
+                boxShadow: "-7px 7px 14px #cecece, 7px -7px 14px #f2f2f2",
+                width: "50%",
+                textAlign: "center",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                padding: "8px 4px",
+              }}
+            >
+              <span
+                style={{
+                  fontSize: "0.8rem",
+                  width: "100%",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <ImageIcon style={{ zIndex: "1" }} />
+                {profileImage?.name ? profileImage.name : "Avatar"}
+              </span>
+              <input
+                type="file"
+                name="profileImage"
+                id="chooseFile"
+                onChange={onImageChange}
+                style={{
+                  opacity: "0",
+                  position: "absolute",
+                  zIndex: "2",
+                  cursor: "pointer",
+                }}
+              />
+            </div>
+            <div
+              style={{
+                borderRadius: "50px",
+                background: "linear-gradient(145deg, #cacaca, #f0f0f0)",
+                boxShadow: "-7px 7px 14px #cecece, 7px -7px 14px #f2f2f2",
+                width: "50%",
+                textAlign: "center",
+                display: "flex",
+                alignItems: "center",
+              }}
+            >
+              <span
+                style={{
+                  fontSize: "0.8rem",
+                  width: "100%",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <AccountBoxIcon />
+                {coverImage?.name ? coverImage.name : "Cover Image"}
+              </span>
+              <input
+                type="file"
+                name="coverImage"
+                id="chooseFile"
+                onChange={onImageChange}
+                style={{
+                  opacity: "0",
+                  position: "absolute",
+                  zIndex: "2",
+                  cursor: "pointer",
+                }}
+              />
+            </div>
+          </div>
+
+          {/* <div>
             <span>Profile Image</span>
             <input
               type="file"
@@ -152,7 +232,7 @@ const ProfileCard = ({ user, location }) => {
               id="chooseFile"
               onChange={onImageChange}
             />
-          </div>
+          </div> */}
 
           <button className="btn Info-btn" onClick={handleSubmit}>
             Update
@@ -168,7 +248,7 @@ const ProfileCard = ({ user, location }) => {
           }
           alt="Cover - Background Wallpaper"
         />
-        {location === "profile" ? (
+        {location === "profilePage" ? (
           <div style={{ position: "relative", width: "100%" }}>
             <img
               src={

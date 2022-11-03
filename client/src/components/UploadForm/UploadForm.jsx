@@ -10,7 +10,7 @@ import ReactTextareaAutosize from "react-textarea-autosize";
 import SendIcon from "@mui/icons-material/Send";
 import { toast } from "react-toastify";
 
-const UploadForm = () => {
+const UploadForm = ({ setFetchAgain, fetchAgain }) => {
   const { user } = useSelector((state) => state.AuthReducer.authData);
   const dispatch = useDispatch();
   const [images, setImages] = useState([]);
@@ -26,7 +26,8 @@ const UploadForm = () => {
     }
   };
 
-  const handleCancel = () => {
+  const handleCancel = (e) => {
+    e.preventDefault();
     setImages([]);
   };
 
@@ -36,13 +37,13 @@ const UploadForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    let timex = Date.now()
+    let timex = Date.now();
     const data = new FormData();
-    data.append("time", timex)
+    data.append("time", timex);
     for (let i = 0; i < images.length; i++) {
       // data.append("name", (Date.now() + images[i].name));
       data.append("files", images[i]);
-      uploadedfile.push(timex+ "__-__" + images[i].name); // render
+      uploadedfile.push(timex + "__-__" + images[i].name); // render
     }
     dispatch(uploadMultiFile(data));
     //render data
@@ -57,7 +58,10 @@ const UploadForm = () => {
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
-      })
+      });
+      setFetchAgain(!fetchAgain);
+      setImages([]);
+      setSubmission(null);
     } catch (error) {
       console.log(error);
     }
@@ -86,11 +90,11 @@ const UploadForm = () => {
           minRows={1}
           name="message"
           required
+          value={submission}
           className="submission"
           onChange={handleChange}
         />
         <label>Message</label>
-        <SendIcon className="send-icon" />
       </div>
       <div className="btn-group">
         <button type="submit">Upload</button>

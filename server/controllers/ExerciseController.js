@@ -17,22 +17,48 @@ export const createExercise = async (req, res) => {
   };
 
   try {
-    var exercise = await exerciseModel.create(newExercise);
+    const data = await exerciseModel.find({ sender: userId });
+    if (data.length > 0) {
+      const exercise = await exerciseModel.findByIdAndUpdate(
+        data[0]._id,
+        newExercise,
+        { new: true }
+      );
+      res.status(200).json(exercise);
+    } else {
+      var exercise = await exerciseModel.create(newExercise);
 
-    exercise = await exercise.populate(
-      "sender",
-      "firstname lastname username followers following profilePicture"
-    );
-    exercise = await exercise.populate("postId");
-    exercise = await exercise.populate("files");
-    exercise = await UserModel.populate(exercise, {
-      path: "postId.users",
-      select: "firstname lastname followers following username profilePicture",
-    });
+      exercise = await exercise.populate(
+        "sender",
+        "firstname lastname username followers following profilePicture"
+      );
+      exercise = await exercise.populate("postId");
+      exercise = await exercise.populate("files");
+      exercise = await UserModel.populate(exercise, {
+        path: "postId.users",
+        select:
+          "firstname lastname followers following username profilePicture",
+      });
 
-    res.status(200).json(exercise);
+      res.status(200).json(exercise);
+    }
   } catch (error) {
     res.status(400).json(error);
+  }
+};
+
+export const getExercise = async (req, res) => {
+  const userId = req.params.id;
+  const exerciseId = req.params.exc;
+
+  try {
+    const data = await exerciseModel.find({
+      sender: userId,
+      postId: exerciseId,
+    });
+    res.status(200).json(data);
+  } catch (error) {
+    res.status(500).json(error);
   }
 };
 

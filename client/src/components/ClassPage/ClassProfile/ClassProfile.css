@@ -1,5 +1,5 @@
 .sidebar-body {
-    width: 90%;
+    width: 88%;
     margin-left: 6rem;
     position: absolute;
     min-height: 100vh;
@@ -213,35 +213,35 @@
     box-shadow: 0 2px 8px #333;
 }
 
-@media only screen and (max-width: 1366px ){
-    .sidebar-body {
-        width: 88%;
-    }
-}
-
-@media only screen and (max-width: 1023px ){
+@media only screen and (max-width: 1366px) {
     .sidebar-body {
         width: 85%;
     }
 }
 
-@media only screen and (max-width: 800px ){
+@media only screen and (max-width: 1023px) {
     .sidebar-body {
         width: 83%;
     }
 }
 
+@media only screen and (max-width: 800px) {
+    .sidebar-body {
+        width: 80%;
+    }
+}
 
-@media only screen and (max-width: 859px ){
+
+@media only screen and (max-width: 859px) {
     .create-post-modal {
         left: 0;
         right: 0;
     }
 }
 
-@media only screen and (max-width: 720px ){
+@media only screen and (max-width: 720px) {
     .sidebar-body {
-        width: 80%;
+        width: 77%;
     }
 
     .news>img {
@@ -249,8 +249,20 @@
     }
 }
 
-@media only screen and (max-width: 600px ){
+@media only screen and (max-width: 600px) {
     .sidebar-body {
-        width: 76%;
+        width: 73%;
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    .sidebar-body {
+        width: 70%;
+    }
+}
+
+@media only screen and (max-width: 360px) {
+    .sidebar-body {
+        width: 65%;
     }
 }

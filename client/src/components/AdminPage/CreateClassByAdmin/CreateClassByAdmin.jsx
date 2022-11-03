@@ -266,7 +266,7 @@ const CreateClassByAdmin = ({ fetchAgain, setFetchAgain }) => {
             <p className="desc-support">PNG, JPG</p>
             <button>
               <AddCircleOutlineIcon />
-              Upload
+              {image && image.name ? image.name : "Upload"}
             </button>
           </div>
         </form>

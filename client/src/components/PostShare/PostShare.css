@@ -22,8 +22,9 @@
     gap: 1rem;
 }
 
+.PostShare>div>textarea,
 .PostShare>div>input {
-    display:flex;
+    display: flex;
     border: none;
     background-color: var(--inputColor);
     padding: 1rem;
@@ -33,9 +34,14 @@
     outline: none;
 }
 
+.PostShare>div>textarea {
+    display: none;
+}
+
 .PostOptions {
     display: flex;
     justify-content: space-around;
+    flex-wrap: wrap;
 }
 
 .Option {
@@ -58,13 +64,15 @@
 .op-icon {
     font-size: 1.8rem;
     margin-right: 0.5rem;
+
+    line-height: 12rem;
 }
 
 .Share-btn {
     padding: 0.3rem 1.2rem;
     border-radius: 0.3rem;
     color: #fff;
-    border: 1px solid rgba(215, 36, 215,0.1);
+    border: 1px solid rgba(215, 36, 215, 0.1);
     background: var(--buttonBg);
     transition: all 0.5s ease-out;
 }
@@ -102,5 +110,22 @@
 @media only screen and (max-width: 1280px) {
     .Option {
         font-size: 0.7rem;
+    }
+}
+
+@media only screen and (max-width: 940px) {
+    .PostShare {
+        width: 100%;
+    }
+}
+
+@media only screen and (max-width: 420px) {
+    .PostShare>div>input {
+        display: none;
+    }
+
+    .PostShare>div>textarea {
+        display: flex;
+        width: 80%;
     }
 }

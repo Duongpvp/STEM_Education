@@ -47,7 +47,6 @@ export const getClassPost = async (req, res) => {
 
   try {
     const post = await classPostModel.find({ classId: id });
-    console.log(post);
     res.status(200).json(post);
   } catch (error) {
     res.status(500).json(error);

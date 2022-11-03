@@ -70,19 +70,12 @@ function ProfileModal({ modalOpened, setModalOpened, data }) {
 
   return (
     <Modal
-      overlayColor={
-        theme.colorScheme === "dark"
-          ? theme.colors.dark[9]
-          : theme.colors.gray[2]
-      }
-      overlayOpacity={0.55}
-      overlayBlur={3}
-      size="50%"
+      size="auto"
       opened={modalOpened}
       onClose={() => setModalOpened(false)}
     >
       <form className="infoForm">
-        <h3>Your infor</h3>
+        <h4>YOUR INFORMATION</h4>
         <div>
           <input
             type="text"
@@ -90,7 +83,7 @@ function ProfileModal({ modalOpened, setModalOpened, data }) {
             name="firstname"
             placeholder="First Name"
             onChange={handleChange}
-            value={formData.firstname}
+            value={formData?.firstname}
           />
           <input
             type="text"
@@ -98,7 +91,7 @@ function ProfileModal({ modalOpened, setModalOpened, data }) {
             name="lastname"
             placeholder="Last Name"
             onChange={handleChange}
-            value={formData.lastname}
+            value={formData?.lastname}
           />
         </div>
         <div>
@@ -106,9 +99,9 @@ function ProfileModal({ modalOpened, setModalOpened, data }) {
             type="text"
             className="infoInput"
             name="workAt"
-            placeholder="Status"
+            placeholder="Work At"
             onChange={handleChange}
-            value={formData.workAt}
+            value={formData?.workAt}
           />
         </div>
         <div>
@@ -118,7 +111,7 @@ function ProfileModal({ modalOpened, setModalOpened, data }) {
             name="livein"
             placeholder="Lives in"
             onChange={handleChange}
-            value={formData.livein}
+            value={formData?.livein}
           />
 
           <input
@@ -127,7 +120,7 @@ function ProfileModal({ modalOpened, setModalOpened, data }) {
             name="country"
             placeholder="Country"
             onChange={handleChange}
-            value={formData.country}
+            value={formData?.country}
           />
         </div>
 
@@ -138,7 +131,7 @@ function ProfileModal({ modalOpened, setModalOpened, data }) {
             placeholder="RelationShip Status"
             name="relationship"
             onChange={handleChange}
-            value={formData.relationship}
+            value={formData?.relationship}
           />
         </div>
 
@@ -172,7 +165,7 @@ function ProfileModal({ modalOpened, setModalOpened, data }) {
               }}
             >
               <ImageIcon style={{ zIndex: "1" }} />
-              Profile Image
+              {profileImage?.name ? profileImage.name : "Avatar"}
             </span>
             <input
               type="file"
@@ -208,7 +201,7 @@ function ProfileModal({ modalOpened, setModalOpened, data }) {
               }}
             >
               <AccountBoxIcon />
-              Cover Image
+              {coverImage?.name ? coverImage.name : "Cover Image"}
             </span>
             <input
               type="file"
@@ -224,12 +217,172 @@ function ProfileModal({ modalOpened, setModalOpened, data }) {
             />
           </div>
         </div>
-
         <button className="btn Info-btn" onClick={handleSubmit}>
           Update
         </button>
       </form>
     </Modal>
+    // <Modal
+    //   overlayColor={
+    //     theme.colorScheme === "dark"
+    //       ? theme.colors.dark[9]
+    //       : theme.colors.gray[2]
+    //   }
+    //   overlayOpacity={0.55}
+    //   overlayBlur={3}
+    //   size="50%"
+    //   opened={modalOpened}
+    //   onClose={() => setModalOpened(false)}
+    // >
+    //   <form className="infoForm">
+    //     <h4>YOUR INFORMATION</h4>
+    //     <div>
+    //       <input
+    //         type="text"
+    //         className="infoInput"
+    //         name="firstname"
+    //         placeholder="First Name"
+    //         onChange={handleChange}
+    //         value={formData.firstname}
+    //       />
+    //       <input
+    //         type="text"
+    //         className="infoInput"
+    //         name="lastname"
+    //         placeholder="Last Name"
+    //         onChange={handleChange}
+    //         value={formData.lastname}
+    //       />
+    //     </div>
+    //     <div>
+    //       <input
+    //         type="text"
+    //         className="infoInput"
+    //         name="workAt"
+    //         placeholder="Status"
+    //         onChange={handleChange}
+    //         value={formData.workAt}
+    //       />
+    //     </div>
+    //     <div>
+    //       <input
+    //         type="text"
+    //         className="infoInput"
+    //         name="livein"
+    //         placeholder="Lives in"
+    //         onChange={handleChange}
+    //         value={formData.livein}
+    //       />
+
+    //       <input
+    //         type="text"
+    //         className="infoInput"
+    //         name="country"
+    //         placeholder="Country"
+    //         onChange={handleChange}
+    //         value={formData.country}
+    //       />
+    //     </div>
+
+    //     <div>
+    //       <input
+    //         type="text"
+    //         className="infoInput"
+    //         placeholder="RelationShip Status"
+    //         name="relationship"
+    //         onChange={handleChange}
+    //         value={formData.relationship}
+    //       />
+    //     </div>
+
+    //     <div
+    //       style={{
+    //         position: "relative",
+    //         display: "flex",
+    //         justifyContent: "space-between",
+    //       }}
+    //     >
+    //       <div
+    //         style={{
+    //           borderRadius: "50px",
+    //           background: "linear-gradient(145deg, #cacaca, #f0f0f0)",
+    //           boxShadow: "-7px 7px 14px #cecece, 7px -7px 14px #f2f2f2",
+    //           width: "50%",
+    //           textAlign: "center",
+    //           display: "flex",
+    //           justifyContent: "center",
+    //           alignItems: "center",
+    //           padding: "8px 4px",
+    //         }}
+    //       >
+    //         <span
+    //           style={{
+    //             fontSize: "0.8rem",
+    //             width: "100%",
+    //             display: "flex",
+    //             justifyContent: "center",
+    //             alignItems: "center",
+    //           }}
+    //         >
+    //           <ImageIcon style={{ zIndex: "1" }} />
+    //           Profile Image
+    //         </span>
+    //         <input
+    //           type="file"
+    //           name="profileImage"
+    //           id="chooseFile"
+    //           onChange={onImageChange}
+    //           style={{
+    //             opacity: "0",
+    //             position: "absolute",
+    //             zIndex: "2",
+    //             cursor: "pointer",
+    //           }}
+    //         />
+    //       </div>
+    //       <div
+    //         style={{
+    //           borderRadius: "50px",
+    //           background: "linear-gradient(145deg, #cacaca, #f0f0f0)",
+    //           boxShadow: "-7px 7px 14px #cecece, 7px -7px 14px #f2f2f2",
+    //           width: "50%",
+    //           textAlign: "center",
+    //           display: "flex",
+    //           alignItems: "center",
+    //         }}
+    //       >
+    //         <span
+    //           style={{
+    //             fontSize: "0.8rem",
+    //             width: "100%",
+    //             display: "flex",
+    //             justifyContent: "center",
+    //             alignItems: "center",
+    //           }}
+    //         >
+    //           <AccountBoxIcon />
+    //           Cover Image
+    //         </span>
+    //         <input
+    //           type="file"
+    //           name="coverImage"
+    //           id="chooseFile"
+    //           onChange={onImageChange}
+    //           style={{
+    //             opacity: "0",
+    //             position: "absolute",
+    //             zIndex: "2",
+    //             cursor: "pointer",
+    //           }}
+    //         />
+    //       </div>
+    //     </div>
+
+    //     <button className="btn Info-btn" onClick={handleSubmit}>
+    //       Update
+    //     </button>
+    //   </form>
+    // </Modal>
   );
 }
 

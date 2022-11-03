@@ -68,6 +68,17 @@ export const removeUserGroup = (chatId, user) => async (dispatch) => {
   }
 };
 
+export const leaveGroup = (chatId, user) => async (dispatch) => {
+  dispatch({ type: "REMOVE_USER_GROUP_START" });
+  try {
+    await ChatApi.removeUserGroup(chatId, user._id);
+    dispatch({ type: "REMOVE_USER_GROUP_SUCCESS", data: null });
+  } catch (error) {
+    console.log(error);
+    dispatch({ type: "REMOVE_USER_GROUP_FAIL" });
+  }
+};
+
 export const addUserGroup = (chatId, userId) => async (dispatch) => {
   dispatch({ type: "ADD_USER_GROUP_START" });
   try {

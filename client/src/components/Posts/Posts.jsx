@@ -20,7 +20,7 @@ const Posts = () => {
   if(!posts) return "No Posts";
   if(params.id) posts = posts.filter((post)=> post.userId===params.id)
   return (
-    <div className="Post">
+    <div className="Posts">
       {loading
         ? "Loading posts ..."
         : posts.map((post, id) => {

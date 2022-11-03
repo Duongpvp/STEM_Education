@@ -1,0 +1,100 @@
+.error {
+    position: relative;
+    margin: -1rem;
+}
+
+.error>img {
+    height: 100%;
+    filter: blur(5px);
+    -webkit-filter: blur(5px);
+    background-repeat: no-repeat;
+    object-fit: cover;
+}
+
+.error .error-container {
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    position: absolute;
+    top: 10%;
+    left: 10%;
+    width: 80vw;
+    height: 80vh;
+    z-index: 2;
+    display: flex;
+    justify-content: space-between;
+}
+
+.error .error-container .error-left-side {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 0 0 5rem;
+    flex: 1;
+}
+
+.error .error-container .error-left-side>span {
+    font-size: 5rem;
+    font-weight: 900;
+}
+
+.error .error-container .error-left-side>b {
+    font-size: 2rem;
+    margin: 1rem 0;
+}
+
+.error .error-container .error-left-side>hr {
+    width: 30%;
+    border: 1px solid blueviolet;
+    background: rgb(141, 0, 205);
+}
+
+.error .error-container .error-left-side>p {
+    margin: 1rem 0;
+    line-height: 2rem;
+    width: 85%;
+}
+
+
+.button-63 {
+  align-items: center;
+  background-image: linear-gradient(144deg,#AF40FF, #5B42F3 50%,#00DDEB);
+  border: 0;
+  border-radius: 8px;
+  box-shadow: rgba(151, 65, 252, 0.2) 0 15px 30px -5px;
+  box-sizing: border-box;
+  color: #FFFFFF;
+  display: flex;
+  font-family: Lobster, sans-serif;
+  font-size: 20px;
+  justify-content: center;
+  line-height: 1em;
+  max-width: 100%;
+  min-width: 140px;
+  padding: 19px 24px;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  white-space: nowrap;
+  cursor: pointer;
+  width: 30%;
+}
+
+.button-63:active,
+.button-63:hover {
+  outline: 0;
+}
+
+.error .error-container .error-right-side {
+    flex: 1;
+    display: flex;
+    align-items: center;
+}
+
+.error .error-container .error-right-side>img {
+    width: 35vw;
+}

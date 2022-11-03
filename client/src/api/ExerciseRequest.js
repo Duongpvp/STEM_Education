@@ -12,4 +12,5 @@ API.interceptors.request.use((req) => {
 });
 
 export const fetchAllExercises = (exerciseId) => API.get(`/exercise/${exerciseId}`);
-export const gradingExercise = (exerciseId, grade) => API.put(`/exercise/grade`, {exerciseId: exerciseId, grade: grade})
+export const gradingExercise = (exerciseId, grade) => API.put(`/exercise/grade`, {exerciseId: exerciseId, grade: grade});
+export const getExercise = (exerciseId, userId) => API.get(`/exercise/getExercise/${exerciseId}/${userId}`)

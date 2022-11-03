@@ -1,13 +1,14 @@
 // @ts-nocheck
-import React, { useState } from "react";
 import ForumIcon from "@mui/icons-material/Forum";
 import HomeIcon from "@mui/icons-material/Home";
 import MediationIcon from "@mui/icons-material/Mediation";
+import SchoolIcon from "@mui/icons-material/School";
 import TocIcon from "@mui/icons-material/Toc";
 import { motion } from "framer-motion";
-import Item from "../ClassPage/ClassContainer/Item";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import Item from "../ClassPage/ClassContainer/Item";
 import "./SideBarMotion.css";
 
 const SideBarMotion = () => {
@@ -58,8 +59,8 @@ const SideBarMotion = () => {
     false: {
       width: "2.5rem",
       height: "2.5rem",
-    }
-  }
+    },
+  };
 
   const handleToggle = () => {
     setIsOpen(!isOpen);
@@ -109,9 +110,11 @@ const SideBarMotion = () => {
               }}
             >
               <motion.img
-              variants={avatarVariant}
+                variants={avatarVariant}
                 src={
-                  user.outsideId ? user.profilePicture : user.profilePicture
+                  user.outsideId
+                    ? user.profilePicture
+                    : user.profilePicture
                     ? serverPublicFolder + user.profilePicture
                     : serverPublicFolder + "DefaultAvatar.png"
                 }
@@ -129,6 +132,9 @@ const SideBarMotion = () => {
               >
                 ANALYTICS
               </motion.h3>
+              <Link to="/class" className="icon-class-link">
+                <Item icon={<SchoolIcon />} name="Class" />
+              </Link>
               <Link to="../" className="icon-class-link">
                 <Item icon={<HomeIcon />} name="Home" />
               </Link>

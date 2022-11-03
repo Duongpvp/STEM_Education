@@ -8,7 +8,10 @@ import GroupChatModal from "components/GroupChatModal/GroupChatModal";
 import { getFullSender, getSender } from "config/chatLogics";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import HomeIcon from "@mui/icons-material/Home";
+import LogoChat from "../../assets/img/LogoChat.png";
 import "./ChatSide.css";
+import { Link } from "react-router-dom";
 
 const ChatSide = ({ location }) => {
   const { user } = useSelector((state) => state.AuthReducer.authData);
@@ -87,14 +90,13 @@ const ChatSide = ({ location }) => {
           mt="12px"
           fontSize="1rem"
           display="flex"
-          width="100%"
-          justifyContent="space-around"
+          width="95%"
+          justifyContent="center"
           alignItems="center"
         >
-          <span>LOGO-CHAT</span>
+          <img src={LogoChat} alt="" style={{width: "50%"}}/>
           <GroupChatModal>
             <Button
-              style={{ backgroundColor: "#6a1b9a" }}
               variant="contained"
               endIcon={<AddOutlined />}
             >

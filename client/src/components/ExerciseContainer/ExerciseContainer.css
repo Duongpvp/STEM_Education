@@ -1,3 +1,7 @@
 .exercise-files {
     margin-top: 32px;
 }
+
+.exercise-files .exercise-file-item > a {
+    text-decoration: none;
+}

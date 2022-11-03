@@ -134,7 +134,11 @@ const GroupChatModal = () => {
 
       <Group position="center">
         <Button
-          style={{ backgroundColor: "#6a1b9a" }}
+          style={{
+            background: "rgb(112,0,181)",
+            background:
+              "linear-gradient(90deg, rgba(112,0,181,1) 0%, rgba(170,0,255,1) 100%)",
+          }}
           variant="contained"
           onClick={() => setOpened(true)}
           endIcon={<AddOutlined />}

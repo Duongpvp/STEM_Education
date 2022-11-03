@@ -31,3 +31,15 @@
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
+@media only screen and (max-width: 480px) {
+    .flash-user-card {
+        margin-right: 0;
+    }
+}
+
+@media only screen and (max-width: 360px) {
+    .flash-user-card {
+        width: 200px;
+    }
+}

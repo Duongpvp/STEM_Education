@@ -1,6 +1,7 @@
 // @ts-nocheck
 import PeopleIcon from "@mui/icons-material/People";
 import SendIcon from "@mui/icons-material/Send";
+import { Button } from "@mui/material";
 import { getAPost } from "api/ClassRequest";
 import { fetchAllExercises } from "api/ExerciseRequest";
 import React, { useEffect, useState } from "react";
@@ -8,6 +9,7 @@ import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import TextareaAutosize from "react-textarea-autosize";
 import "./ExerciseContainer.css";
+import FileOpenIcon from "@mui/icons-material/FileOpen";
 
 const ExerciseContainer = () => {
   const params = useParams();
@@ -55,20 +57,24 @@ const ExerciseContainer = () => {
         ? ""
         : user && (
             <span className="grade">
-              Current grade: {exerciseUser?.grade}/10
+              Current grade: {exerciseUser?.grade ? exerciseUser?.grade : "none" }/10
             </span>
           )}
       <div className="hr-line">
         <hr className="lines" />
       </div>
 
-      <div style={{whiteSpace: "pre-line"}}>
+      <div style={{ whiteSpace: "pre-line" }}>
         <p className="exercise-desc">{post?.desc}</p>
       </div>
       <div className="exercise-files">
         {post?.files.map((file, i) => (
           <div key={i} className="exercise-file-item">
-            <a href={`${serverPublicFile + file}`}>{file.slice(18, -1)}</a>
+            <a target="_blank" href={`${serverPublicFile + file}`}>
+              <Button color="secondary" variant="contained">
+                <FileOpenIcon /> {file.slice(18)}
+              </Button>
+            </a>
           </div>
         ))}
       </div>

@@ -1,11 +1,12 @@
 // @ts-nocheck
-import React, { useState, useRef } from "react";
-import "./PostShare.css";
 import { Icon } from "@iconify/react";
-import { useDispatch, useSelector } from "react-redux";
 import { uploadImage, uploadPost } from "actions/UploadAction";
-import { toast, ToastContainer } from "react-toastify";
+import React, { useEffect, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
+import TextareaAutosize from "react-textarea-autosize";
+import "./PostShare.css";
 
 const PostShare = () => {
   const loading = useSelector((state) => state.postReducer.uploading);
@@ -59,6 +60,33 @@ const PostShare = () => {
     }
   };
 
+  const getWindowDimensions = () => {
+    const { innerWidth: width, innerHeight: height } = window;
+    return {
+      width,
+      height,
+    };
+  };
+
+  const useWindowDimensions = () => {
+    const [windowDimensions, setWindowDimensions] = useState(
+      getWindowDimensions()
+    );
+
+    useEffect(() => {
+      const handleResize = () => {
+        setWindowDimensions(getWindowDimensions());
+      };
+
+      window.addEventListener("resize", handleResize);
+      return () => window.removeEventListener("resize", handleResize);
+    }, []);
+
+    return windowDimensions;
+  };
+
+  const { height, width } = useWindowDimensions();
+
   return (
     <div className="PostShare">
       <Link
@@ -84,25 +112,28 @@ const PostShare = () => {
           type="text"
           placeholder="What your're thinking..."
         />
+        <TextareaAutosize placeholder="What your're thinking..." minRows={2} name="message" required/>
         <div className="PostOptions">
           <div
             className="Option"
             style={{ color: "var(--photo)" }}
             onClick={() => imageRef.current.click()}
           >
-            <Icon icon="uil:scenery" className="op-icon" /> Photo
+            <Icon icon="uil:scenery" className="op-icon" />{" "}
+            {width < 600 ? "" : "Photo"}
           </div>
           <div className="Option" disabled="disabled">
             <Icon icon="ant-design:play-circle-outlined" className="op-icon" />
-            Video
+            {width < 600 ? "" : "Video"}
           </div>
           <div className="Option" disabled="disabled">
-            <Icon icon="akar-icons:location" className="op-icon" /> Location
+            <Icon icon="akar-icons:location" className="op-icon" />{" "}
+            {width < 600 ? "" : "Location"}
           </div>
-          <div className="Option" disabled="disabled">
+          {/* <div className="Option" disabled="disabled">
             <Icon icon="ant-design:schedule-outlined" className="op-icon" />
-            Schedule
-          </div>
+            {width < 600 ? "" : "Schedule"}
+          </div> */}
           <button
             className="btn Share-btn"
             onClick={handleShare}

@@ -1,6 +1,7 @@
 .user-card {
     display: flex;
     flex-direction: row;
+    align-items: center;
     /* min-width: 90vw; */
     width: 100%;
     padding: 32px;
@@ -48,26 +49,8 @@
     margin: 16px;
 }
 
-/* @media only screen and (max-width: 1366px ){
-    .user-card {
-        width: 95%;
+@media only screen and (max-width: 480px ){
+    .user-profile {
+        display: none;
     }
 }
-
-@media only screen and (max-width: 960px ){
-    .user-card {
-        width: 92%;
-    }
-}
-
-@media only screen and (max-width: 800px ){
-    .user-card {
-        width: 90%;
-    }
-}
-
-@media only screen and (max-width: 720px ){
-    .user-card {
-        width: 87%;
-    }
-} */

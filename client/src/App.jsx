@@ -12,6 +12,7 @@ import Admin from "pages/Admin/Admin";
 import Chat from "pages/Chat/Chat";
 import Class from "pages/Class/Class";
 import ClassManagement from "pages/ClassManagement/ClassManagement";
+import Error from "pages/Error/Error";
 import Exercise from "pages/Exercise/Exercise";
 import Home from "pages/Home/Home";
 import Profile from "pages/Profile/Profile";
@@ -66,7 +67,7 @@ function App() {
         {/* Admin Route */}
         <Route path = "/admin/users" element = {user && user.user.isAdmin ? <AdminUser/> : <Navigate to = "../auth"/> } />
         <Route path = "/admin/class" element = {user && user.user.isAdmin ? <AdminClass/> : <Navigate to = "../auth"/> } />
-
+        <Route path = "/*" element={<Error/>} ></Route>
       </Routes>
     </div>
 

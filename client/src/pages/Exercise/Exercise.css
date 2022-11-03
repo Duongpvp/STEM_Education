@@ -43,7 +43,7 @@
     display: none;
 }
 
-.body-exercise-management-container>button>svg ,
+.body-exercise-management-container>button>svg,
 .body-exercise-container>button>svg {
     font-size: 2rem;
 }
@@ -166,8 +166,7 @@
     resize: none;
 }
 
-.body-exercise-management-container .input-box label
-.body-exercise-container .input-box label {
+.body-exercise-management-container .input-box label .body-exercise-container .input-box label {
     position: absolute;
     left: 0;
     padding: 5px 0;
@@ -239,14 +238,46 @@
     color: #e97df3
 }
 
+
+.preview-card .isSubmit {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.preview-card .submited-title {
+    width: 100%;
+    text-align: center;
+    font-weight: 700;
+    font-size: 1.5rem;
+    margin: 4rem 0 1rem 0;
+}
+
+.preview-card .file-submited>a {
+    text-decoration: none;
+}
+
+.preview-card .file-submited>a>button {
+    width: 100%;
+    margin-bottom: 1rem;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+
+}
+
+.preview-card .file-submited>a>button>p {
+    text-overflow: ellipsis;
+    overflow: hidden;
+
+}
+
 @media screen and (max-width: 1340px) {
     .body-exercise-management-container {
         width: 67.5%;
     }
 
-    .body-exercise-management-container {
-
-    }
+    .body-exercise-management-container {}
 
     .review-exercise {
         width: 25%;
@@ -269,6 +300,7 @@
     .body-exercise-container {
         width: 90%;
     }
+
     .review-exercise {
         width: 22%;
     }

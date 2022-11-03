@@ -239,11 +239,11 @@
 
 @media only screen and (max-width : 381px) {
     .home-footer {
-        height: 185vh;
+        height: 135vh;
     }
 
     .home-footer img {
-        height: 167vh;
+        height: 125vh;
     }
 }
 

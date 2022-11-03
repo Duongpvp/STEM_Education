@@ -68,6 +68,17 @@ const DirectChat = () => {
         data={user}
       />
       <Box display="flex" justifyContent="space-around" alignItems="center">
+        <Link to="../home">
+          <Button
+            id="basic-button"
+            aria-controls={openNoti ? "basic-menu" : undefined}
+            aria-haspopup="true"
+            aria-expanded={openNoti ? "true" : undefined}
+            style={{ minWidth: "50px", position: "relative" }}
+          >
+            <HomeIcon fontSize="small" />
+          </Button>
+        </Link>
         <Button
           id="basic-button"
           aria-controls={openNoti ? "basic-menu" : undefined}
@@ -181,17 +192,6 @@ const DirectChat = () => {
             </Link>
           </MenuItem>
           <Divider variant="middle" />
-          <MenuItem>
-            <ListItemIcon>
-              <HomeIcon fontSize="small" />
-            </ListItemIcon>
-            <Link
-              to="../home/"
-              style={{ textDecoration: "none", color: "#000" }}
-            >
-              Home
-            </Link>
-          </MenuItem>
           <MenuItem onClick={() => setModalOpened(true)}>
             <ListItemIcon>
               <Settings fontSize="small" />

@@ -5,6 +5,7 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import { TextField } from "@mui/material";
 import {
   addUserGroup,
+  leaveGroup,
   removeUserGroup,
   renameGroupChat,
   selectChat,
@@ -14,6 +15,7 @@ import UserListItems from "components/UserListItems/UserListItems";
 import UserTagItem from "components/UserTagItem/UserTagItem";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { toast, ToastContainer } from "react-toastify";
 
 const UpdateGroupModal = ({ fetchAgain, setFetchAgain }) => {
   const chats = useSelector((state) => state.ChatReducer);
@@ -33,7 +35,7 @@ const UpdateGroupModal = ({ fetchAgain, setFetchAgain }) => {
     const selectData = { ...chats.selectChat, users: listFindUser };
 
     if (chats.selectChat.groupAdmin?._id !== user._id) {
-      console.log("Only Admin can delete User");
+      toast.warn("Only Admin can delete User");
       return;
     }
 
@@ -41,12 +43,19 @@ const UpdateGroupModal = ({ fetchAgain, setFetchAgain }) => {
       dispatch(selectChat(selectData));
       dispatch(removeUserGroup(chats.selectChat._id, users));
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   };
 
+  const handleLeaveGroup = (users) => {
+    dispatch(leaveGroup(chats.selectChat._id, users));
+  }
+
   const handleRename = () => {
-    if (!groupChatName) return;
+    if (!groupChatName) {
+      toast.warn("Please enter the name of the chat group!");
+      return;
+    }
     try {
       setRenameLoading(true);
       dispatch(renameGroupChat(chats.selectChat._id, groupChatName));
@@ -73,12 +82,12 @@ const UpdateGroupModal = ({ fetchAgain, setFetchAgain }) => {
 
   const handleAddUser = async (userAdd) => {
     if (chats.selectChat.users.find((us) => us._id === userAdd._id)) {
-      console.log("User already in group");
+      toast.warn("User already in group");
       return;
     }
 
     if (chats.selectChat.groupAdmin?._id !== user._id) {
-      console.log("Only Admin user can add other user to group");
+      toast.warn("Only Admin user can add other user to group");
       return;
     }
 
@@ -194,7 +203,7 @@ const UpdateGroupModal = ({ fetchAgain, setFetchAgain }) => {
             color: "#fff",
             cursor: "pointer",
           }}
-          onClick={()=>handleDelete(user)}
+          onClick={() => handleLeaveGroup(user)}
         >
           Leave Group
         </Box>
@@ -202,7 +211,12 @@ const UpdateGroupModal = ({ fetchAgain, setFetchAgain }) => {
 
       <Group position="center">
         <SettingsIcon
-          style={{ display: "flex", alignItems: "center", marginRight: "12px", cursor: "pointer" }}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            marginRight: "12px",
+            cursor: "pointer",
+          }}
           fontSize="large"
           onClick={() => setOpened(true)}
         >

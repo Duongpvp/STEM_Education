@@ -17,7 +17,7 @@
 
 .list-user-class > hr {
     width: 90%;
-    margin-left: 32px;
+    margin: 0 auto;
 }
 
 .list-card-user-class {
@@ -26,3 +26,4 @@
     flex-wrap: wrap;
     justify-content: center;
 }
+
