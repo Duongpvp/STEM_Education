@@ -1,4 +1,5 @@
-import * as PostApi from "../api/PostRequest"
+import { toast } from "react-toastify";
+import * as PostApi from "../api/PostRequest";
 
 export const getTimeLinePosts = (id) => async (dispatch) => {
   dispatch({ type: "RETREIVING_START" });
@@ -11,8 +12,16 @@ export const getTimeLinePosts = (id) => async (dispatch) => {
   }
 };
 
-export const likePost = (id, userId) => async(dispatch) => {
-  dispatch({type: "LIKEPOST", data: id})
-  PostApi.likePost(id, userId)
-}
+export const likePost = (id, userId) => async (dispatch) => {
+  dispatch({ type: "LIKEPOST", data: id });
+  PostApi.likePost(id, userId);
+};
 
+export const updatePost = (id, data, setIsEdit, setFetchAgain, fetchAgain) => async () => {
+  const postData = await PostApi.updatePost(id, data);
+  if (postData) {
+    toast.success("Post Updated");
+    setIsEdit(false);
+    setFetchAgain(!fetchAgain)
+  }
+};

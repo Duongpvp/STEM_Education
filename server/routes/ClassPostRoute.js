@@ -14,6 +14,6 @@ router.post("/", authMiddleWare, createClassPost);
 router.get("/exc/:id", authMiddleWare, getAPost);
 router.get("/:id", authMiddleWare, getClassPost);
 router.put("/:id", authMiddleWare, updateClassPost);
-router.delete("/:id", authMiddleWare, deleteClassPost);
+router.put("/deletedpost/:id", authMiddleWare, deleteClassPost);
 
 export default router;

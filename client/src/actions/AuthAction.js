@@ -58,13 +58,14 @@ export const signUpByAdmin =
     try {
       const { data } = await AuthApi.signUpByAdmin(formData);
       if (!data) {
-        toast.error("Failed to create new user");
+        toast.warn("username is already registered!");
       } else {
         toast.success("Created user successfully!");
         setFetchAgain(!fetchAgain);
       }
     } catch (error) {
       dispatch({ type: "AUTH_FAIL" });
+      toast.error("Failed to create new user, maybe username already exists! ");
       console.log(error);
     }
   };

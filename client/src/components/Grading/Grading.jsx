@@ -5,7 +5,6 @@ import {
   TableCell,
   TableContainer,
   TableHead,
-  TablePagination,
   TableRow,
 } from "@mui/material";
 import { gradingExercise } from "actions/ExerciseAction";
@@ -24,6 +23,7 @@ const Grading = () => {
   const [grade, setGrade] = useState(null);
   const [exerciseData, setExerciseData] = useState();
   const [details, setDetails] = useState([]);
+  const [fetchAgain, setFetchAgain] = useState(false);
 
   useEffect(() => {
     const fetchExercises = async () => {
@@ -35,7 +35,7 @@ const Grading = () => {
       }
     };
     fetchExercises();
-  }, []);
+  }, [fetchAgain]);
 
   const rows = [];
 
@@ -59,12 +59,16 @@ const Grading = () => {
     const data = parseFloat(e.target.value);
     details[id] = { id: eid, grade: data };
     setGrade({ id: eid, grade: data });
+    if (data < 0 || data > 10) {
+      toast.warn("The score must be from 0 to 10 !")
+    }
   };
 
   const handleEnter = async (e, exerciseId) => {
     if (e.key === "Enter") {
       try {
         dispatch(gradingExercise(exerciseId, grade));
+        setFetchAgain(!fetchAgain);
       } catch (error) {
         console.log(error);
       }
@@ -73,19 +77,9 @@ const Grading = () => {
 
   const handleSave = () => {
     setDetails(details);
-    toast.success('Successful scoring!', {
-      position: "top-right",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      })
     try {
       details.map((rq) => {
-        dispatch(gradingExercise(rq.id, rq.grade));
-        window.location.reload();
+        dispatch(gradingExercise(rq.id, rq.grade, setFetchAgain, fetchAgain));
       });
     } catch (error) {
       console.log(error);

@@ -29,7 +29,7 @@ export const getPost = async (req, res) => {
 export const updatePost = async (req, res) => {
   const postId = req.params.id;
   const { userId } = req.body;
-
+  
   try {
     const post = await PostModel.findById(postId);
     if (post.userId === userId) {

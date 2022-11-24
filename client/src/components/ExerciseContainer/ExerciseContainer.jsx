@@ -10,12 +10,20 @@ import { useParams } from "react-router-dom";
 import TextareaAutosize from "react-textarea-autosize";
 import "./ExerciseContainer.css";
 import FileOpenIcon from "@mui/icons-material/FileOpen";
+import EditIcon from "@mui/icons-material/Edit";
+import { Modal } from "@mantine/core";
+import ReactTextareaAutosize from "react-textarea-autosize";
+import UploadPost from "components/UploadPost/UploadPost";
 
 const ExerciseContainer = () => {
   const params = useParams();
   const serverPublicFile = process.env.REACT_APP_FILES;
   const [post, setPost] = useState(null);
+  const [opened, setOpened] = useState(false);
+  const [fetchAgain, setFetchAgain] = useState(false);
+  const [title, setTitle] = useState(null);
   const [exercise, setExercise] = useState(null);
+  const [desc, setDesc] = useState(null);
   const serverPublicFolder = process.env.REACT_APP_FOLDER;
   const { user } = useSelector((state) => state.AuthReducer.authData);
 
@@ -47,9 +55,54 @@ const ExerciseContainer = () => {
 
   const exerciseUser = exercise?.find((e) => e.sender._id === user._id);
 
+  const handleChangeTitle = (e) => {
+    setTitle(e.target.value);
+  };
+
+  const handleChangeDesc = (e) => {
+    setDesc(e.target.value);
+  };
+
   return (
     <>
-      <span className="exercise-title">{post?.postTitle}</span>
+      <Modal
+        opened={opened}
+        onClose={() => setOpened(false)}
+        title="Edit Class Post"
+        size="50%"
+      >
+        <div className="class-modal-content">
+          <div className="input-box">
+            <ReactTextareaAutosize
+              minRows={1}
+              name="title"
+              required
+              onChange={handleChangeTitle}
+            />
+            <label>Title</label>
+          </div>
+          <div className="input-box">
+            <ReactTextareaAutosize
+              minRows={1}
+              name="message"
+              required
+              className="submission"
+              onChange={handleChangeDesc}
+            />
+            <label>Description</label>
+          </div>
+          <UploadPost
+            title={title}
+            desc={desc}
+            setFetchAgain={setFetchAgain}
+            fetchAgain={fetchAgain}
+            setOpened={setOpened}
+          />
+        </div>
+      </Modal>
+      <span className="exercise-title">
+        {post?.postTitle} <EditIcon onClick={() => setOpened(true)} />
+      </span>
       <span className="timestamp">
         Updated: {post?.updatedAt.slice(0, 10)}-{post?.updatedAt.slice(11, 19)}
       </span>
@@ -57,7 +110,8 @@ const ExerciseContainer = () => {
         ? ""
         : user && (
             <span className="grade">
-              Current grade: {exerciseUser?.grade ? exerciseUser?.grade : "none" }/10
+              Current grade:{" "}
+              {exerciseUser?.grade ? exerciseUser?.grade : "none"}/10
             </span>
           )}
       <div className="hr-line">

@@ -1,11 +1,13 @@
+import { toast } from "react-toastify";
 import * as ExerciseApi from "../api/ExerciseRequest";
 
-export const gradingExercise = (exerciseId, grade) => async () => {
+export const gradingExercise = (exerciseId, grade, setFetchAgain, fetchAgain) => async () => {
   try {
-    console.log(exerciseId)
-    console.log(grade)
     const { data } = await ExerciseApi.gradingExercise(exerciseId, grade);
-    console.log(data);
+    if (data) {
+      toast.success("Successful scoring!");
+      setFetchAgain(!fetchAgain);
+    }
   } catch (error) {
     console.log(error);
   }

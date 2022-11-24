@@ -12,6 +12,7 @@ import {
   DataGrid,
   GridToolbarContainer,
   GridToolbarExport,
+  GridToolbarFilterButton,
 } from "@mui/x-data-grid";
 import { deleteClass } from "actions/ClassAction";
 import { fetchAllClass } from "api/ClassRequest";
@@ -33,6 +34,7 @@ const ClassGrid = () => {
     return (
       <GridToolbarContainer>
         <GridToolbarExport />
+        <GridToolbarFilterButton />
         <CreateClassByAdmin
           fetchAgain={fetchAgain}
           setFetchAgain={setFetchAgain}
@@ -86,11 +88,11 @@ const ClassGrid = () => {
           user._id,
           user.isAdmin,
           setFetchAgain,
-          fetchAgain
+          fetchAgain,
+          setDeleteOpened
         )
       );
       await deletedImage({path: currentData.image})
-      setDeleteOpened(false);
     } catch (error) {
       console.log(error);
     }

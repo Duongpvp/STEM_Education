@@ -61,6 +61,24 @@
     overflow: hidden;
 }
 
+.frame-card {
+    position: relative;
+}
+
+.frame-card svg {
+    position: absolute;
+    right: 32px;
+    top: 16px;
+    cursor: pointer;
+    z-index: 3;
+}
+
+.frame-card svg:hover {
+    color: red;
+}
+
+
+
 .glass-card-grid .glass-card:hover {
     transform: translateY(-1rem) rotate(3deg);
     cursor: pointer;

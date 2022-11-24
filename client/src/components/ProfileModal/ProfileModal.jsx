@@ -8,6 +8,7 @@ import { uploadImage } from "actions/UploadAction";
 import { updateUser } from "actions/UserAction";
 import ImageIcon from "@mui/icons-material/Image";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
+import { toast, ToastContainer } from "react-toastify";
 
 function ProfileModal({ modalOpened, setModalOpened, data }) {
   const theme = useMantineTheme();
@@ -37,7 +38,11 @@ function ProfileModal({ modalOpened, setModalOpened, data }) {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    let userData = formData;
+    
+    if (!formData.firstname  || !formData.lastname ) {
+      toast.warn("First name and last name cannot be empty!")
+    } else {
+      let userData = formData;
 
     if (profileImage) {
       const data = new FormData();
@@ -66,6 +71,7 @@ function ProfileModal({ modalOpened, setModalOpened, data }) {
     }
     dispatch(updateUser(param.id, userData));
     setModalOpened(false);
+    }
   };
 
   return (
@@ -74,6 +80,7 @@ function ProfileModal({ modalOpened, setModalOpened, data }) {
       opened={modalOpened}
       onClose={() => setModalOpened(false)}
     >
+      <ToastContainer/>
       <form className="infoForm">
         <h4>YOUR INFORMATION</h4>
         <div>

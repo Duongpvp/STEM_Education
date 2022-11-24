@@ -4,35 +4,35 @@ import AddCircleIcon from "@mui/icons-material/AddCircle";
 import { getAllPost } from "api/ClassRequest";
 import SideBarMotion from "components/SideBarMotion/SideBarMotion";
 import React, { memo, useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import ReactTextareaAutosize from "react-textarea-autosize";
 import ClassHeader from "../ClassHeader/ClassHeader";
-
+import DeleteIcon from "@mui/icons-material/Delete";
 import UploadPost from "components/UploadPost/UploadPost";
 import "./ClassProfile.css";
 import { ToastContainer } from "react-toastify";
+import { deleteClassPost } from "actions/ClassAction";
 
 const ClassProfile = () => {
   const { user } = useSelector((state) => state.AuthReducer.authData);
   const [fetchAgain, setFetchAgain] = useState(false);
-
+  const dispatch = useDispatch();
   const params = useParams();
   const [posts, setPosts] = useState([]);
   const [opened, setOpened] = useState(false);
   const [desc, setDesc] = useState();
   const [title, setTitle] = useState();
 
-  const fetchExercise = async () => {
-    try {
-      const { data } = await getAllPost(params.id);
-      setPosts(data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   useEffect(() => {
+    const fetchExercise = async () => {
+      try {
+        const { data } = await getAllPost(params.id);
+        setPosts(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
     fetchExercise();
   }, [fetchAgain]);
 
@@ -47,6 +47,15 @@ const ClassProfile = () => {
   const handleChangeTitle = (e) => {
     setTitle(e.target.value);
   };
+
+  const handleDeletePost = (postId) => {
+    try {
+      dispatch(deleteClassPost(user._id, postId,setFetchAgain, fetchAgain));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  console.log(fetchAgain);
 
   return (
     <div className="sidebar-container">
@@ -67,6 +76,7 @@ const ClassProfile = () => {
                   onClose={() => setOpened(false)}
                   title="Create new post"
                   centered
+                  size="50%"
                 >
                   <div className="class-modal-content">
                     <div className="input-box">
@@ -106,12 +116,18 @@ const ClassProfile = () => {
               </div>
             )}
             {posts.map((post) => (
-              <Link to={`./exercise/${post._id}`} key={post._id}>
-                <article className="glass-card">
-                  <div className="glass-card-title">{post.postTitle}</div>
-                  <p>{post.desc}</p>
-                </article>
-              </Link>
+              <div className="frame-card" key={post._id}>
+                {user.isAdmin ||
+                  (user.isTeacher && (
+                    <DeleteIcon onClick={() => handleDeletePost(post._id)} />
+                  ))}
+                <Link to={`./exercise/${post._id}`}>
+                  <article className="glass-card">
+                    <div className="glass-card-title">{post.postTitle}</div>
+                    <p>{post.desc}</p>
+                  </article>
+                </Link>
+              </div>
             ))}
           </div>
         </div>

@@ -10,6 +10,17 @@ const UserOverview = ({ currentData, fetchAgain, setFetchAgain }) => {
   const [receiveUser, setReceiveUser] = useState(currentData.users);
 
   const handleRemove = async (user, admin) => {
+    if (receiveAdmin.length === 1) {
+      toast.warn("Class must have at least 1 teacher!");
+      return;
+    }
+
+    if (receiveUser.length === 1) {
+      toast.warn("Class must have at least 1 student!");
+      return;
+    }
+
+
     const { data } = await removeUserFromClass(
       currentData.cid,
       user?._id,

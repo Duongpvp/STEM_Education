@@ -74,11 +74,11 @@ export const updateClassPost = async (req, res) => {
 // Delete a Post
 export const deleteClassPost = async (req, res) => {
   const id = req.params.id;
-  const { classId } = req.body;
-
+  const { postId } = req.body;
   try {
-    const post = await classPostModel.findById(id);
-    if (post.classId.toString() === classId) {
+    const post = await classPostModel.findById(postId); 
+
+    if (post._id.toString() === postId) {
       await post.deleteOne();
       res.status(200).json("Post deleted!");
     } else {

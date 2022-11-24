@@ -2,18 +2,17 @@
 import { Modal } from "@mantine/core";
 import AddIcon from "@mui/icons-material/Add";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-import React, { useState } from "react";
 import { Box, Button, FormControl, TextField } from "@mui/material";
-import { signUp } from "actions/AuthAction";
+import { createClass } from "actions/ClassAction";
+import { uploadImage } from "actions/UploadAction";
 import { searchUser } from "api/UserRequest";
 import UserListItems from "components/UserListItems/UserListItems";
 import UserTagItem from "components/UserTagItem/UserTagItem";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import "./CreateClassByAdmin.css";
-import { toast } from "react-toastify";
-import { uploadImage } from "actions/UploadAction";
-import { createClass } from "actions/ClassAction";
 import ReactTextareaAutosize from "react-textarea-autosize";
+import { toast, ToastContainer } from "react-toastify";
+import "./CreateClassByAdmin.css";
 
 const CreateClassByAdmin = ({ fetchAgain, setFetchAgain }) => {
   const { user } = useSelector((state) => state.AuthReducer.authData);
@@ -53,7 +52,7 @@ const CreateClassByAdmin = ({ fetchAgain, setFetchAgain }) => {
       [e.target.name]: e.target.value,
     });
   };
-
+  console.log(data);
   const handleCreate = () => {
     setOpened(true);
   };
@@ -76,6 +75,7 @@ const CreateClassByAdmin = ({ fetchAgain, setFetchAgain }) => {
       );
       data.users = listUsers;
       data.classAdmin = listUsersTeacher;
+
       dispatch(
         createClass(
           data.className,
@@ -87,7 +87,6 @@ const CreateClassByAdmin = ({ fetchAgain, setFetchAgain }) => {
           fetchAgain
         )
       );
-      toast.success("Created class successfully");
     } catch (error) {
       console.log(error);
     }
@@ -157,6 +156,7 @@ const CreateClassByAdmin = ({ fetchAgain, setFetchAgain }) => {
 
   return (
     <>
+      <ToastContainer />
       <Modal
         transition="fade"
         transitionDuration={600}

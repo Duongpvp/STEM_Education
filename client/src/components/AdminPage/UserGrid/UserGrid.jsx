@@ -7,6 +7,8 @@ import {
   DataGrid,
   GridToolbarContainer,
   GridToolbarExport,
+  GridToolbarFilterButton,
+  GridToolbarQuickFilter,
 } from "@mui/x-data-grid";
 import { deletedUser, editRoleUser, searchUser } from "api/UserRequest";
 import ProfileCard from "components/ProfileCard/ProfileCard";
@@ -30,6 +32,7 @@ const UserGrid = () => {
     return (
       <GridToolbarContainer>
         <GridToolbarExport />
+        <GridToolbarFilterButton />
         <CreateUserByAdmin
           fetchAgain={fetchAgain}
           setFetchAgain={setFetchAgain}
@@ -56,8 +59,6 @@ const UserGrid = () => {
   }, [fetchAgain]);
 
   const rows = [];
-
-  console.log(userData);
 
   for (var i = 0; i < userData?.length; i++) {
     rows.push({
@@ -100,21 +101,27 @@ const UserGrid = () => {
   };
 
   const handleDelete = async () => {
-    try {
-      const { data } = await deletedUser(
-        currentUser.uid,
-        user._id,
-        user.isAdmin
+    if (currentUser?.role === "Admin" && currentUser?.uid !== user._id) {
+      toast.error(
+        "You do not have permission to delete another admin's account!"
       );
-      if (!data) {
-        toast.error("Failed to delete user");
-      } else {
-        toast.success("Deleted user successfully");
-        setFetchAgain(!fetchAgain);
-        setDeleteOpened(false);
+    } else {
+      try {
+        const { data } = await deletedUser(
+          currentUser.uid,
+          user._id,
+          user.isAdmin
+        );
+        if (!data) {
+          toast.error("Failed to delete user");
+        } else {
+          toast.success("Deleted user successfully");
+          setFetchAgain(!fetchAgain);
+          setDeleteOpened(false);
+        }
+      } catch (error) {
+        console.log(error);
       }
-    } catch (error) {
-      console.log(error);
     }
   };
 
@@ -239,7 +246,14 @@ const UserGrid = () => {
             name="row-radio-buttons-group"
             onChange={handleRole}
           >
-            <FormControlLabel value="Admin" control={<Radio />} label="Admin" />
+            <FormControlLabel
+              disabled={
+                currentUser?.role === "Admin" && currentUser.uid !== user._id
+              }
+              value="Admin"
+              control={<Radio />}
+              label="Admin"
+            />
             <FormControlLabel
               value="Teacher"
               control={<Radio />}

@@ -53,7 +53,7 @@ const PostShare = () => {
       }
     }
     if (!newPost.desc || !newPost.image) {
-      toast.warn("Please fill out all information.");
+      toast.warn("Please fill out all information!");
     } else {
       dispatch(uploadPost(newPost));
       resetShare();

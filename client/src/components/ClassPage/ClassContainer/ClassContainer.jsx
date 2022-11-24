@@ -49,7 +49,7 @@ const ClassContainer = () => {
 
   const handleSubmit = async () => {
     if (!code) {
-      toast.error("Code cannot be blank!");
+      toast.warn("Code cannot be blank!");
     } else {
       try {
         const { data } = await joinClass(user._id, code);

@@ -8,7 +8,7 @@ import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import "./UploadPost.css";
 
-const UploadPost = ({ title, desc, setFetchAgain, fetchAgain,setOpened }) => {
+const UploadPost = ({ title, desc, setFetchAgain, fetchAgain, setOpened }) => {
   const dispatch = useDispatch();
   const [images, setImages] = useState([]);
   const params = useParams();
@@ -28,32 +28,28 @@ const UploadPost = ({ title, desc, setFetchAgain, fetchAgain,setOpened }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    let timex = Date.now();
-    const data = new FormData();
-    data.append("time", timex);
-    for (let i = 0; i < images.length; i++) {
-      // data.append(`fileName`, Date.now() + images[i].name);
-      data.append("files", images[i]);
-      uploadedfile.push(timex + "__-__" + images[i].name);
-    }
-    dispatch(uploadMultiFile(data));
-    try {
-      const listFiles = JSON.stringify(uploadedfile.map((file) => file));
-      dispatch(uploadClassPost(title, desc, listFiles, params.id));
-      toast.success("Post created successfully!", {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
-      setFetchAgain(!fetchAgain);
-      setOpened(false)
 
-    } catch (error) {
-      console.log(error);
+    if (!title || !desc) {
+      toast.warn("Please complete all information!");
+    } else {
+      let timex = Date.now();
+      const data = new FormData();
+      data.append("time", timex);
+      for (let i = 0; i < images.length; i++) {
+        // data.append(`fileName`, Date.now() + images[i].name);
+        data.append("files", images[i]);
+        uploadedfile.push(timex + "__-__" + images[i].name);
+      }
+      dispatch(uploadMultiFile(data));
+      try {
+        const listFiles = JSON.stringify(uploadedfile.map((file) => file));
+        dispatch(uploadClassPost(title, desc, listFiles, params.id));
+        toast.success("Post created successfully!");
+        setFetchAgain(!fetchAgain);
+        setOpened(false);
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
   return (

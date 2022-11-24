@@ -13,7 +13,7 @@ import {
   TextField,
 } from "@mui/material";
 import { useDispatch } from "react-redux";
-import { ToastContainer } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import { signUpByAdmin } from "actions/AuthAction";
 
 const CreateUserByAdmin = ({ fetchAgain, setFetchAgain }) => {
@@ -39,9 +39,8 @@ const CreateUserByAdmin = ({ fetchAgain, setFetchAgain }) => {
   };
 
   const createHandler = async () => {
-    console.log(data);
-    if (!data) {
-      alert("Please fill out the content");
+    if (!data.firstname || !data.lastname || !data.username || !data.password) {
+      toast.warn("Please fill out the content");
     } else {
       try {
         dispatch(signUpByAdmin(data, fetchAgain, setFetchAgain));
@@ -62,17 +61,19 @@ const CreateUserByAdmin = ({ fetchAgain, setFetchAgain }) => {
         title="Create new users"
       >
         <TextField
-          id="outlined-basic"
           label="Username"
           name="username"
+          id="email-input"
+          aria-describedby="my-helper-text"
           value={data.username}
           variant="outlined"
           fullWidth
+          type="email"
+          placeholder="Ex: user@gmail.com"
           onChange={handleChange}
           style={{ marginBottom: "12px" }}
         />
         <TextField
-          id="outlined-basic"
           label="Firstname"
           name="firstname"
           variant="outlined"
@@ -82,7 +83,6 @@ const CreateUserByAdmin = ({ fetchAgain, setFetchAgain }) => {
           style={{ marginBottom: "12px" }}
         />
         <TextField
-          id="outlined-basic"
           label="Lastname"
           name="lastname"
           value={data.lastname}
@@ -96,7 +96,7 @@ const CreateUserByAdmin = ({ fetchAgain, setFetchAgain }) => {
           label="Password"
           name="password"
           value={data.password}
-          //   type="password"
+          type="password"
           variant="outlined"
           fullWidth
           onChange={handleChange}

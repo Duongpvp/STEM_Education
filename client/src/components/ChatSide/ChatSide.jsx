@@ -8,10 +8,8 @@ import GroupChatModal from "components/GroupChatModal/GroupChatModal";
 import { getFullSender, getSender } from "config/chatLogics";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import HomeIcon from "@mui/icons-material/Home";
 import LogoChat from "../../assets/img/LogoChat.png";
 import "./ChatSide.css";
-import { Link } from "react-router-dom";
 
 const ChatSide = ({ location }) => {
   const { user } = useSelector((state) => state.AuthReducer.authData);
@@ -163,14 +161,14 @@ const ChatSide = ({ location }) => {
                           >
                             <Avatar
                               src={
-                                getFullSender(user, chat.users).outsideId
+                                getFullSender(user, chat.users)?.outsideId
                                   ? getFullSender(user, chat.users)
-                                      .profilePicture
+                                      ?.profilePicture
                                   : getFullSender(user, chat.users)
-                                      .profilePicture
+                                      ?.profilePicture
                                   ? serverPublicFolder +
                                     getFullSender(user, chat.users)
-                                      .profilePicture
+                                      ?.profilePicture
                                   : serverPublicFolder + "DefaultAvatar.png"
                               }
                               width="32px"
