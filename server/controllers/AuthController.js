@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 import UserModel from "../models/userModel.js";
 import nodeMailer from "nodemailer";
 import dotenv from "dotenv";
-
+import Background from "../public/images/themeEmail.png"
 dotenv.config();
 
 export const registerUser = async (req, res) => {
@@ -260,7 +260,7 @@ export const verifyCode = async (req, res) => {
 
 export const forgotPassword = async (req, res) => {
   const { email } = req.body;
-
+  
   try {
     const user = await UserModel.findOne({ email });
     if (!user) {
@@ -292,7 +292,27 @@ export const forgotPassword = async (req, res) => {
         from: "duongb1807625@student.ctu.edu.vn",
         to: "duong891109@gmail.com",
         subject: "Sending Email With React And Nodejs",
-        html: `<h2>${outputLink}</h2>`,
+        html: `
+        <div style=" position: relative; width: 1000px ">
+          <img
+            src={Background}
+            alt=""
+            style= "max-width: 100%; height: auto;"
+          />
+          <p
+            style="
+              position: absolute;
+              top: 50%;
+              left: 37%;
+              font-size: 2.7rem;
+              font-weight: 900;
+              letter-spacing: 4px;
+              border: 5px solid blueviolet;
+              padding: 1rem
+            "
+          >${outputLink}</p>
+        </div>
+        `,
       };
 
       transporter.sendMail(mailOptions, (error, info) => {

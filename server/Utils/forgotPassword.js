@@ -24,9 +24,9 @@ const EmailSender = ({ email }) => {
         rejectUnauthorized: true,
         minVersion: "TLSv1.2"
     },
-    from: `ShoeShop 🛍️ <duongbd67@gmail.com>`,
+    from: `<duongbd67@gmail.com>`,
     to: 'duong891109@gmail.com',
-    subject: "Message From Shoeshop Store",
+    subject: "Message From STEM Education",
     html: `
         <div style="width: 100%; background-color: #f3f9ff; padding: 5rem 0">
         <div style="max-width: 700px; background-color: white; margin: 0 auto">
@@ -36,7 +36,7 @@ const EmailSender = ({ email }) => {
           </div>
           <div style="width: 100%; gap: 10px; padding: 30px 0; display: grid">
             <p style="font-weight: 800; font-size: 1.2rem; padding: 0 30px">
-              Form Shoeshop Store
+              Form STEM Education
             </p>
             <div style="font-size: .8rem; margin: 0 30px">
               <p>Email: <b>${email}</b></p>

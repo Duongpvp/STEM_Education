@@ -21,10 +21,7 @@ router.post("/login", loginUser);
 router.post("/loginOutside", loginOutsideUser);
 router.post("/sendCode", sendMailer);
 router.post("/forgotPassword", forgotPassword);
-router.post(
-  "/resetPassword/:userEmail/:id/:token",
-  resetPassword
-);
+router.post("/resetPassword/:userEmail/:id/:token",resetPassword);
 
 const CLIENT_URL = process.env.REACT_APP_URL_LOCAL;
 
