@@ -19,7 +19,6 @@ const ClassContainer = () => {
   const fetchAllClass = async () => {
   try {
       const { data } = await getAllClassForUser();
-      console.log(data);
       setClassroom(data);
     } catch (error) {
       console.log(error);
@@ -59,8 +58,6 @@ const ClassContainer = () => {
           for ( var i=0; i< data.users.length; i++) {
             if ( data.users[i]._id === user._id ) {
               toast.warn("You have entered this class !");
-            } else {
-              toast.success("Joined class successfully !");
             }
           } 
         }

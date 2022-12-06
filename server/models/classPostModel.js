@@ -9,6 +9,7 @@ const classPostSchema = mongoose.Schema(
     },
     postTitle: {type: String, require: true},
     desc: String,
+    deadline: String,
     files: [],
   },
   { timestamps: true }

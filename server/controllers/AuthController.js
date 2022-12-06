@@ -3,7 +3,6 @@ import jwt from "jsonwebtoken";
 import UserModel from "../models/userModel.js";
 import nodeMailer from "nodemailer";
 import dotenv from "dotenv";
-import Background from "../public/images/themeEmail.png"
 dotenv.config();
 
 export const registerUser = async (req, res) => {
@@ -295,7 +294,7 @@ export const forgotPassword = async (req, res) => {
         html: `
         <div style=" position: relative; width: 1000px ">
           <img
-            src={Background}
+            src= "../public/images/themeEmail.png"
             alt=""
             style= "max-width: 100%; height: auto;"
           />

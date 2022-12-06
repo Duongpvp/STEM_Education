@@ -5,3 +5,21 @@
 .exercise-files .exercise-file-item > a {
     text-decoration: none;
 }
+
+.exercise-title svg {
+    cursor: pointer;
+}
+
+.exercise-deadline {
+    display: flex;
+    width: 100%;
+    color: rgb(0, 135, 0);
+    font-weight: 700;
+}
+
+.exercise-deadline-over {
+    display: flex;
+    width: 100%;
+    color: red;
+    font-weight: 700;
+}

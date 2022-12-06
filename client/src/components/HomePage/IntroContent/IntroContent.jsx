@@ -12,10 +12,7 @@ const IntroContent = () => {
         <div className="intro-content">
           <span>Introduction</span>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iste, ab!
-            Obcaecati necessitatibus mollitia animi tempore quibusdam quo
-            deserunt ipsum voluptatum consectetur adipisci, aut nulla quae
-            facilis aspernatur nobis eligendi ullam?
+            STEM EDUCATION is a clean fullscreen education website template well suited for schools, universities, online courses, and other education-related websites. It comes with a beautiful and well-crafted front page and blog that you can use as a standalone education blog.
           </p>
           <span>-- STEM Education --</span>
         </div>

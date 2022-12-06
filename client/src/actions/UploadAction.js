@@ -28,7 +28,8 @@ export const uploadMultiFile = (data) => async () => {
   }
 };
 
-export const uploadExercise = (userId, submission, file, postId) => async () => {
+export const uploadExercise =
+  (userId, submission, file, postId) => async () => {
     try {
       await UploadApi.uploadExercise(userId, submission, file, postId);
     } catch (error) {
@@ -44,10 +45,19 @@ export const deleteFile = (userId, exerciseId) => async () => {
   }
 };
 
-export const uploadClassPost = (title, desc, file, classId) => async () => {
+export const uploadClassPost = (title, desc, deadline, file, classId) => async () => {
   try {
-    await UploadApi.uploadClassPost(title, desc, file, classId);
+    await UploadApi.uploadClassPost(title, desc, deadline,file, classId);
   } catch (error) {
     console.log(error);
   }
 };
+
+export const updateClassPost =
+  (postId, title, desc, deadline, file, classId) => async () => {
+    try {
+      await UploadApi.updateClassPost(postId, title, desc, deadline,file, classId);
+    } catch (error) {
+      console.log(error);
+    }
+  };

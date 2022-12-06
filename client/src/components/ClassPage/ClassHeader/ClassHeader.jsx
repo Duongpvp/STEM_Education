@@ -7,7 +7,6 @@ import "./ClassHeader.css";
 const ClassHeader = () => {
   const { user } = useSelector((state) => state.AuthReducer.authData);
   const params = useParams();
-  console.log(user);
   return (
     <div className="class-header">
       <nav>

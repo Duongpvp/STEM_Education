@@ -44,7 +44,7 @@ const CardSlider = () => {
   return (
     <div>
       <div className="container">
-        <h1 className="header-slider">Center mode</h1>
+        <h1 className="header-slider">FEATURES</h1>
         <Slider {...settings}>
           {FeatureData.map((item) => (
             <div key={item.id}>

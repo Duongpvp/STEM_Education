@@ -1,6 +1,10 @@
 // @ts-nocheck
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-import { uploadClassPost, uploadMultiFile } from "actions/UploadAction";
+import {
+  updateClassPost,
+  uploadClassPost,
+  uploadMultiFile,
+} from "actions/UploadAction";
 import UploadItems from "components/UploadForm/UploadItems";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
@@ -8,7 +12,16 @@ import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import "./UploadPost.css";
 
-const UploadPost = ({ title, desc, setFetchAgain, fetchAgain, setOpened }) => {
+const UploadPost = ({
+  title,
+  desc,
+  setFetchAgain,
+  fetchAgain,
+  setOpened,
+  location,
+  postId,
+  deadline,
+}) => {
   const dispatch = useDispatch();
   const [images, setImages] = useState([]);
   const params = useParams();
@@ -43,8 +56,13 @@ const UploadPost = ({ title, desc, setFetchAgain, fetchAgain, setOpened }) => {
       dispatch(uploadMultiFile(data));
       try {
         const listFiles = JSON.stringify(uploadedfile.map((file) => file));
-        dispatch(uploadClassPost(title, desc, listFiles, params.id));
-        toast.success("Post created successfully!");
+        if (location === "UpdatePost") {
+          dispatch(updateClassPost(postId, title, desc, deadline, listFiles, params.id));
+          toast.success("Post Updated successfully!");
+        } else {
+          dispatch(uploadClassPost(title, desc, deadline, listFiles, params.id));
+          toast.success("Post created successfully!");
+        }
         setFetchAgain(!fetchAgain);
         setOpened(false);
       } catch (error) {

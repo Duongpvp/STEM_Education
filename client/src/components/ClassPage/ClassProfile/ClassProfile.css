@@ -78,6 +78,17 @@
 }
 
 
+.class-modal-content .date-picker{
+    display: flex;
+    padding: 12px;
+    margin-bottom: 1rem;
+    border: 1px solid #666;
+    border-radius: 0.75rem;
+    cursor: pointer;
+    text-align: center;
+    font-size: 1rem;
+}
+
 
 .glass-card-grid .glass-card:hover {
     transform: translateY(-1rem) rotate(3deg);

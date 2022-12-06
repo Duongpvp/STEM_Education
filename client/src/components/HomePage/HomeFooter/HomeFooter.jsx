@@ -11,10 +11,9 @@ const HomeFooter = () => {
         <div className="flex-1">
           <img src={Logo} alt="" />
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod
-            voluptas error molestias eaque nisi consequatur reprehenderit,
-            dolorem beatae eveniet cupiditate. Commodi quibusdam itaque rerum
-            recusandae aliquam sunt laboriosam adipisci iure.
+            With a mission to provide an effective teaching and learning
+            environment, STEM Education is happy to acknowledge the sincere
+            contributions of everyone.
           </p>
         </div>
         <div className="flex-2">
@@ -33,7 +32,9 @@ const HomeFooter = () => {
                 College of Information & Communication Technology- Can Tho
                 University
               </li>
-              <li>Address: 3/2 Street, Ninh Kieu District, Can Tho City, Vietnam</li>
+              <li>
+                Address: 3/2 Street, Ninh Kieu District, Can Tho City, Vietnam
+              </li>
               <li>Phone: 84 0292 3 734713 - 0292 3 831301</li>
               <li>Fax: 84 0292 3830841</li>
               <li>Email: webmaster@cit.ctu.edu.vn</li>

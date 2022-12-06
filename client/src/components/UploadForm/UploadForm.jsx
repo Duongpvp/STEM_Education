@@ -1,14 +1,14 @@
 // @ts-nocheck
-import { uploadExercise, uploadMultiFile } from "actions/UploadAction";
-import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-import "./UploadForm.css";
-import UploadItems from "./UploadItems";
+import { uploadExercise, uploadMultiFile } from "actions/UploadAction";
+import { getAPost } from "api/ClassRequest";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import ReactTextareaAutosize from "react-textarea-autosize";
-import SendIcon from "@mui/icons-material/Send";
 import { toast } from "react-toastify";
+import "./UploadForm.css";
+import UploadItems from "./UploadItems";
 
 const UploadForm = ({ setFetchAgain, fetchAgain }) => {
   const { user } = useSelector((state) => state.AuthReducer.authData);
@@ -16,8 +16,23 @@ const UploadForm = ({ setFetchAgain, fetchAgain }) => {
   const [images, setImages] = useState([]);
   const [submission, setSubmission] = useState();
   const params = useParams();
-
   const uploadedfile = [];
+  const [post, setPost] = useState(null);
+  const [deadLine, setDeadLine] = useState(null);
+
+  const getPost = async () => {
+    try {
+      const { data } = await getAPost(params.eid);
+      setPost(data);
+      setDeadLine(data.deadline);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getPost();
+  }, [fetchAgain]);
 
   const onImagesChange = (e) => {
     if (e.target.files) {
@@ -76,8 +91,9 @@ const UploadForm = ({ setFetchAgain, fetchAgain }) => {
           name="file"
           required
           onChange={onImagesChange}
+          disabled={Date.now() - new Date(deadLine) > 0 ? true : false}
         />
-        <button>
+        <button >
           <AddCircleOutlineIcon />
           Upload
         </button>
@@ -96,10 +112,25 @@ const UploadForm = ({ setFetchAgain, fetchAgain }) => {
         />
         <label>Message</label>
       </div>
-      <div className="btn-group">
-        <button type="submit">Upload</button>
-        <button onClick={handleCancel}>Cancel</button>
-      </div>
+      {Date.now() - new Date(deadLine) < 0 ? (
+        <div className="btn-group">
+          <button type="submit">Upload</button>
+          <button onClick={handleCancel}>Cancel</button>
+        </div>
+      ) : (
+        <p
+          style={{
+            width: "100%",
+            textAlign: "center",
+            marginTop: "1rem",
+            fontSize: "1.2rem",
+            color: "red",
+            fontWeight: "700",
+          }}
+        >
+          Submission deadline has expired!
+        </p>
+      )}
     </form>
   );
 };

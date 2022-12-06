@@ -1,18 +1,20 @@
 // @ts-nocheck
 import { Group, Modal } from "@mantine/core";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
+import DeleteIcon from "@mui/icons-material/Delete";
+import { deleteClassPost } from "actions/ClassAction";
 import { getAllPost } from "api/ClassRequest";
 import SideBarMotion from "components/SideBarMotion/SideBarMotion";
+import UploadPost from "components/UploadPost/UploadPost";
 import React, { memo, useEffect, useState } from "react";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import ReactTextareaAutosize from "react-textarea-autosize";
-import ClassHeader from "../ClassHeader/ClassHeader";
-import DeleteIcon from "@mui/icons-material/Delete";
-import UploadPost from "components/UploadPost/UploadPost";
-import "./ClassProfile.css";
 import { ToastContainer } from "react-toastify";
-import { deleteClassPost } from "actions/ClassAction";
+import ClassHeader from "../ClassHeader/ClassHeader";
+import "./ClassProfile.css";
 
 const ClassProfile = () => {
   const { user } = useSelector((state) => state.AuthReducer.authData);
@@ -23,6 +25,7 @@ const ClassProfile = () => {
   const [opened, setOpened] = useState(false);
   const [desc, setDesc] = useState();
   const [title, setTitle] = useState();
+  const [startDate, setStartDate] = useState(new Date());
 
   useEffect(() => {
     const fetchExercise = async () => {
@@ -50,12 +53,11 @@ const ClassProfile = () => {
 
   const handleDeletePost = (postId) => {
     try {
-      dispatch(deleteClassPost(user._id, postId,setFetchAgain, fetchAgain));
+      dispatch(deleteClassPost(user._id, postId, setFetchAgain, fetchAgain));
     } catch (error) {
       console.log(error);
     }
   };
-  console.log(fetchAgain);
 
   return (
     <div className="sidebar-container">
@@ -98,9 +100,20 @@ const ClassProfile = () => {
                       />
                       <label>Description</label>
                     </div>
+                    <lable>Deadline:</lable>
+                    <DatePicker
+                      className="date-picker"
+                      showTimeInput
+                      selected={startDate}
+                      onChange={(date) => setStartDate(date)}
+                      minDate={new Date()}
+                      dateFormat="dd/MM/yyyy - HH:mm"
+                      timeFormat="HH:mm"
+                    />
                     <UploadPost
                       title={title}
                       desc={desc}
+                      deadline={startDate}
                       setFetchAgain={setFetchAgain}
                       fetchAgain={fetchAgain}
                       setOpened={setOpened}

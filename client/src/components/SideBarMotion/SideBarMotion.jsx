@@ -132,7 +132,7 @@ const SideBarMotion = () => {
               >
                 ANALYTICS
               </motion.h3>
-              <Link to="/class" className="icon-class-link">
+              <Link to={(user && user.isAdmin) || (user && user.isTeacher) ? "/classmanagement" : "/class"} className="icon-class-link">
                 <Item icon={<SchoolIcon />} name="Class" />
               </Link>
               <Link to="../" className="icon-class-link">

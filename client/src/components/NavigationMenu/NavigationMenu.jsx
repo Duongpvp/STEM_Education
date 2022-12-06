@@ -4,8 +4,10 @@ import { Icon } from "@iconify/react";
 import "./NavigationMenu.css";
 import { Link } from "react-router-dom";
 import { Tooltip } from "@mui/material";
+import { useSelector } from "react-redux";
 
 const NavigationMenu = (props) => {
+  const {user} = useSelector((state) => state.AuthReducer.authData)
   const [isActive, setIsActive] = useState(false);
 
   const handleClick = () => {
@@ -61,7 +63,7 @@ const NavigationMenu = (props) => {
       </li>
       <li style={{ "--i": 6 }}>
         <Tooltip title="Class" placement="bottom">
-          <Link to="/class">
+          <Link to={(user && user.isAdmin) || (user && user.isTeacher) ? "/classmanagement" : "/class"}>
             <Icon icon="ph:student" />
           </Link>
         </Tooltip>

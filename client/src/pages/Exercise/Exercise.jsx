@@ -1,16 +1,17 @@
 // @ts-nocheck
 import { Modal } from "@mantine/core";
+import WidgetsIcon from "@mui/icons-material/Widgets";
+import { Button } from "@mui/material";
+import { getExercise } from "api/ExerciseRequest";
 import ExerciseContainer from "components/ExerciseContainer/ExerciseContainer";
 import SideBarMotion from "components/SideBarMotion/SideBarMotion";
 import UploadForm from "components/UploadForm/UploadForm";
 import React, { useEffect, useState } from "react";
-import WidgetsIcon from "@mui/icons-material/Widgets";
+import "react-datepicker/dist/react-datepicker.css";
+import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "./Exercise.css";
-import { Button } from "@mui/material";
-import { getExercise } from "api/ExerciseRequest";
-import { useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
 
 const Exercise = () => {
   const [opened, setOpened] = useState(false);
@@ -67,9 +68,7 @@ const Exercise = () => {
               : "Unsubmitted"}
           </span>
           <UploadForm setFetchAgain={setFetchAgain} fetchAgain={fetchAgain} />
-          <span className="submited-title">
-              SUBMITED FILES
-          </span>
+          <span className="submited-title">SUBMITED FILES</span>
           <div className="file-submited">
             {exerciseData[0]?.files.map((e, i) => (
               <a target="_blank" href={process.env.REACT_APP_FILES + e}>
