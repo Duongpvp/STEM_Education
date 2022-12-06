@@ -11,6 +11,7 @@ API.interceptors.request.use((req) => {
   return req;
 });
 
+export const getCurrentClass = (classId) => API.get(`class/getcurrentclass/${classId}`)
 export const getAllClassForUser = () => API.get("class/getclassforuser/")
 export const fetchAllClass = () => API.get("class/");
 export const updateClass = (id, className, desc) => API.put(`class/update/${id}`, { className: className, desc: desc });

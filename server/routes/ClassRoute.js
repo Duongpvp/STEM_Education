@@ -4,6 +4,7 @@ import {
   createClass,
   deleteClass,
   getAllClass, getClassForUser,
+  getCurrentClass,
   getUserClass,
   joinClass,
   removeFromClass,
@@ -15,6 +16,7 @@ import authMiddleWare from "../MiddleWare/authMiddleWare.js";
 const router = express.Router();
 
 router.route("/").get(authMiddleWare, getAllClass);
+router.route("/getcurrentclass/:classId").get(authMiddleWare, getCurrentClass); 
 router.route("/getclassforuser/").get(authMiddleWare, getClassForUser);
 router.route("/getuserclass/:id").get(authMiddleWare, getUserClass);
 router.route("/:id").put(authMiddleWare, updateImgClass);

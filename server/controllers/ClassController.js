@@ -51,8 +51,8 @@ export const getClassForUser = async (req, res) => {
   const userId = req.body._id;
   try {
     const currentUser = await UserModel.find({ _id: userId });
-    const data = await classModel.find({users: {$in : userId}})
-    res.status(200).json(data)
+    const data = await classModel.find({ users: { $in: userId } });
+    res.status(200).json(data);
     // console.log(classData.length);
     // const userClass = await classModel
     //   .find({users: currentUser})
@@ -101,6 +101,21 @@ export const getAllClass = async (req, res) => {
   } catch (error) {
     res.status(500).json(error);
     console.log(error);
+  }
+};
+
+export const getCurrentClass = async (req, res) => {
+  const { classId } = req.params;
+  console.log(req.params)
+  try {
+    const classed = await classModel
+      .findById(classId)
+      .populate("users", "-password")
+      .populate("classAdmin", "-password")
+      .populate("image");
+    res.status(200).json(classed);
+  } catch (error) {
+    res.status(500).json(error);
   }
 };
 

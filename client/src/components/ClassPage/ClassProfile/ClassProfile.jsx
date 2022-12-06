@@ -3,7 +3,7 @@ import { Group, Modal } from "@mantine/core";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { deleteClassPost } from "actions/ClassAction";
-import { getAllPost } from "api/ClassRequest";
+import { getAllPost, getCurrentClass } from "api/ClassRequest";
 import SideBarMotion from "components/SideBarMotion/SideBarMotion";
 import UploadPost from "components/UploadPost/UploadPost";
 import React, { memo, useEffect, useState } from "react";
@@ -18,6 +18,7 @@ import "./ClassProfile.css";
 
 const ClassProfile = () => {
   const { user } = useSelector((state) => state.AuthReducer.authData);
+  const serverPublicFolder = process.env.REACT_APP_FOLDER;
   const [fetchAgain, setFetchAgain] = useState(false);
   const dispatch = useDispatch();
   const params = useParams();
@@ -25,6 +26,7 @@ const ClassProfile = () => {
   const [opened, setOpened] = useState(false);
   const [desc, setDesc] = useState();
   const [title, setTitle] = useState();
+  const [currentClass, setCurrentClass] = useState(null);
   const [startDate, setStartDate] = useState(new Date());
 
   useEffect(() => {
@@ -37,6 +39,18 @@ const ClassProfile = () => {
       }
     };
     fetchExercise();
+  }, [fetchAgain]);
+
+  useEffect(() => {
+    const fetchCurrentClass = async () => {
+      try {
+        const { data } = await getCurrentClass(params.id);
+        setCurrentClass(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchCurrentClass();
   }, [fetchAgain]);
 
   const handleOpen = () => {
@@ -58,7 +72,6 @@ const ClassProfile = () => {
       console.log(error);
     }
   };
-
   return (
     <div className="sidebar-container">
       <SideBarMotion />
@@ -66,10 +79,17 @@ const ClassProfile = () => {
         <ToastContainer />
         <ClassHeader />
         <div className="news">
-          <img
-            src="https://i.pinimg.com/originals/74/2d/6e/742d6ef765435708f9799c25eb7cbb36.jpg"
-            alt="thumbnail"
-          />
+          <div className="img">
+            <img
+              src={
+                currentClass?.image
+                  ? serverPublicFolder + currentClass?.image
+                  : "https://i.pinimg.com/originals/74/2d/6e/742d6ef765435708f9799c25eb7cbb36.jpg"
+              }
+              alt="thumbnail"
+            />
+            <span>Code: {currentClass.code}</span>
+          </div>
           <div className="glass-card-grid">
             {(user.isAdmin || user.isTeacher) && (
               <div className="create-post-modal">

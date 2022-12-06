@@ -89,6 +89,11 @@
   outline: 0;
 }
 
+.button-63 a {
+    color: #fff;
+    text-decoration: none;
+}
+
 .error .error-container .error-right-side {
     flex: 1;
     display: flex;

@@ -21,7 +21,6 @@ const EveryOne = () => {
     };
     fetchUserInClass();
   }, []);
-  console.log(listUsers);
 
   return (
     <div className="sidebar-container">

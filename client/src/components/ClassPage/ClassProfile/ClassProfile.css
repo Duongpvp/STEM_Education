@@ -15,15 +15,24 @@
     -webkit-backdrop-filter: blur(7.5px);
     border-radius: 10px;
     border: 1px solid rgba(255, 255, 255, 0.18);
+    position: relative;
 }
 
-.news>img {
+.news .img {
     display: flex;
     margin: 32px auto;
     box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
     border-radius: 10px;
     width: 95%;
     height: 400px;
+    object-fit: cover;
+}
+
+.news .img span {
+    position: absolute;
+    top: 0;
+    right: 1rem;
+    padding: 0.5rem;
 }
 
 .glass-card-grid {
@@ -273,7 +282,7 @@
         width: 77%;
     }
 
-    .news>img {
+    .news .img {
         display: none;
     }
 }
